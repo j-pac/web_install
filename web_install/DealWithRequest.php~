@@ -1,0 +1,14 @@
+<?php
+class DealWithRequest extends Thread {
+      
+      private $publisher;
+
+      public function __construct($publisher) {
+      	     $this->publisher = $publisher;
+      }
+
+      public function run() {
+
+
+      }
+}
