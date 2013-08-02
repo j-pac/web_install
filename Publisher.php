@@ -12,8 +12,6 @@ class Publisher {
 	        //Establish connection with RabbitMq
 		$this->connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
 		$this->channel = $this->connection->channel();
-					
-		echo "The Publisher has begun!..";
 	}
 
 	public function create_queue($queue_name) {
@@ -28,28 +26,6 @@ class Publisher {
 	public function close() {
 	       $this->channel->close();
 	       $this->connection->close();
-       }
+	 }
 }
-
-
-
-// Testing
-
-$publisher = new Publisher();
-$devices_ids = array('aaa', 'bbb', 'ccc', 'xxx');
-
-foreach ($devices_ids as $dev) {
-
-	$publisher->create_queue($dev);
-	$publisher->publish_message("Olá", $dev);
-}
-
-
-$publisher->publish_message('Hello', 'xxx');
-
-$publisher->close();
-
-print "Work done! Publisher leaving...";
-
-
 ?>
