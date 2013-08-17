@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:background="@color/Green"
+    	android:textColor="@android:color/white"
+    	android:textSize="23sp"
+    	android:text="@string/close_session" />    
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/have_session_inited" />
+    
+    <TextView android:id="@+id/show_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    
+    <Button 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="doLogout"
+        android:text="@string/close_session" />
+        
+        
+</LinearLayout>
