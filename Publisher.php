@@ -15,7 +15,7 @@ class Publisher {
 	}
 
 	public function create_queue($queue_name) {
-		$this->channel->queue_declare($queue_name, false, false, false, false);
+		$this->channel->queue_declare($queue_name, false, true, false, false);
 	}
 
 	public function publish_message($message, $queue_name) {
