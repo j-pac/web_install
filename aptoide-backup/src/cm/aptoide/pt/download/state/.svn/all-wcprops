@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/1316/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/state
+END
+EnumState.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/1316/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/state/EnumState.java
+END
+NoState.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/state/NoState.java
+END
+StatusState.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/1316/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/state/StatusState.java
+END
+ActiveState.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/1316/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/state/ActiveState.java
+END
+PendingState.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/state/PendingState.java
+END
+ErrorState.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/state/ErrorState.java
+END
+InactiveState.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/state/InactiveState.java
+END
+CompletedState.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/state/CompletedState.java
+END

@@ -15,12 +15,13 @@ public class RabbitMqClient {
 	private com.rabbitmq.client.QueueingConsumer consumer;
 
 	private String queue_routing_key;
-
-	public RabbitMqClient() {
-		queue_routing_key = "web_install_4d4e2d90c4d6eec405d82ecc795a7e3592df1523";
+	
+	public RabbitMqClient(String queue_routing_key) {
+		this.queue_routing_key = queue_routing_key;
 	}
 
 	public void establishConnection() {
+
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("10.0.2.2");
 		try {
@@ -50,7 +51,7 @@ public class RabbitMqClient {
 			delivery = consumer.nextDelivery();
 
 			message = new String(delivery.getBody());
-		
+
 			/*
 			 * runOnUiThread(new Runnable() { public void run() {
 			 * Toast.makeText(RabbitMqClient.this, message, Toast.LENGTH_LONG)

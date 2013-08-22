@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/repo/!svn/ver/1343/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util
+END
+Base64.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/Base64.java
+END
+RepoUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/1298/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/RepoUtils.java
+END
+Constants.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/1260/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/Constants.java
+END
+AutoScaleTextView.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/AutoScaleTextView.java
+END
+Md5Handler.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/1316/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/Md5Handler.java
+END
+DateTimeUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/DateTimeUtils.java
+END
+Algorithms.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/Algorithms.java
+END
+NetworkUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/1343/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/NetworkUtils.java
+END
+Utils.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/Utils.java
+END

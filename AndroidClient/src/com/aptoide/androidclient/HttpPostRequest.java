@@ -19,27 +19,34 @@ import android.util.Log;
 
 public abstract class HttpPostRequest extends AsyncTask<String, Void, String> {
 
-	private String uri;
-	
+	private String url;
+	private List<NameValuePair> nameValuePairs;
+
+	public HttpPostRequest(String url) {
+		this.url = url;
+		nameValuePairs = new ArrayList<NameValuePair>();
+	}
+
+	public void addPostParameter(String key, String value) {
+		nameValuePairs.add(new BasicNameValuePair(key, value));
+	}
+
 	@Override
 	protected String doInBackground(String... args) {
-		// TODO Auto-generated method stub
-		return null;
+		if (!nameValuePairs.isEmpty()) {
+			InputStream in = openHttpPOSTConnection();
+			return getResponse(in);
+		}
+		return ""; // The post request has no parameters to send
 	}
-	
+
 	@Override
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 	}
-	
-	private void processRequest(String... args) {
-		
-	}
-	
-	
-	private InputStream openHttpPOSTConnection(String url, String username,
-			String device_id) {
+
+	private InputStream openHttpPOSTConnection() {
 		InputStream input_stream = null;
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
@@ -48,16 +55,6 @@ public abstract class HttpPostRequest extends AsyncTask<String, Void, String> {
 			httpPost.addHeader("Host", "www.webservicex.net");
 			httpPost.addHeader("Content-Type",
 					"application/x-www-form-urlencoded");
-			// ---the key/value pairs to post to the server---
-
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-					2);
-			nameValuePairs.add(new BasicNameValuePair(USERNAME_KEY,
-					username));
-			// nameValuePairs.add(new BasicNameValuePair(PASSWORD_KEY,
-			// Password));
-			nameValuePairs.add(new BasicNameValuePair(DEVICE_ID_KEY,
-					device_id));
 
 			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 			HttpResponse httpResponse = httpclient.execute(httpPost);
@@ -68,30 +65,28 @@ public abstract class HttpPostRequest extends AsyncTask<String, Void, String> {
 		return input_stream;
 	}
 
-	private String getResponse(InputStream in) throws IOException {
+	private String getResponse(InputStream in) {
 		String response = null;
-
 		BufferedReader rd = null;
+
 		try {
-			rd = new BufferedReader(new InputStreamReader(in));
-			StringBuilder str = new StringBuilder();
-			String line = null;
+			try {
+				rd = new BufferedReader(new InputStreamReader(in));
+				StringBuilder str = new StringBuilder();
+				String line = null;
 
-			while ((line = rd.readLine()) != null) {
-				str.append(line + "\n");
+				while ((line = rd.readLine()) != null) {
+					str.append(line + "\n");
+				}
+
+				response = str.toString();
+			} finally {
+				rd.close();
 			}
-
-			response = str.toString();
-
-		} finally {
-			rd.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return response;
 	}
 
-
-	
-
 }
-
-

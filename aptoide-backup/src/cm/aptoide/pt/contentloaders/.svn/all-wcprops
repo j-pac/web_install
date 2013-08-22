@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/contentloaders
+END
+ImageLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/contentloaders/ImageLoader.java
+END
+SimpleCursorLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/contentloaders/SimpleCursorLoader.java
+END
+ViewApkLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/1215/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/contentloaders/ViewApkLoader.java
+END
+FileCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/contentloaders/FileCache.java
+END
+ImageLoader2.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/contentloaders/ImageLoader2.java
+END
+ScreenshotsImageLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/contentloaders/ScreenshotsImageLoader.java
+END
+MemoryCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/contentloaders/MemoryCache.java
+END

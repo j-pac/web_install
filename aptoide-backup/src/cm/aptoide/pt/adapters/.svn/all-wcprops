@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repo/!svn/ver/1341/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/adapters
+END
+ViewPagerAdapterScreenshots.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/adapters/ViewPagerAdapterScreenshots.java
+END
+DownloadedListAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/adapters/DownloadedListAdapter.java
+END
+ImageGalleryAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/adapters/ImageGalleryAdapter.java
+END
+NotDownloadedListAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/adapters/NotDownloadedListAdapter.java
+END
+DownloadingListAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/adapters/DownloadingListAdapter.java
+END
+InstalledAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/adapters/InstalledAdapter.java
+END
+UpdatesAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/1341/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/adapters/UpdatesAdapter.java
+END
+ViewPagerAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/1316/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/adapters/ViewPagerAdapter.java
+END

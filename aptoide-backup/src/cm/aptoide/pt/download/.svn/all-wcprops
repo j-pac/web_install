@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repo/!svn/ver/1346/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download
+END
+DownloadRemoveEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/DownloadRemoveEvent.java
+END
+URLAlreadyExistsException.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/URLAlreadyExistsException.java
+END
+DownloadConnectionImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/1321/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/DownloadConnectionImpl.java
+END
+DownloadConnection.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/DownloadConnection.java
+END
+DownloadManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/1316/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/DownloadManager.java
+END
+DownloadFile.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/1346/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/DownloadFile.java
+END
+DownloadModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/DownloadModel.java
+END
+NotFoundException.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/NotFoundException.java
+END
+CompletedDownloadException.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/CompletedDownloadException.java
+END
+DownloadExecutorImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/1342/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/DownloadExecutorImpl.java
+END
+DownloadExecutor.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/DownloadExecutor.java
+END
+IPBlackListedException.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/IPBlackListedException.java
+END
+DownloadInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/1342/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/DownloadInfo.java
+END
+Md5FailedException.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/Md5FailedException.java
+END
+ActivityCallback.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/ActivityCallback.java
+END
+DownloadThread.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/1316/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/DownloadThread.java
+END
+Utils.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/1318/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/download/Utils.java
+END
