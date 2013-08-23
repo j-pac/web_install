@@ -2,6 +2,8 @@ package cm.aptoide.pt.services;
 
 import java.io.IOException;
 
+import cm.aptoide.pt.IntentReceiver;
+
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.GetResponse;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 public class AsynchronousWebInstallService extends IntentService {
 
 	private static final String TAG = "cm.aptoid.pt.services.AsynchronousWebInstallService";
-	private static final long ELAPSED_TIME_TO_START = 60000; // Starts each 5
+	private static final long ELAPSED_TIME_TO_START = 15000; // Starts each 5
 																// minutes,
 																// while device
 	private static boolean service_is_needed = false; // is associated
@@ -64,11 +66,24 @@ public class AsynchronousWebInstallService extends IntentService {
 			while ((message_received = rabbitmq_client.listenQueue()) != null) {
 				System.out.println("Message received asynchronously: "
 						+ message_received);
+				Toast.makeText(this, "Message received: " + message_received,
+						Toast.LENGTH_SHORT).show();
 				// sendbroadcast to intentReceiver to manage the download
+				downloadApk(message_received);
 			}
 		} finally {
 			rabbitmq_client.closeConnection();
 		}
+	}
+
+	private void downloadApk(String message) {
+		Intent download_intent = new Intent(this, IntentReceiver.class);
+		download_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		download_intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+
+		download_intent.putExtra("WebInstallRequest", message);
+		getApplication().startActivity(download_intent);
+
 	}
 
 	private void scheduleNextBeggining() {
@@ -81,9 +96,8 @@ public class AsynchronousWebInstallService extends IntentService {
 		AlarmManager alarm_manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
 		long next_run_time = System.currentTimeMillis() + ELAPSED_TIME_TO_START;
-		
-		alarm_manager.set(AlarmManager.RTC, next_run_time,
-				pending_intent);
+
+		alarm_manager.set(AlarmManager.RTC, next_run_time, pending_intent);
 	}
 
 	private class AsynchronousRabbitMqClient {
@@ -105,8 +119,8 @@ public class AsynchronousWebInstallService extends IntentService {
 				connection = factory.newConnection();
 				channel = connection.createChannel();
 
-//				channel.queueDeclare(queue_routing_key, true, false, false,
-//						null);
+				// channel.queueDeclare(queue_routing_key, true, false, false,
+				// null);
 
 				channel.basicQos(0);
 

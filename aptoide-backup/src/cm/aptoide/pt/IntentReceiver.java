@@ -36,14 +36,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class IntentReceiver extends SherlockActivity implements OnDismissListener{
-//	private String TMP_MYAPP_FILE = Environment.getExternalStorageDirectory().getPath() + "/.aptoide/myapp";
+public class IntentReceiver extends SherlockActivity implements
+		OnDismissListener {
+	// private String TMP_MYAPP_FILE =
+	// Environment.getExternalStorageDirectory().getPath() + "/.aptoide/myapp";
 	String TMP_MYAPP_FILE;
 	private String SDCARD = Environment.getExternalStorageDirectory().getPath();
 	private HashMap<String, String> app;
 	private ArrayList<String> server;
 	Database db;
-	private OnClickListener neutralListener =  new OnClickListener() {
+	private OnClickListener neutralListener = new OnClickListener() {
 
 		public void onClick(DialogInterface dialog, int which) {
 			return;
@@ -60,14 +62,18 @@ public class IntentReceiver extends SherlockActivity implements OnDismissListene
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			// This is called when the connection with the service has been
 			// established, giving us the object we can use to
-			// interact with the service.  We are communicating with the
+			// interact with the service. We are communicating with the
 			// service using AIDL, so here we set the remote service interface.
-			serviceDownloadManager = ((ServiceManagerDownload.LocalBinder)service).getService();
+			serviceDownloadManager = ((ServiceManagerDownload.LocalBinder) service)
+					.getService();
 			serviceManagerIsBound = true;
 
-			Log.v("Aptoide-IntentReceiver", "Connected to ServiceDownloadManager");
+			Log.v("Aptoide-IntentReceiver",
+					"Connected to ServiceDownloadManager");
 
-			continueLoading();
+			// BRUTUS MODIFICATION -- intermedium method
+			loadIntent();
+			// continueLoading();
 		}
 
 		public void onServiceDisconnected(ComponentName className) {
@@ -76,145 +82,72 @@ public class IntentReceiver extends SherlockActivity implements OnDismissListene
 			serviceManagerIsBound = false;
 			serviceDownloadManager = null;
 
-			Log.v("Aptoide-IntentReceiver", "Disconnected from ServiceDownloadManager");
+			Log.v("Aptoide-IntentReceiver",
+					"Disconnected from ServiceDownloadManager");
 		}
 	};
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-        AptoideThemePicker.setAptoideTheme(this);
+		AptoideThemePicker.setAptoideTheme(this);
 		super.onCreate(savedInstanceState);
-		if(getIntent().getData()!=null){
 
-			if(!isRunning){
+		// BRUTUS MODIFICATION -- added another condition to bind to service
+		if (getIntent().getData() != null
+				|| getIntent().hasExtra("WebInstallRequest")) {
+			if (!isRunning) {
 				isRunning = true;
 
-				if(!serviceManagerIsBound){
-		    		bindService(new Intent(this, ServiceManagerDownload.class), serviceManagerConnection, Context.BIND_AUTO_CREATE);
-		    	}
+				if (!serviceManagerIsBound) {
+					bindService(new Intent(this, ServiceManagerDownload.class),
+							serviceManagerConnection, Context.BIND_AUTO_CREATE);
+				}
 
 			}
 
 		}
 	}
 
-	private void continueLoading(){
-		TMP_MYAPP_FILE = getCacheDir()+"/myapp.myapp";
-		db=Database.getInstance();
-		String uri = getIntent().getDataString();
-		System.out.println(uri);
-		if(uri.startsWith("aptoiderepo") && ApplicationAptoide.MULTIPLESTORES){
+	// BRUTUS CODE -- load and process the webinstallservice request
+	private void processWebInstallServiceRequest() {
+		String received = getIntent().getStringExtra("WebInstallRequest");
+		Toast.makeText(this,
+				"Dowload request received on intentReceiver: " + received,
+				Toast.LENGTH_LONG).show();
 
-			ArrayList<String> repo = new ArrayList<String>();
-			repo.add(uri.substring(14));
-			Intent i = new Intent(IntentReceiver.this,MainActivity.class);
-			i.putExtra("newrepo", repo);
-			i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-			startActivity(i);
-			i = new Intent("pt.caixamagica.aptoide.NEWREPO");
-			i.putExtra("newrepo", repo);
-			sendBroadcast(i);
-			finish();
+		// create a new directory in cache directory
+		File webInstall = new File(getCacheDir() + "/webInstallFolder");
+		if (!webInstall.exists()) {
+			if (webInstall.mkdir())
+				;
+		}
+		
+		
 
-		}else if(uri.startsWith("aptoidexml") && ApplicationAptoide.MULTIPLESTORES){
-			String repo = uri.substring(13);
-			parseXmlString(repo);
-			Intent i = new Intent(IntentReceiver.this,MainActivity.class);
-			i.putExtra("newrepo", repo);
-			i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-			startActivity(i);
-			i = new Intent("pt.caixamagica.aptoide.NEWREPO");
-			i.putExtra("newrepo", repo);
-			sendBroadcast(i);
-			finish();
-		}else if(uri.startsWith("market")){
-			String params = uri.split("&")[0];
-			String param = params.split("=")[1];
-			if (param.contains("pname:")) {
-				param = param.substring(6);
-			} else if (param.contains("pub:")) {
-				param = param.substring(4);
-			}
-			startMarketIntent(param);
-		}else if(uri.startsWith("http://market.android.com/details?id=")){
-			String param = uri.split("=")[1];
-			startMarketIntent(param);
-        }else if(uri.startsWith("https://play.google.com/store/apps/details?id=")){
-            String param = uri.split("=")[1];
-            startMarketIntent(param);
-            
-        // BRUTUS CODE -- intent sent from web install service
-        }else if(getIntent().hasExtra("WebInstallRequest")){
-        	String received = getIntent().getStringExtra("WebInstallRequest");
-        	System.out.println("message received in IntentReceiver: " + received);
-        	Toast.makeText(this, "Dowload request received on intentReceiver: " + received, Toast.LENGTH_LONG).show();
-//        	parseXmlMyapp(TMP_MYAPP_FILE);
+		try {
+			TMP_MYAPP_FILE = getCacheDir() + "/webInstallFolder/myapp.myapp";
 
-//			if(app!=null&&!app.isEmpty()){
-//				View simpleView = LayoutInflater.from(this).inflate(R.layout.dialog_simple_layout, null);
-//				Builder dialogBuilder = new AlertDialog.Builder(this).setView(simpleView);
-//				final AlertDialog installAppDialog = dialogBuilder.create();
-//				installAppDialog.setTitle(ApplicationAptoide.MARKETNAME);
-//				installAppDialog.setIcon(android.R.drawable.ic_menu_more);
-//				installAppDialog.setCancelable(false);
-//
-//				TextView message = (TextView) simpleView.findViewById(R.id.dialog_message);
-//				message.setText(getString(R.string.installapp_alrt) +app.get("name")+"?");
-//
-//				installAppDialog.setButton(Dialog.BUTTON_POSITIVE, getString(android.R.string.yes), new Dialog.OnClickListener() {
-//					@Override
-//					public void onClick(DialogInterface arg0, int arg1) {
-//						ViewApk apk = new ViewApk();
-//						apk.setApkid(app.get("apkid"));
-//						apk.setName(app.get("name"));
-//						apk.setVercode(0);
-//						apk.setVername("");
-//						apk.generateAppHashid();
-//                        apk.setMd5(app.get("md5sum"));
-//                        apk.setPath(app.get("path"));
-//
-//                        apk.setMainObbUrl(app.get("main_path"));
-//                        apk.setMainObbFileName(app.get("main_filename"));
-//                        apk.setMainObbMd5(app.get("main_md5sum"));
-//
-//                        apk.setPatchObbUrl(app.get("patch_path"));
-//                        apk.setPatchObbFileName(app.get("patch_filename"));
-//                        apk.setPatchObbMd5(app.get("patch_md5sum"));
-//
-//						serviceDownloadManager.startDownload(serviceDownloadManager.getDownload(apk),apk);
-//						Toast toast = Toast.makeText(IntentReceiver.this, getString(R.string.starting_download), Toast.LENGTH_SHORT);
-//                        toast.show();
-//					}
-//				});
-//				installAppDialog.setButton(Dialog.BUTTON_NEGATIVE, getString(android.R.string.no), neutralListener);
-//				installAppDialog.setOnDismissListener(this);
-//				installAppDialog.show();
-//
-//			}else{
-//				proceed();
-//			}
-        	
-        	
-        }else{
-			if(ApplicationAptoide.SEARCHSTORES){
-				try{
-					System.out.println(getIntent().getDataString());
-					downloadMyappFile(getIntent().getDataString());
-					parseXmlMyapp(TMP_MYAPP_FILE);
+			parseXmlMyapp(TMP_MYAPP_FILE);
 
-					if(app!=null&&!app.isEmpty()){
-						View simpleView = LayoutInflater.from(this).inflate(R.layout.dialog_simple_layout, null);
-						Builder dialogBuilder = new AlertDialog.Builder(this).setView(simpleView);
-						final AlertDialog installAppDialog = dialogBuilder.create();
-						installAppDialog.setTitle(ApplicationAptoide.MARKETNAME);
-						installAppDialog.setIcon(android.R.drawable.ic_menu_more);
-						installAppDialog.setCancelable(false);
+			// code from continueLoading()
+			if (app != null && !app.isEmpty()) {
+				View simpleView = LayoutInflater.from(this).inflate(
+						R.layout.dialog_simple_layout, null);
+				Builder dialogBuilder = new AlertDialog.Builder(this)
+						.setView(simpleView);
+				final AlertDialog installAppDialog = dialogBuilder.create();
+				installAppDialog.setTitle(ApplicationAptoide.MARKETNAME);
+				installAppDialog.setIcon(android.R.drawable.ic_menu_more);
+				installAppDialog.setCancelable(false);
 
-						TextView message = (TextView) simpleView.findViewById(R.id.dialog_message);
-						message.setText(getString(R.string.installapp_alrt) +app.get("name")+"?");
+				TextView message = (TextView) simpleView
+						.findViewById(R.id.dialog_message);
+				message.setText(getString(R.string.installapp_alrt)
+						+ app.get("name") + "?");
 
-						installAppDialog.setButton(Dialog.BUTTON_POSITIVE, getString(android.R.string.yes), new Dialog.OnClickListener() {
+				installAppDialog.setButton(Dialog.BUTTON_POSITIVE,
+						getString(android.R.string.yes),
+						new Dialog.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface arg0, int arg1) {
 								ViewApk apk = new ViewApk();
@@ -223,31 +156,177 @@ public class IntentReceiver extends SherlockActivity implements OnDismissListene
 								apk.setVercode(0);
 								apk.setVername("");
 								apk.generateAppHashid();
-                                apk.setMd5(app.get("md5sum"));
-                                apk.setPath(app.get("path"));
+								apk.setMd5(app.get("md5sum"));
+								apk.setPath(app.get("path"));
 
-                                apk.setMainObbUrl(app.get("main_path"));
-                                apk.setMainObbFileName(app.get("main_filename"));
-                                apk.setMainObbMd5(app.get("main_md5sum"));
+								apk.setMainObbUrl(app.get("main_path"));
+								apk.setMainObbFileName(app.get("main_filename"));
+								apk.setMainObbMd5(app.get("main_md5sum"));
 
-                                apk.setPatchObbUrl(app.get("patch_path"));
-                                apk.setPatchObbFileName(app.get("patch_filename"));
-                                apk.setPatchObbMd5(app.get("patch_md5sum"));
+								apk.setPatchObbUrl(app.get("patch_path"));
+								apk.setPatchObbFileName(app
+										.get("patch_filename"));
+								apk.setPatchObbMd5(app.get("patch_md5sum"));
 
-								serviceDownloadManager.startDownload(serviceDownloadManager.getDownload(apk),apk);
-								Toast toast = Toast.makeText(IntentReceiver.this, getString(R.string.starting_download), Toast.LENGTH_SHORT);
-	                            toast.show();
+								serviceDownloadManager.startDownload(
+										serviceDownloadManager.getDownload(apk),
+										apk);
+								Toast toast = Toast.makeText(
+										IntentReceiver.this,
+										getString(R.string.starting_download),
+										Toast.LENGTH_SHORT);
+								toast.show();
 							}
 						});
-						installAppDialog.setButton(Dialog.BUTTON_NEGATIVE, getString(android.R.string.no), neutralListener);
+				installAppDialog.setButton(Dialog.BUTTON_NEGATIVE,
+						getString(android.R.string.no), neutralListener);
+				installAppDialog.setOnDismissListener(this);
+				installAppDialog.show();
+
+			} else {
+				proceed();
+			}
+		} catch (Exception e) {
+			System.err
+					.println("IntentReceiver : processWebInstallServiceRequest() - Throwed Exception - "
+							+ e.getMessage());
+		}
+
+		finish();
+	}
+
+	// BRUTUS CODE -- intermedium method to choose between an intent with an url
+	// and an intent with an extra from WebInstallService
+	private void loadIntent() {
+		if (getIntent().hasExtra("WebInstallRequest")) {
+			processWebInstallServiceRequest();
+		} else {
+			continueLoading();
+		}
+	}
+
+	private void continueLoading() {
+		TMP_MYAPP_FILE = getCacheDir() + "/myapp.myapp";
+		db = Database.getInstance();
+		String uri = getIntent().getDataString();
+		System.out.println(uri);
+		if (uri.startsWith("aptoiderepo") && ApplicationAptoide.MULTIPLESTORES) {
+
+			ArrayList<String> repo = new ArrayList<String>();
+			repo.add(uri.substring(14));
+			Intent i = new Intent(IntentReceiver.this, MainActivity.class);
+			i.putExtra("newrepo", repo);
+			i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+			startActivity(i);
+			i = new Intent("pt.caixamagica.aptoide.NEWREPO");
+			i.putExtra("newrepo", repo);
+			sendBroadcast(i);
+			finish();
+
+		} else if (uri.startsWith("aptoidexml")
+				&& ApplicationAptoide.MULTIPLESTORES) {
+			String repo = uri.substring(13);
+			parseXmlString(repo);
+			Intent i = new Intent(IntentReceiver.this, MainActivity.class);
+			i.putExtra("newrepo", repo);
+			i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+			startActivity(i);
+			i = new Intent("pt.caixamagica.aptoide.NEWREPO");
+			i.putExtra("newrepo", repo);
+			sendBroadcast(i);
+			finish();
+		} else if (uri.startsWith("market")) {
+			String params = uri.split("&")[0];
+			String param = params.split("=")[1];
+			if (param.contains("pname:")) {
+				param = param.substring(6);
+			} else if (param.contains("pub:")) {
+				param = param.substring(4);
+			}
+			startMarketIntent(param);
+		} else if (uri.startsWith("http://market.android.com/details?id=")) {
+			String param = uri.split("=")[1];
+			startMarketIntent(param);
+		} else if (uri
+				.startsWith("https://play.google.com/store/apps/details?id=")) {
+			String param = uri.split("=")[1];
+			startMarketIntent(param);
+		} else {
+			if (ApplicationAptoide.SEARCHSTORES) {
+				try {
+					System.out.println(getIntent().getDataString());
+					downloadMyappFile(getIntent().getDataString());
+					parseXmlMyapp(TMP_MYAPP_FILE);
+
+					if (app != null && !app.isEmpty()) {
+						View simpleView = LayoutInflater.from(this).inflate(
+								R.layout.dialog_simple_layout, null);
+						Builder dialogBuilder = new AlertDialog.Builder(this)
+								.setView(simpleView);
+						final AlertDialog installAppDialog = dialogBuilder
+								.create();
+						installAppDialog
+								.setTitle(ApplicationAptoide.MARKETNAME);
+						installAppDialog
+								.setIcon(android.R.drawable.ic_menu_more);
+						installAppDialog.setCancelable(false);
+
+						TextView message = (TextView) simpleView
+								.findViewById(R.id.dialog_message);
+						message.setText(getString(R.string.installapp_alrt)
+								+ app.get("name") + "?");
+
+						installAppDialog.setButton(Dialog.BUTTON_POSITIVE,
+								getString(android.R.string.yes),
+								new Dialog.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface arg0,
+											int arg1) {
+										ViewApk apk = new ViewApk();
+										apk.setApkid(app.get("apkid"));
+										apk.setName(app.get("name"));
+										apk.setVercode(0);
+										apk.setVername("");
+										apk.generateAppHashid();
+										apk.setMd5(app.get("md5sum"));
+										apk.setPath(app.get("path"));
+
+										apk.setMainObbUrl(app.get("main_path"));
+										apk.setMainObbFileName(app
+												.get("main_filename"));
+										apk.setMainObbMd5(app
+												.get("main_md5sum"));
+
+										apk.setPatchObbUrl(app
+												.get("patch_path"));
+										apk.setPatchObbFileName(app
+												.get("patch_filename"));
+										apk.setPatchObbMd5(app
+												.get("patch_md5sum"));
+
+										serviceDownloadManager.startDownload(
+												serviceDownloadManager
+														.getDownload(apk), apk);
+										Toast toast = Toast
+												.makeText(
+														IntentReceiver.this,
+														getString(R.string.starting_download),
+														Toast.LENGTH_SHORT);
+										toast.show();
+									}
+								});
+						installAppDialog
+								.setButton(Dialog.BUTTON_NEGATIVE,
+										getString(android.R.string.no),
+										neutralListener);
 						installAppDialog.setOnDismissListener(this);
 						installAppDialog.show();
 
-					}else{
+					} else {
 						proceed();
 					}
 
-				}catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -260,12 +339,12 @@ public class IntentReceiver extends SherlockActivity implements OnDismissListene
 		System.out.println(param);
 		long id = db.getApkId(param);
 		Intent i;
-		if(id>0){
-			i = new Intent(this,ApkInfo.class);
+		if (id > 0) {
+			i = new Intent(this, ApkInfo.class);
 			i.putExtra("_id", id);
 			i.putExtra("category", Category.INFOXML.ordinal());
-		}else{
-			i = new Intent(this,SearchManager.class);
+		} else {
+			i = new Intent(this, SearchManager.class);
 			i.putExtra("search", param);
 		}
 
@@ -274,8 +353,8 @@ public class IntentReceiver extends SherlockActivity implements OnDismissListene
 	}
 
 	private void proceed() {
-		if(server!=null && ApplicationAptoide.MULTIPLESTORES){
-			Intent i = new Intent(IntentReceiver.this,MainActivity.class);
+		if (server != null && ApplicationAptoide.MULTIPLESTORES) {
+			Intent i = new Intent(IntentReceiver.this, MainActivity.class);
 			i.putExtra("newrepo", server);
 			i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 			startActivity(i);
@@ -286,89 +365,88 @@ public class IntentReceiver extends SherlockActivity implements OnDismissListene
 		}
 	}
 
-	
-	private void downloadMyappFile(String myappUri) throws Exception{
-		try{
+	private void downloadMyappFile(String myappUri) throws Exception {
+		try {
 
-			BufferedInputStream getit = new BufferedInputStream(new URL(myappUri).openStream(),1024);
+			BufferedInputStream getit = new BufferedInputStream(new URL(
+					myappUri).openStream(), 1024);
 
 			File file_teste = new File(TMP_MYAPP_FILE);
-			if(file_teste.exists())
+			if (file_teste.exists())
 				file_teste.delete();
 
 			FileOutputStream saveit = new FileOutputStream(TMP_MYAPP_FILE);
-			BufferedOutputStream bout = new BufferedOutputStream(saveit,1024);
+			BufferedOutputStream bout = new BufferedOutputStream(saveit, 1024);
 			byte data[] = new byte[1024];
 
-			int readed = getit.read(data,0,1024);
-			while(readed != -1) {
-				bout.write(data,0,readed);
-				readed = getit.read(data,0,1024);
+			int readed = getit.read(data, 0, 1024);
+			while (readed != -1) {
+				bout.write(data, 0, readed);
+				readed = getit.read(data, 0, 1024);
 			}
-
 
 			bout.close();
 			getit.close();
 			saveit.close();
-		} catch(Exception e){
-//			AlertDialog p = new AlertDialog.Builder(this).create();
-//			p.setTitle(getText(R.string.top_error));
-//			p.setMessage(getText(R.string.aptoide_error));
-//			p.setButton(getText(R.string.btn_ok), new DialogInterface.OnClickListener() {
-//			      public void onClick(DialogInterface dialog, int which) {
-//			          return;
-//			        } });
-//			p.show();
+		} catch (Exception e) {
+			// AlertDialog p = new AlertDialog.Builder(this).create();
+			// p.setTitle(getText(R.string.top_error));
+			// p.setMessage(getText(R.string.aptoide_error));
+			// p.setButton(getText(R.string.btn_ok), new
+			// DialogInterface.OnClickListener() {
+			// public void onClick(DialogInterface dialog, int which) {
+			// return;
+			// } });
+			// p.show();
 			e.printStackTrace();
 		}
 	}
 
-	private void parseXmlMyapp(String file) throws Exception{
-	    try {
+	private void parseXmlMyapp(String file) throws Exception {
+		try {
 
-	    	SAXParserFactory spf = SAXParserFactory.newInstance();
+			SAXParserFactory spf = SAXParserFactory.newInstance();
 			SAXParser sp = spf.newSAXParser();
 
 			MyappHandler handler = new MyappHandler();
 
-	    	sp.parse(new File(file),handler);
-	    	server = handler.getServers();
-	    	app = handler.getApp();
+			sp.parse(new File(file), handler);
+			server = handler.getServers();
+			app = handler.getApp();
 
-	    } catch (IOException e) {
-	    	e.printStackTrace();
-	    } catch (SAXException e) {
-	    	e.printStackTrace();
-	    } catch (ParserConfigurationException e) {
-	    	e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
 		}
 	}
 
-	private void parseXmlString(String file){
+	private void parseXmlString(String file) {
 
 		SAXParserFactory spf = SAXParserFactory.newInstance();
 
-	    try {
+		try {
 
-	    	SAXParser sp = spf.newSAXParser();
-	    	XMLReader xr = sp.getXMLReader();
-	    	MyappHandler handler = new MyappHandler();
-	    	xr.setContentHandler(handler);
+			SAXParser sp = spf.newSAXParser();
+			XMLReader xr = sp.getXMLReader();
+			MyappHandler handler = new MyappHandler();
+			xr.setContentHandler(handler);
 
-	    	InputSource is = new InputSource();
-	    	is.setCharacterStream(new StringReader(file));
-	    	xr.parse(is);
-	    	server = handler.getServers();
-	    	app = handler.getApp();
+			InputSource is = new InputSource();
+			is.setCharacterStream(new StringReader(file));
+			xr.parse(is);
+			server = handler.getServers();
+			app = handler.getApp();
 
+		} catch (IOException e) {
+			e.printStackTrace();
 
-	    } catch (IOException e) {
-	    	e.printStackTrace();
-
-	    } catch (SAXException e) {
-	    	e.printStackTrace();
-	    } catch (ParserConfigurationException e) {
-	    	e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
 		}
 	}
 
