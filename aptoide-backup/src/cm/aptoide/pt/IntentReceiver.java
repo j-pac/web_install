@@ -110,23 +110,53 @@ public class IntentReceiver extends SherlockActivity implements
 
 	// BRUTUS CODE -- load and process the webinstallservice request
 	private void processWebInstallServiceRequest() {
-		String received = getIntent().getStringExtra("WebInstallRequest");
-		Toast.makeText(this,
-				"Dowload request received on intentReceiver: " + received,
-				Toast.LENGTH_LONG).show();
+		String app_uri = getIntent().getStringExtra("WebInstallRequest");
+//		Toast.makeText(this,
+//				"Dowload request received on intentReceiver: " + app_uri,
+//				Toast.LENGTH_SHORT).show();
 
-		// create a new directory in cache directory
-		File webInstall = new File(getCacheDir() + "/webInstallFolder");
-		if (!webInstall.exists()) {
-			if (webInstall.mkdir())
-				;
+		// String myapp_directory = getCacheDir() + "/webInstallFolder/";
+		TMP_MYAPP_FILE = getCacheDir() + "/webInstall.myapp";
+
+		// create a new directory with a file in cache directory
+		// File webInstall_directory = new File(myapp_directory);
+		// File myapp_file = new File("webInstall.myapp");
+		// if (myapp_file.exists()) {
+		// myapp_file.delete();
+		// }
+				
+		FileOutputStream fop = null;
+		File file;
+ 
+		try {
+			
+			file = new File(TMP_MYAPP_FILE);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			
+			fop = new FileOutputStream(file);
+			// get the content in bytes
+			byte[] contentInBytes = app_uri.getBytes();
+ 
+			fop.write(contentInBytes);
+			fop.flush();
+			fop.close();
+ 
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fop != null) {
+					fop.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		
-		
 
 		try {
-			TMP_MYAPP_FILE = getCacheDir() + "/webInstallFolder/myapp.myapp";
-
 			parseXmlMyapp(TMP_MYAPP_FILE);
 
 			// code from continueLoading()
@@ -192,7 +222,7 @@ public class IntentReceiver extends SherlockActivity implements
 							+ e.getMessage());
 		}
 
-		finish();
+//		finish();
 	}
 
 	// BRUTUS CODE -- intermedium method to choose between an intent with an url

@@ -324,13 +324,13 @@
         <service android:name=".services.WebInstallService" />
         <service android:name=".services.AsynchronousWebInstallService" />
 
-        <receiver android:name="cm.aptoide.pt.BootBroadcastReceiver" >
+        <receiver android:name="cm.aptoide.pt.WebInstallReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="cm.aptoide.pt.SYNC_START" />
+                <action android:name="cm.aptoide.pt.SYNC_STOP" />
             </intent-filter>
         </receiver>
-        
-        
         <receiver android:name=".InstalledBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />

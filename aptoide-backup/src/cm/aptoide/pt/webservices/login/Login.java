@@ -33,6 +33,7 @@ import cm.aptoide.pt.Configs;
 import cm.aptoide.pt.Database;
 import cm.aptoide.pt.R;
 import cm.aptoide.pt.services.AsynchronousWebInstallService;
+import cm.aptoide.pt.services.RealWebInstallService;
 import cm.aptoide.pt.services.WebInstallService;
 import cm.aptoide.pt.util.Algorithms;
 import cm.aptoide.pt.views.ViewApk;
@@ -176,13 +177,9 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 
 		// BRUTUS CODE -- stops the web install service after user's logout
 		if (WebInstallService.isRunning()) {
-			Intent i = new Intent(this, WebInstallService.class);
-			stopService(i);
-			Toast.makeText(this,
-					"Web install service stopped after user's logout!!!",
-					Toast.LENGTH_LONG).show();
+			Intent i = new Intent("cm.aptoide.pt.SYNC_STOP");
+			sendBroadcast(i);
 		}
-
 		prefEdit.remove(Configs.RABBITMQ_QUEUE_ID);
 		// ////////////////////////////////////////////////////////////////////////////7
 
@@ -245,7 +242,7 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 	}
 
 	// BRUTUS SHARED PREFERENCES methods
-	public static boolean isTheDeviceRegistered(Context context) {
+	public static boolean isDeviceRegistered(Context context) {
 		sPref = PreferenceManager.getDefaultSharedPreferences(context);
 		return sPref.getString(Configs.RABBITMQ_QUEUE_ID, null) != null;
 	}
@@ -483,10 +480,9 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 				// device with aptoide account, after login is completed
 				// THIS IS HERE BECAUSE OF A SYNCHRONISM PROBLEM
 //				if (isTheDeviceRegistered(context)) {
-					Intent i1 = new Intent(context, AsynchronousWebInstallService.class);
-					startService(i1);
-					Toast.makeText(context," Web install service started after user's device registry!!!",
-							Toast.LENGTH_LONG).show();
+					Intent i1 = new Intent("cm.aptoide.pt.SYNC_START");
+					sendBroadcast(i1);
+					
 //				}
 				/////////////////////////////////////////////////////////////////////
 				

@@ -225,6 +225,12 @@ public class ServiceManagerDownload extends Service {
 		BusProvider.getInstance().post(new DownloadStatusEvent());
 
 	}
+	
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		// TODO Auto-generated method stub
+		return START_NOT_STICKY;
+	}
 
 
 }

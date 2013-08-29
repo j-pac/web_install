@@ -3,16 +3,20 @@ package cm.aptoide.pt.services;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import cm.aptoide.pt.IntentReceiver;
 
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.ConsumerCancelledException;
+import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.QueueingConsumer;
 import com.rabbitmq.client.ShutdownSignalException;
 import com.rabbitmq.client.QueueingConsumer.Delivery;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -29,7 +33,9 @@ public class WebInstallService extends Service {
 
 	private RabbitMqClient rabbitmq_client;
 
-	private Thread rabbitMq_pull_thread;
+	private Runnable rabbitMq_pull_task;
+
+	private ExecutorService executor = Executors.newSingleThreadExecutor();
 
 	private static boolean isRunning = false;
 
@@ -41,28 +47,20 @@ public class WebInstallService extends Service {
 
 	@Override
 	public void onCreate() {
-		Log.i(TAG, "Service RabbitMqHandlerService created!");
-
-		// testing purposes
-		if (isRunning) {
-			Toast.makeText(
-					getApplicationContext(),
-					"ERROR -- THE WEB INSTALL SERVICE HAS STARTED WHILE ITS ALREADY RUNNING!!!",
-					Toast.LENGTH_LONG).show();
-		}
+		Log.i(TAG, "WebInstallService created!");
 
 		isRunning = true;
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.i(TAG, "Service RabbitMqHandlerService onStartCommand!");
+		Log.i(TAG, "WebInstallService running!");
 
 		Toast.makeText(this,
 				"WebInstallService Started - onStartCommand()! :)",
-				Toast.LENGTH_LONG).show();
+				Toast.LENGTH_SHORT).show();
 
-		rabbitMq_pull_thread = new Thread(new Runnable() {
+		rabbitMq_pull_task = new Runnable() {
 
 			@Override
 			public void run() {
@@ -71,68 +69,75 @@ public class WebInstallService extends Service {
 					rabbitmq_client.establishConnection();
 
 					while (isRunning) {
-						String message_received = rabbitmq_client
-								.listenQueue();
-						System.out.println("message received on hadler thread: " + message_received);
+						String message_received;
 
-						new Thread(new DownloadRequest(message_received)).start();
+						message_received = rabbitmq_client.listenQueue();
 
-						// Toast.makeText(getApplicationContext(),
-						// "message received: " + message_received,
-						// Toast.LENGTH_SHORT).show();
-
+						downloadApk(message_received);
 					}
-					
-				} finally {
-					rabbitmq_client.closeConnection();
-				}
 
+				} catch (ShutdownSignalException e) {
+					// TODO Auto-generated catch block
+					Toast.makeText(getApplicationContext(),
+							"SYNC THREAD STOPPED!!! :D", Toast.LENGTH_SHORT)
+							.show();
+					System.err.println("SYNC THREAD STOPPED!!!");
+					e.printStackTrace();
+				} catch (ConsumerCancelledException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} // finally {
+				// //rabbitmq_client.closeConnection();
+				// Toast.makeText(context,
+				// "SYNC THREAD STOPPED!!! :D", Toast.LENGTH_SHORT).show();
+				// System.err.println("SYNC THREAD STOPPED!!!");
+				// }
+				// Toast.makeText(getApplicationContext(),
+				// "SYNC THREAD STOPPED!!! :D", Toast.LENGTH_SHORT).show();
+				// System.err.println("SYNC THREAD STOPPED!!!");
 			}
-		});
+		};
 
-		rabbitMq_pull_thread.start();
-
+		executor.submit(rabbitMq_pull_task);
 		return START_STICKY;
 	}
 
 	@Override
 	public void onDestroy() {
-		Log.i(TAG, "Service RabbitMqHandlerService destroyed!");
+		Log.i(TAG, "WebInstallService destroyed!");
 
 		Toast.makeText(this, "WebInstallService Stopped - onDestroy()! :)",
-				Toast.LENGTH_LONG).show();
-		
+				Toast.LENGTH_SHORT).show();
+
 		isRunning = false;
-		rabbitMq_pull_thread.interrupt();
-	}
+		executor.shutdownNow();
+		rabbitmq_client.closeConnection();
 
-	
-	private class DownloadRequest implements Runnable {
-
-		private String uri;
-
-		public DownloadRequest(String spec) {
-			uri = spec;
-		}
-
-		@Override
-		public void run() {
-			System.out.println("Message received from broker: " + uri);
-			Intent i = new Intent(getApplicationContext(), IntentReceiver.class);
-			i.putExtra("WebInstallRequest", uri);
-		}
+		// rabbitmq_client.cancelConsumer();
 
 	}
 
-	public static boolean isRunning() {
-		return isRunning;
+	private void downloadApk(String message) {
+		Intent download_intent = new Intent(this, IntentReceiver.class);
+		download_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		download_intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+
+		download_intent.putExtra("WebInstallRequest", message);
+		startActivity(download_intent);
+
 	}
 
 	private class RabbitMqClient {
 
 		private com.rabbitmq.client.Connection connection;
 		private com.rabbitmq.client.Channel channel;
-		private com.rabbitmq.client.QueueingConsumer consumer;
+		private com.rabbitmq.client.Consumer consumer;
 
 		private String queue_routing_key;
 
@@ -153,7 +158,12 @@ public class WebInstallService extends Service {
 
 				channel.basicQos(0);
 
-				consumer = new QueueingConsumer(channel);
+				consumer = new QueueingConsumer(channel); // {
+				// @Override
+				// public void handleCancelOk(String consumerTag) {
+				// //closeConnection();
+				// }
+				// };
 				channel.basicConsume(queue_routing_key, false, consumer);
 
 			} catch (IOException e) {
@@ -163,33 +173,18 @@ public class WebInstallService extends Service {
 
 		}
 
-		public String listenQueue() {
+		public String listenQueue() throws ShutdownSignalException,
+				ConsumerCancelledException, InterruptedException, IOException {
 
 			String message = null;
 			Delivery delivery;
 
-			try {
-				delivery = consumer.nextDelivery();
+			delivery = ((QueueingConsumer) consumer).nextDelivery();
 
-				message = new String(delivery.getBody());
+			message = new String(delivery.getBody());
 
-				channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+			channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
 
-//				System.out.println("Message obtained: " + message);
-
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ShutdownSignalException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ConsumerCancelledException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			return message;
 		}
 
@@ -197,11 +192,27 @@ public class WebInstallService extends Service {
 			try {
 				channel.close();
 				connection.close();
+				Toast.makeText(getApplicationContext(),
+						"RABBITMQ CONNECTION CLOSED!", Toast.LENGTH_LONG)
+						.show();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
+		// public void cancelConsumer() {
+		// try {
+		// channel.basicCancel(((QueueingConsumer) consumer).getConsumerTag());
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// }
+
+	}
+
+	public static boolean isRunning() {
+		return isRunning;
 	}
 
 }

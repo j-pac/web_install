@@ -19,18 +19,26 @@ import android.widget.Toast;
 public class AsynchronousWebInstallService extends IntentService {
 
 	private static final String TAG = "cm.aptoid.pt.services.AsynchronousWebInstallService";
-	private static final long ELAPSED_TIME_TO_START = 15000; // Starts each 5
+	private static final long ELAPSED_TIME_TO_START = 5*60*1000; // Starts each 5
 																// minutes,
 																// while device
-	private static boolean service_is_needed = false; // is associated
-														// with aptoide
+	// is associated
+	// with aptoide
 
 	private final String queue_routing_key = "web_install_4d4e2d90c4d6eec405d82ecc795a7e3592df1523";
 
+	private static AlarmManager alarm_manager = null;
+	private static PendingIntent pending_intent = null;
+
+	public static void turnOffAlarmManager() {
+		if (alarm_manager != null) {
+			alarm_manager.cancel(pending_intent);
+		}
+		alarm_manager = null;
+	}
+
 	public AsynchronousWebInstallService() {
 		super("AsynchronousWebInstallService");
-
-		service_is_needed = true;
 	}
 
 	@Override
@@ -38,22 +46,19 @@ public class AsynchronousWebInstallService extends IntentService {
 		Log.i(TAG, "AsynchronousWebInstallService Started");
 
 		Toast.makeText(this, "AsynchronousWebInstallService onHandleIntent()",
-				Toast.LENGTH_LONG).show();
+				Toast.LENGTH_SHORT).show();
 
-		if (service_is_needed) {
-			// Do the work -- check if rabbitmq has messages
-			CheckRabbitMqClient();
-			// Schedulling a new start
-			scheduleNextBeggining();
-		}
+		// Do the work -- check if rabbitmq has messages
+		CheckRabbitMqClient();
+		// Schedulling a new start
+		scheduleNextBeggining();
 
 	}
 
 	@Override
 	public void onDestroy() {
-		service_is_needed = false;
 		Toast.makeText(this, "AsynchronousWebInstallService onDestroy()",
-				Toast.LENGTH_LONG).show();
+				Toast.LENGTH_SHORT).show();
 	}
 
 	private void CheckRabbitMqClient() {
@@ -64,11 +69,6 @@ public class AsynchronousWebInstallService extends IntentService {
 			String message_received = null;
 
 			while ((message_received = rabbitmq_client.listenQueue()) != null) {
-				System.out.println("Message received asynchronously: "
-						+ message_received);
-				Toast.makeText(this, "Message received: " + message_received,
-						Toast.LENGTH_SHORT).show();
-				// sendbroadcast to intentReceiver to manage the download
 				downloadApk(message_received);
 			}
 		} finally {
@@ -82,7 +82,7 @@ public class AsynchronousWebInstallService extends IntentService {
 		download_intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
 
 		download_intent.putExtra("WebInstallRequest", message);
-		getApplication().startActivity(download_intent);
+		startActivity(download_intent);
 
 	}
 
@@ -90,10 +90,10 @@ public class AsynchronousWebInstallService extends IntentService {
 		Intent service_launcher = new Intent(this,
 				AsynchronousWebInstallService.class);
 
-		PendingIntent pending_intent = PendingIntent.getService(this, 0,
-				service_launcher, PendingIntent.FLAG_UPDATE_CURRENT);
+		pending_intent = PendingIntent.getService(this, 0, service_launcher,
+				PendingIntent.FLAG_UPDATE_CURRENT);
 
-		AlarmManager alarm_manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		alarm_manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
 		long next_run_time = System.currentTimeMillis() + ELAPSED_TIME_TO_START;
 

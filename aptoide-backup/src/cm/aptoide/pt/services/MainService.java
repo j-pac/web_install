@@ -84,6 +84,11 @@ public class MainService extends Service {
 			return MainService.this;
 		}
 	}
+    
+    @Override
+    	public int onStartCommand(Intent intent, int flags, int startId) {
+    		return START_NOT_STICKY;
+    	}
 
 //	public void parse(final Database db){
 //		new Thread() {

@@ -2,15 +2,19 @@
 
 require_once 'Publisher.php';
 
+define("SERVICE_NAME", "web_install_");
+
 if(isset($_REQUEST['username']) && isset($_REQUEST['device_imei']))
 {
 	// DATABASE AND RABBITMQ CONNECTIONS
-	$db = pg_connect("host=localhost port=5432 dbname=register user=postgres password=blfa5661") or die('Connection to database failed: ' . pg_last_error());
+	$db = pg_connect("host=localhost port=5432 dbname=register user=postgres password=godIsAProgrammer") or die('Connection to database failed: ' . pg_last_error());
 
 	$publisher = new Publisher();
 
 	$username = $_REQUEST['username'];
 	$d_imei = $_REQUEST['device_imei'];
+	// XMl is the default response format
+	$format  = strtolower($_REQUEST['format']) == 'json' ? 'json' : 'xml'; 
 
 	$queue_name = generateQueueName($username, $d_imei);
 
@@ -26,13 +30,34 @@ if(isset($_REQUEST['username']) && isset($_REQUEST['device_imei']))
 	$publisher->close();
 	pg_close($db);
 
-	print "Registry service closed!";
+	if($format == 'json')
+	  {
+	    sendJSONResponse($queue_name);
+	  }
+	else
+	  {
+	    sendXMLResponse($queue_name);
+	  }
+
 }
 
 function generateQueueName($username, $device_imei)
 {
 	$hash_input = $username . $device_imei;
-	return sha1($hash_input);
+	return SERVICE_NAME . sha1($hash_input);
 }
+
+function sendXMLResponse()
+{
+  header('Content-type: application/json');
+  echo json_encode('Response'
+
+}
+
+function sendJSONResponse()
+{
+
+}
+
 
 ?>

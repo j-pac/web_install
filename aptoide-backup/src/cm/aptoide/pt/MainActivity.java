@@ -82,7 +82,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.concurrent.TimeoutException;
 
-public class MainActivity extends SherlockFragmentActivity implements LoaderCallbacks<Cursor> {
+public class MainActivity extends SherlockFragmentActivity implements
+		LoaderCallbacks<Cursor> {
 	private Intent serviceDownloadManagerIntent;
 
 	private final static int AVAILABLE_LOADER = 0;
@@ -93,13 +94,16 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 	private final static int LATEST_LIKES = -1;
 
 	private HashMap<String, String> updateParams = new HashMap<String, String>();
-	private String LATEST_VERSION_CODE_URI =
-			(ApplicationAptoide.PARTNERID==null) ?
-			"http://imgs.aptoide.com/latest_version.xml":
-				"http://" + ApplicationAptoide.DEFAULTSTORENAME + ".store.aptoide.com/latest_version_"+ ApplicationAptoide.DEFAULTSTORENAME +".xml";
-	private static final String TMP_UPDATE_FILE = Environment.getExternalStorageDirectory().getPath()+ "/.aptoide/aptoideUpdate.apk";
+	private String LATEST_VERSION_CODE_URI = (ApplicationAptoide.PARTNERID == null) ? "http://imgs.aptoide.com/latest_version.xml"
+			: "http://" + ApplicationAptoide.DEFAULTSTORENAME
+					+ ".store.aptoide.com/latest_version_"
+					+ ApplicationAptoide.DEFAULTSTORENAME + ".xml";
+	private static final String TMP_UPDATE_FILE = Environment
+			.getExternalStorageDirectory().getPath()
+			+ "/.aptoide/aptoideUpdate.apk";
 
-	private final String SDCARD = Environment.getExternalStorageDirectory().getPath();
+	private final String SDCARD = Environment.getExternalStorageDirectory()
+			.getPath();
 
 	private String LOCAL_PATH = SDCARD + "/.aptoide";
 
@@ -109,7 +113,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 		@Override
 		public void onClick(DialogInterface arg0, int arg1) {
-			storeUri = ((EditText) alertDialog.findViewById(R.id.edit_uri)).getText().toString();
+			storeUri = ((EditText) alertDialog.findViewById(R.id.edit_uri))
+					.getText().toString();
 			dialogAddStore(storeUri, null, null);
 		}
 
@@ -125,55 +130,66 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			this.index = index;
 		}
 	}
-    int a = 0;
+
+	int a = 0;
+
 	private void loadUIEditorsApps() {
 
-		final int[] res_ids = { R.id.central, R.id.topleft, R.id.topright, R.id.bottomleft, R.id.bottomcenter, R.id.bottomright };
-		final ArrayList<HashMap<String, String>> image_urls = db.getFeaturedGraphics();
-		final HashMap<String, String> image_url_highlight = db.getHighLightFeature();
+		final int[] res_ids = { R.id.central, R.id.topleft, R.id.topright,
+				R.id.bottomleft, R.id.bottomcenter, R.id.bottomright };
+		final ArrayList<HashMap<String, String>> image_urls = db
+				.getFeaturedGraphics();
+		final HashMap<String, String> image_url_highlight = db
+				.getHighLightFeature();
 
-//        System.out.println(image_url_highlight + "ASDASDASDASD");
-//        System.out.println(image_urls + "ASDASDASDASD");
+		// System.out.println(image_url_highlight + "ASDASDASDASD");
+		// System.out.println(image_urls + "ASDASDASDASD");
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (image_url_highlight.size()>0) {
-                    a = 1;
-                    ImageView v = (ImageView) featuredView.findViewById(res_ids[0]);
-                    // imageLoader.DisplayImage(-1, image_url_highlight.get("url"), v,
-                    // mContext);
-                    DisplayImageOptions options = new DisplayImageOptions.Builder().displayer(new FadeInBitmapDisplayer(1000)).cacheOnDisc().cacheInMemory().build();
-                    cm.aptoide.com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(image_url_highlight.get("url"),v, options);
-                    v.setTag(image_url_highlight.get("id"));
-                    v.setOnClickListener(new OnClickListener() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				if (image_url_highlight.size() > 0) {
+					a = 1;
+					ImageView v = (ImageView) featuredView
+							.findViewById(res_ids[0]);
+					// imageLoader.DisplayImage(-1,
+					// image_url_highlight.get("url"), v,
+					// mContext);
+					DisplayImageOptions options = new DisplayImageOptions.Builder()
+							.displayer(new FadeInBitmapDisplayer(1000))
+							.cacheOnDisc().cacheInMemory().build();
+					cm.aptoide.com.nostra13.universalimageloader.core.ImageLoader
+							.getInstance().displayImage(
+									image_url_highlight.get("url"), v, options);
+					v.setTag(image_url_highlight.get("id"));
+					v.setOnClickListener(new OnClickListener() {
 
-                        @Override
-                        public void onClick(View arg0) {
+						@Override
+						public void onClick(View arg0) {
 
-                            Intent i = new Intent(MainActivity.this, ApkInfo.class);
-                            i.putExtra("_id", Long.parseLong((String) arg0.getTag()));
-                            i.putExtra("top", false);
-                            i.putExtra("category", Category.EDITORSCHOICE.ordinal());
-                            startActivity(i);
+							Intent i = new Intent(MainActivity.this,
+									ApkInfo.class);
+							i.putExtra("_id",
+									Long.parseLong((String) arg0.getTag()));
+							i.putExtra("top", false);
+							i.putExtra("category",
+									Category.EDITORSCHOICE.ordinal());
+							startActivity(i);
 
-                        }
-                    });
-                    // v.setOnClickListener(featuredListener);
-                }
-            }
-        });
-
+						}
+					});
+					// v.setOnClickListener(featuredListener);
+				}
+			}
+		});
 
 		Collections.shuffle(image_urls);
 		runOnUiThread(new Runnable() {
 
 			public void run() {
 
-
-
-					for (int i = a; i != res_ids.length; i++) {
-                        try {
+				for (int i = a; i != res_ids.length; i++) {
+					try {
 						ImageView v = (ImageView) featuredView
 								.findViewById(res_ids[i]);
 
@@ -183,9 +199,11 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 								.displayer(new FadeInBitmapDisplayer(1000))
 								.cacheOnDisc().cacheInMemory().build();
 						cm.aptoide.com.nostra13.universalimageloader.core.ImageLoader
-								.getInstance().displayImage(image_urls.get(i - a).get("url"), v, options);
+								.getInstance().displayImage(
+										image_urls.get(i - a).get("url"), v,
+										options);
 
-						v.setTag(image_urls.get(i-a).get("id"));
+						v.setTag(image_urls.get(i - a).get("id"));
 						v.setOnClickListener(new OnClickListener() {
 
 							@Override
@@ -201,32 +219,31 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 							}
 						});
 						// v.setOnClickListener(featuredListener);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-
+				}
 
 			}
 		});
 	}
 
-    public static int getPixels(int dipValue){
-        Resources r = mContext.getResources();
-        int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, 
-        r.getDisplayMetrics());
-        Log.d("getPixels", ""+px);
-        return px;
-    }
-    
+	public static int getPixels(int dipValue) {
+		Resources r = mContext.getResources();
+		int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+				dipValue, r.getDisplayMetrics());
+		Log.d("getPixels", "" + px);
+		return px;
+	}
+
 	private void loadRecommended() {
 
-
-
 		if (Login.isLoggedIn(mContext)) {
-			((TextView) featuredView.findViewById(R.id.recommended_text)).setVisibility(View.GONE);
+			((TextView) featuredView.findViewById(R.id.recommended_text))
+					.setVisibility(View.GONE);
 		} else {
-			((TextView) featuredView.findViewById(R.id.recommended_text)).setVisibility(View.VISIBLE);
+			((TextView) featuredView.findViewById(R.id.recommended_text))
+					.setVisibility(View.VISIBLE);
 		}
 
 		new Thread(new Runnable() {
@@ -235,7 +252,7 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 			public void run() {
 				loadUIRecommendedApps();
-                File f = null;
+				File f = null;
 				try {
 					SAXParserFactory spf = SAXParserFactory.newInstance();
 					SAXParser sp = spf.newSAXParser();
@@ -244,7 +261,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 							.getInputStream(
 									"http://webservices.aptoide.com/webservices/listUserBasedApks/"
 											+ Login.getToken(mContext)
-											+ "/10/xml", null, null, mContext), 8 * 1024);
+											+ "/10/xml", null, null, mContext),
+							8 * 1024);
 					f = File.createTempFile("abc", "abc");
 					OutputStream out = new FileOutputStream(f);
 					byte buf[] = new byte[1024];
@@ -271,22 +289,25 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 					e.printStackTrace();
 				}
 
-                if(f!=null)f.delete();
+				if (f != null)
+					f.delete();
 
 			}
 
 			private void loadUIRecommendedApps() {
 
-
-				valuesRecommended = db.getItemBasedApksRecommended("recommended");
+				valuesRecommended = db
+						.getItemBasedApksRecommended("recommended");
 
 				runOnUiThread(new Runnable() {
 
 					public void run() {
 
-						LinearLayout ll = (LinearLayout) featuredView.findViewById(R.id.recommended_container);
+						LinearLayout ll = (LinearLayout) featuredView
+								.findViewById(R.id.recommended_container);
 						ll.removeAllViews();
-						LinearLayout llAlso = new LinearLayout(MainActivity.this);
+						LinearLayout llAlso = new LinearLayout(
+								MainActivity.this);
 						llAlso.setLayoutParams(new LinearLayout.LayoutParams(
 								LinearLayout.LayoutParams.MATCH_PARENT,
 								LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -295,49 +316,74 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 							if (Login.isLoggedIn(mContext)) {
 								TextView tv = new TextView(mContext);
 								tv.setText(R.string.no_recommended_apps);
-								tv.setTextAppearance(mContext, android.R.attr.textAppearanceMedium);
+								tv.setTextAppearance(mContext,
+										android.R.attr.textAppearanceMedium);
 								tv.setPadding(10, 10, 10, 10);
 								ll.addView(tv);
 							}
 						} else {
 
 							for (int i = 0; i != valuesRecommended.size(); i++) {
-								LinearLayout txtSamItem = (LinearLayout) getLayoutInflater().inflate(R.layout.row_grid_item, null);
-								((TextView) txtSamItem.findViewById(R.id.name)).setText(valuesRecommended.get(i).get("name"));
+								LinearLayout txtSamItem = (LinearLayout) getLayoutInflater()
+										.inflate(R.layout.row_grid_item, null);
+								((TextView) txtSamItem.findViewById(R.id.name))
+										.setText(valuesRecommended.get(i).get(
+												"name"));
 								ImageLoader.getInstance().displayImage(
 										valuesRecommended.get(i).get("icon"),
-										(ImageView) txtSamItem.findViewById(R.id.icon));
+										(ImageView) txtSamItem
+												.findViewById(R.id.icon));
 								float stars = 0f;
 								try {
-									stars = Float.parseFloat(valuesRecommended.get(i).get("rating"));
+									stars = Float.parseFloat(valuesRecommended
+											.get(i).get("rating"));
 								} catch (Exception e) {
 									stars = 0f;
 								}
-								((RatingBar) txtSamItem.findViewById(R.id.rating)).setIsIndicator(true);
-								((RatingBar) txtSamItem.findViewById(R.id.rating)).setRating(stars);
+								((RatingBar) txtSamItem
+										.findViewById(R.id.rating))
+										.setIsIndicator(true);
+								((RatingBar) txtSamItem
+										.findViewById(R.id.rating))
+										.setRating(stars);
 								txtSamItem.setPadding(10, 0, 0, 0);
 								// ((TextView)
 								// txtSamItem.findViewById(R.id.version))
 								// .setText(getString(R.string.version) +" "+
 								// valuesRecommended.get(i).get("vername"));
-								((TextView) txtSamItem.findViewById(R.id.downloads)).setText("("+ valuesRecommended.get(i).get("downloads") + " " + getString(R.string.downloads)+ ")");
-								txtSamItem.setTag(valuesRecommended.get(i).get("_id"));
-								txtSamItem.setLayoutParams(new LinearLayout.LayoutParams(
+								((TextView) txtSamItem
+										.findViewById(R.id.downloads))
+										.setText("("
+												+ valuesRecommended.get(i).get(
+														"downloads") + " "
+												+ getString(R.string.downloads)
+												+ ")");
+								txtSamItem.setTag(valuesRecommended.get(i).get(
+										"_id"));
+								txtSamItem
+										.setLayoutParams(new LinearLayout.LayoutParams(
 												LinearLayout.LayoutParams.MATCH_PARENT,
 												getPixels(80), 1));
 								// txtSamItem.setOnClickListener(featuredListener);
-								txtSamItem.setOnClickListener(new OnClickListener() {
+								txtSamItem
+										.setOnClickListener(new OnClickListener() {
 
-									@Override
-									public void onClick(View arg0) {
-										Intent i = new Intent(MainActivity.this, ApkInfo.class);
-										long id = Long.parseLong((String) arg0.getTag());
-										i.putExtra("_id", id);
-										i.putExtra("top", true);
-										i.putExtra("category", Category.ITEMBASED.ordinal());
-										startActivity(i);
-									}
-								});
+											@Override
+											public void onClick(View arg0) {
+												Intent i = new Intent(
+														MainActivity.this,
+														ApkInfo.class);
+												long id = Long
+														.parseLong((String) arg0
+																.getTag());
+												i.putExtra("_id", id);
+												i.putExtra("top", true);
+												i.putExtra("category",
+														Category.ITEMBASED
+																.ordinal());
+												startActivity(i);
+											}
+										});
 
 								txtSamItem.measure(0, 0);
 
@@ -364,69 +410,67 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 	}
 
-
-
 	private void loadFeatured() {
-
-
 
 		new Thread(new Runnable() {
 
 			public void run() {
 				loadUIEditorsApps();
-                File f = null;
+				File f = null;
 
 				try {
 					SAXParserFactory spf = SAXParserFactory.newInstance();
 					SAXParser sp = spf.newSAXParser();
 					NetworkUtils utils = new NetworkUtils();
 					String url;
-                    f = File.createTempFile("tempFile", "");
-                    String countryCode = Geolocation.getCountryCode(mContext);
+					f = File.createTempFile("tempFile", "");
+					String countryCode = Geolocation.getCountryCode(mContext);
 
-
-                    Log.d("Aptoide-Geolocation", "Using countrycode: " + countryCode);
+					Log.d("Aptoide-Geolocation", "Using countrycode: "
+							+ countryCode);
 
 					if (ApplicationAptoide.CUSTOMEDITORSCHOICE) {
-						url = getEditorsChoiceURL(ApplicationAptoide.DEFAULTSTORENAME,countryCode);
+						url = getEditorsChoiceURL(
+								ApplicationAptoide.DEFAULTSTORENAME,
+								countryCode);
 
 						if (((HttpURLConnection) new URL(url).openConnection())
 								.getResponseCode() != 200) {
-							url = getEditorsChoiceURL("apps",countryCode);
+							url = getEditorsChoiceURL("apps", countryCode);
 						}
 
 					} else {
-						url = getEditorsChoiceURL("apps",countryCode);
+						url = getEditorsChoiceURL("apps", countryCode);
 					}
 
+					long date = utils.getLastModified(new URL(url));
+					long cachedDate = db.getEditorsChoiceHash();
 
+					Log.d("Getting", "Date is " + date);
+					Log.d("Getting", "CachedDate is " + cachedDate);
 
-                    long date = utils.getLastModified(new URL(url));
-                    long cachedDate = db.getEditorsChoiceHash();
+					if (cachedDate < date) {
 
-                    Log.d("Getting","Date is " + date);
-                    Log.d("Getting","CachedDate is " + cachedDate);
+						BufferedInputStream bis = new BufferedInputStream(utils
+								.getInputStream(url, null, null, mContext),
+								8 * 1024);
+						OutputStream out = new FileOutputStream(f);
+						byte buf[] = new byte[1024];
+						int len;
+						while ((len = bis.read(buf)) > 0)
+							out.write(buf, 0, len);
+						out.close();
+						bis.close();
+						Server server = new Server();
+						// Database.database.beginTransaction();
+						db.deleteEditorsChoice();
+						sp.parse(f, new HandlerEditorsChoice(server));
+						db.insertEditorsChoiceHash(date);
+						// Database.database.setTransactionSuccessful();
+						// Database.database.endTransaction();
+						loadUIEditorsApps();
 
-                    if (cachedDate < date) {
-
-                        BufferedInputStream bis = new BufferedInputStream(utils.getInputStream(url, null, null, mContext), 8 * 1024);
-                        OutputStream out = new FileOutputStream(f);
-                        byte buf[] = new byte[1024];
-                        int len;
-                        while ((len = bis.read(buf)) > 0)
-                            out.write(buf, 0, len);
-                        out.close();
-                        bis.close();
-                        Server server = new Server();
-                        // Database.database.beginTransaction();
-                        db.deleteEditorsChoice();
-                        sp.parse(f, new HandlerEditorsChoice(server));
-                        db.insertEditorsChoiceHash(date);
-                        // Database.database.setTransactionSuccessful();
-                        // Database.database.endTransaction();
-                        loadUIEditorsApps();
-
-                    }
+					}
 
 				} catch (SAXException e) {
 					// Database.database.setTransactionSuccessful();
@@ -435,19 +479,22 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 					e.printStackTrace();
 				}
 
-                if(f!=null) f.delete();
+				if (f != null)
+					f.delete();
 
 			}
 
-            private String getEditorsChoiceURL(String store,String countryCode) {
+			private String getEditorsChoiceURL(String store, String countryCode) {
 
-                if(countryCode.length()>0){
-                    return "http://" + store + ".store.aptoide.com/editors.xml?country=" + countryCode;
-                }
-                return "http://" + store + ".store.aptoide.com/editors.xml";
-            }
+				if (countryCode.length() > 0) {
+					return "http://" + store
+							+ ".store.aptoide.com/editors.xml?country="
+							+ countryCode;
+				}
+				return "http://" + store + ".store.aptoide.com/editors.xml";
+			}
 
-        }).start();
+		}).start();
 
 		new Thread(new Runnable() {
 
@@ -464,7 +511,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 					String url;
 					if (ApplicationAptoide.CUSTOMEDITORSCHOICE) {
-						url = "http://" + ApplicationAptoide.DEFAULTSTORENAME + ".store.aptoide.com/top.xml";
+						url = "http://" + ApplicationAptoide.DEFAULTSTORENAME
+								+ ".store.aptoide.com/top.xml";
 
 						if (((HttpURLConnection) new URL(url).openConnection())
 								.getResponseCode() != 200) {
@@ -475,34 +523,36 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 						url = "http://apps.store.aptoide.com/top.xml";
 					}
 
-                    long date = utils.getLastModified(new URL(url));
+					long date = utils.getLastModified(new URL(url));
 
-                    long cachedDate;
-                    try{
-                    	cachedDate = Long.parseLong(db.getRepoHash(server.id,Category.TOPFEATURED));
-                    }catch (Exception e) {
+					long cachedDate;
+					try {
+						cachedDate = Long.parseLong(db.getRepoHash(server.id,
+								Category.TOPFEATURED));
+					} catch (Exception e) {
 						cachedDate = 0;
 					}
 
+					if (cachedDate < date) {
 
-                    if(cachedDate < date){
-
-                        BufferedInputStream bis = new BufferedInputStream(utils.getInputStream(url, null, null, mContext), 8 * 1024);
-                        f = File.createTempFile("tempFile", "");
-                        OutputStream out = new FileOutputStream(f);
-                        byte buf[] = new byte[1024];
-                        int len;
-                        while ((len = bis.read(buf)) > 0)
-                            out.write(buf, 0, len);
-                        out.close();
-                        bis.close();
-                        // Database.database.beginTransaction();
-                        db.deleteFeaturedTopApps();
-                        sp.parse(f, new HandlerFeaturedTop(server));
-                        db.insertFeaturedTopHash(date);
-                        loadUItopapps();
-                        f.delete();
-                    }
+						BufferedInputStream bis = new BufferedInputStream(utils
+								.getInputStream(url, null, null, mContext),
+								8 * 1024);
+						f = File.createTempFile("tempFile", "");
+						OutputStream out = new FileOutputStream(f);
+						byte buf[] = new byte[1024];
+						int len;
+						while ((len = bis.read(buf)) > 0)
+							out.write(buf, 0, len);
+						out.close();
+						bis.close();
+						// Database.database.beginTransaction();
+						db.deleteFeaturedTopApps();
+						sp.parse(f, new HandlerFeaturedTop(server));
+						db.insertFeaturedTopHash(date);
+						loadUItopapps();
+						f.delete();
+					}
 				} catch (ParserConfigurationException e) {
 					e.printStackTrace();
 				} catch (SAXException e) {
@@ -526,7 +576,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
 			HashMap<String, String> item = new HashMap<String, String>();
 			item.put("name", c.getString(1));
-			item.put("icon", db.getIconsPath(0, Category.TOPFEATURED) + c.getString(4));
+			item.put("icon",
+					db.getIconsPath(0, Category.TOPFEATURED) + c.getString(4));
 			item.put("rating", c.getString(5));
 			item.put("id", c.getString(0));
 			item.put("apkid", c.getString(7));
@@ -544,7 +595,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 			public void run() {
 
-				LinearLayout ll = (LinearLayout) featuredView.findViewById(R.id.container);
+				LinearLayout ll = (LinearLayout) featuredView
+						.findViewById(R.id.container);
 				ll.removeAllViews();
 				LinearLayout llAlso = new LinearLayout(MainActivity.this);
 				llAlso.setLayoutParams(new LinearLayout.LayoutParams(
@@ -552,65 +604,85 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 						LinearLayout.LayoutParams.WRAP_CONTENT));
 				llAlso.setOrientation(LinearLayout.HORIZONTAL);
 
-                try{
+				try {
 
-				for (int i = 0; i != values.size(); i++) {
+					for (int i = 0; i != values.size(); i++) {
 
-					LinearLayout txtSamItem = (LinearLayout) getLayoutInflater().inflate(R.layout.row_grid_item, null);
-					((TextView) txtSamItem.findViewById(R.id.name)).setText(values.get(i).get("name"));
-					// ((TextView) txtSamItem.findViewById(R.id.version))
-					// .setText(getString(R.string.version) +" "+
-					// values.get(i).get("vername"));
-					((TextView) txtSamItem.findViewById(R.id.downloads)).setText("(" + values.get(i).get("downloads") + " "+ getString(R.string.downloads) + ")");
-					String hashCode = (values.get(i).get("apkid") + "|" + values.get(i).get("vercode")) + "";
-					cm.aptoide.com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(values.get(i).get("icon"),(ImageView) txtSamItem.findViewById(R.id.icon), hashCode);
+						LinearLayout txtSamItem = (LinearLayout) getLayoutInflater()
+								.inflate(R.layout.row_grid_item, null);
+						((TextView) txtSamItem.findViewById(R.id.name))
+								.setText(values.get(i).get("name"));
+						// ((TextView) txtSamItem.findViewById(R.id.version))
+						// .setText(getString(R.string.version) +" "+
+						// values.get(i).get("vername"));
+						((TextView) txtSamItem.findViewById(R.id.downloads))
+								.setText("(" + values.get(i).get("downloads")
+										+ " " + getString(R.string.downloads)
+										+ ")");
+						String hashCode = (values.get(i).get("apkid") + "|" + values
+								.get(i).get("vercode")) + "";
+						cm.aptoide.com.nostra13.universalimageloader.core.ImageLoader
+								.getInstance().displayImage(
+										values.get(i).get("icon"),
+										(ImageView) txtSamItem
+												.findViewById(R.id.icon),
+										hashCode);
 
-					// imageLoader.DisplayImage(-1, values.get(i).get("icon"),
-					// (ImageView) txtSamItem.findViewById(R.id.icon),
-					// mContext);
-					float stars = 0f;
-					try {
-						stars = Float.parseFloat(values.get(i).get("rating"));
-					} catch (Exception e) {
-						stars = 0f;
-					}
-					((RatingBar) txtSamItem.findViewById(R.id.rating)).setRating(stars);
-					((RatingBar) txtSamItem.findViewById(R.id.rating)).setIsIndicator(true);
-					txtSamItem.setPadding(10, 0, 0, 0);
-					txtSamItem.setTag(values.get(i).get("id"));
-					txtSamItem.setLayoutParams(new LinearLayout.LayoutParams(
-							LinearLayout.LayoutParams.MATCH_PARENT, getPixels(80), 1));
-					// txtSamItem.setOnClickListener(featuredListener);
-					txtSamItem.setOnClickListener(new OnClickListener() {
-
-						@Override
-						public void onClick(View arg0) {
-							Intent i = new Intent(MainActivity.this, ApkInfo.class);
-							long id = Long.parseLong((String) arg0.getTag());
-							i.putExtra("_id", id);
-							i.putExtra("top", true);
-							i.putExtra("category", Category.TOPFEATURED.ordinal());
-							startActivity(i);
+						// imageLoader.DisplayImage(-1,
+						// values.get(i).get("icon"),
+						// (ImageView) txtSamItem.findViewById(R.id.icon),
+						// mContext);
+						float stars = 0f;
+						try {
+							stars = Float.parseFloat(values.get(i)
+									.get("rating"));
+						} catch (Exception e) {
+							stars = 0f;
 						}
-					});
+						((RatingBar) txtSamItem.findViewById(R.id.rating))
+								.setRating(stars);
+						((RatingBar) txtSamItem.findViewById(R.id.rating))
+								.setIsIndicator(true);
+						txtSamItem.setPadding(10, 0, 0, 0);
+						txtSamItem.setTag(values.get(i).get("id"));
+						txtSamItem
+								.setLayoutParams(new LinearLayout.LayoutParams(
+										LinearLayout.LayoutParams.MATCH_PARENT,
+										getPixels(80), 1));
+						// txtSamItem.setOnClickListener(featuredListener);
+						txtSamItem.setOnClickListener(new OnClickListener() {
 
-					txtSamItem.measure(0, 0);
+							@Override
+							public void onClick(View arg0) {
+								Intent i = new Intent(MainActivity.this,
+										ApkInfo.class);
+								long id = Long.parseLong((String) arg0.getTag());
+								i.putExtra("_id", id);
+								i.putExtra("top", true);
+								i.putExtra("category",
+										Category.TOPFEATURED.ordinal());
+								startActivity(i);
+							}
+						});
 
-					if (i % 2 == 0) {
-						ll.addView(llAlso);
+						txtSamItem.measure(0, 0);
 
-						llAlso = new LinearLayout(MainActivity.this);
-						llAlso.setLayoutParams(new LinearLayout.LayoutParams(
-								LinearLayout.LayoutParams.MATCH_PARENT, getPixels(80)));
-						llAlso.setOrientation(LinearLayout.HORIZONTAL);
-						llAlso.addView(txtSamItem);
-					} else {
-						llAlso.addView(txtSamItem);
+						if (i % 2 == 0) {
+							ll.addView(llAlso);
+
+							llAlso = new LinearLayout(MainActivity.this);
+							llAlso.setLayoutParams(new LinearLayout.LayoutParams(
+									LinearLayout.LayoutParams.MATCH_PARENT,
+									getPixels(80)));
+							llAlso.setOrientation(LinearLayout.HORIZONTAL);
+							llAlso.addView(txtSamItem);
+						} else {
+							llAlso.addView(txtSamItem);
+						}
 					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
 
 				ll.addView(llAlso);
 				SharedPreferences sPref = PreferenceManager
@@ -629,7 +701,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 	ArrayList<HashMap<String, String>> values;
 
-	private void dialogAddStore(final String url, final String username, final String password) {
+	private void dialogAddStore(final String url, final String username,
+			final String password) {
 		final ProgressDialog pd = new ProgressDialog(mContext);
 		pd.setMessage(getString(R.string.please_wait));
 		pd.show();
@@ -688,8 +761,13 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			MainActivity.this.service = ((LocalBinder) service).getService();
 
-			if (ApplicationAptoide.DEFAULTSTORENAME != null && db.getServer("http://" + ApplicationAptoide.DEFAULTSTORENAME + ".store.aptoide.com/")==null) {
-				MainActivity.this.service.addStore(Database.getInstance(),"http://" + ApplicationAptoide.DEFAULTSTORENAME + ".store.aptoide.com/", null, null);
+			if (ApplicationAptoide.DEFAULTSTORENAME != null
+					&& db.getServer("http://"
+							+ ApplicationAptoide.DEFAULTSTORENAME
+							+ ".store.aptoide.com/") == null) {
+				MainActivity.this.service.addStore(Database.getInstance(),
+						"http://" + ApplicationAptoide.DEFAULTSTORENAME
+								+ ".store.aptoide.com/", null, null);
 			}
 
 			loadUi();
@@ -755,26 +833,33 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			View simpleView= LayoutInflater.from(mContext).inflate(R.layout.dialog_simple_layout, null);
-			Builder dialogBuilder = new AlertDialog.Builder(mContext).setView(simpleView);
+			View simpleView = LayoutInflater.from(mContext).inflate(
+					R.layout.dialog_simple_layout, null);
+			Builder dialogBuilder = new AlertDialog.Builder(mContext)
+					.setView(simpleView);
 			final AlertDialog parseErrorDialog = dialogBuilder.create();
 			parseErrorDialog.setTitle(getText(R.string.parse_error));
 			parseErrorDialog.setIcon(android.R.drawable.ic_dialog_alert);
-			TextView message = (TextView) simpleView.findViewById(R.id.dialog_message);
+			TextView message = (TextView) simpleView
+					.findViewById(R.id.dialog_message);
 			message.setText(getText(R.string.parse_error_loading));
 			parseErrorDialog.setCancelable(false);
-			parseErrorDialog.setButton(Dialog.BUTTON_POSITIVE, getString(android.R.string.yes), new Dialog.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int arg1) {
-					getAllRepoStatus();
-			    }
-			});
-			parseErrorDialog.setButton(Dialog.BUTTON_NEGATIVE, getString(android.R.string.no), new Dialog.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int arg1) {
-					dialog.cancel();
-			    }
-			});
+			parseErrorDialog.setButton(Dialog.BUTTON_POSITIVE,
+					getString(android.R.string.yes),
+					new Dialog.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int arg1) {
+							getAllRepoStatus();
+						}
+					});
+			parseErrorDialog.setButton(Dialog.BUTTON_NEGATIVE,
+					getString(android.R.string.no),
+					new Dialog.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int arg1) {
+							dialog.cancel();
+						}
+					});
 			parseErrorDialog.show();
 		}
 	};
@@ -799,11 +884,14 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 				Long server_id = intent.getExtras().getLong("serverid");
 				if (refreshClick && server_id == store_id) {
 					refreshClick = false;
-					availableView.findViewById(R.id.refresh_view_layout).setVisibility(View.VISIBLE);
+					availableView.findViewById(R.id.refresh_view_layout)
+							.setVisibility(View.VISIBLE);
 					availableView
 							.findViewById(R.id.refresh_view_layout)
 							.findViewById(R.id.refresh_view)
-							.startAnimation(AnimationUtils.loadAnimation(mContext,android.R.anim.fade_in));
+							.startAnimation(
+									AnimationUtils.loadAnimation(mContext,
+											android.R.anim.fade_in));
 				}
 			}
 
@@ -811,19 +899,21 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 	};
 
 	protected void onNewIntent(Intent intent) {
-		if(intent.hasExtra("new_updates")){
-			Log.d("MainActivity-onNewIntent","new_updates");
+		if (intent.hasExtra("new_updates")) {
+			Log.d("MainActivity-onNewIntent", "new_updates");
 			pager.setCurrentItem(3);
 		}
 	};
 
 	private ListView updatesListView;
 
-	public class AddStoreCredentialsListener implements DialogInterface.OnClickListener {
+	public class AddStoreCredentialsListener implements
+			DialogInterface.OnClickListener {
 		private String url;
 		private View dialog;
 
-		public AddStoreCredentialsListener(String string, View credentialsDialogView) {
+		public AddStoreCredentialsListener(String string,
+				View credentialsDialogView) {
 			this.url = string;
 			this.dialog = credentialsDialogView;
 		}
@@ -838,11 +928,13 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 	}
 
-	public class UpdateStoreCredentialsListener implements DialogInterface.OnClickListener {
+	public class UpdateStoreCredentialsListener implements
+			DialogInterface.OnClickListener {
 		private String url;
 		private View dialog;
 
-		public UpdateStoreCredentialsListener(String string, View credentialsDialogView) {
+		public UpdateStoreCredentialsListener(String string,
+				View credentialsDialogView) {
 			this.url = string;
 			this.dialog = credentialsDialogView;
 		}
@@ -874,7 +966,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 				String hashes = "";
 				Cursor cursor = db.getStores(false);
 				int i = 0;
-				for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+				for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor
+						.moveToNext()) {
 					String repo;
 					if (i > 0) {
 						repos = repos + ",";
@@ -932,7 +1025,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 						e.printStackTrace();
 					} catch (IOException e) {
 						if (!ApplicationAptoide.MULTIPLESTORES) {
-							getApplicationContext().sendBroadcast(new Intent("PARSE_FAILED"));
+							getApplicationContext().sendBroadcast(
+									new Intent("PARSE_FAILED"));
 						}
 						e.printStackTrace();
 					} catch (JSONException e) {
@@ -966,16 +1060,16 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 	protected void addStore(String uri_str, String username, String password) {
 
+		if (!uri_str.contains(".")) {
+			uri_str = uri_str.concat(".store.aptoide.com");
+		}
 
-        if(!uri_str.contains(".")){
-            uri_str = uri_str.concat(".store.aptoide.com");
-        }
+		uri_str = RepoUtils.formatRepoUri(uri_str);
 
-        uri_str = RepoUtils.formatRepoUri(uri_str);
-
-        if(uri_str.contains("bazaarandroid.com")){
-            uri_str= uri_str.replaceAll("bazaarandroid.com", "store.aptoide.com");
-        }
+		if (uri_str.contains("bazaarandroid.com")) {
+			uri_str = uri_str.replaceAll("bazaarandroid.com",
+					"store.aptoide.com");
+		}
 
 		if (username != null && username.contains("@")) {
 			try {
@@ -1050,9 +1144,9 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 	}
 
-
-    @Override
-	public boolean onPrepareOptionsMenu(cm.aptoide.com.actionbarsherlock.view.Menu menu) {
+	@Override
+	public boolean onPrepareOptionsMenu(
+			cm.aptoide.com.actionbarsherlock.view.Menu menu) {
 		menu.clear();
 		// menu.add(Menu.NONE, EnumOptionsMenu.SEARCH.ordinal(),
 		// EnumOptionsMenu.SEARCH.ordinal(), "Search")
@@ -1091,12 +1185,13 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		return super.onPrepareOptionsMenu(menu);
 	}
 
-
-
-    @Override
-	public boolean onOptionsItemSelected(cm.aptoide.com.actionbarsherlock.view.MenuItem item) {
-		EnumOptionsMenu menuEntry = EnumOptionsMenu.reverseOrdinal(item.getItemId());
-		Log.d("MainActivity-OptionsMenu", "menuOption: " + menuEntry + " itemid: " + item.getItemId());
+	@Override
+	public boolean onOptionsItemSelected(
+			cm.aptoide.com.actionbarsherlock.view.MenuItem item) {
+		EnumOptionsMenu menuEntry = EnumOptionsMenu.reverseOrdinal(item
+				.getItemId());
+		Log.d("MainActivity-OptionsMenu", "menuOption: " + menuEntry
+				+ " itemid: " + item.getItemId());
 		switch (menuEntry) {
 		// case SEARCH:
 		// onSearchRequested();
@@ -1141,15 +1236,20 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 				Cursor c = db.getUpdates(order);
 
 				for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-					final ViewApk apk = db.getApk(c.getLong(0), Category.INFOXML);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            serviceDownloadManager.startDownload(serviceDownloadManager.getDownload(apk), apk);
-                            Toast toast = Toast.makeText(mContext, mContext.getString(R.string.starting_download), Toast.LENGTH_SHORT);
+					final ViewApk apk = db.getApk(c.getLong(0),
+							Category.INFOXML);
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							serviceDownloadManager.startDownload(
+									serviceDownloadManager.getDownload(apk),
+									apk);
+							Toast toast = Toast.makeText(mContext, mContext
+									.getString(R.string.starting_download),
+									Toast.LENGTH_SHORT);
 							toast.show();
-                        }
-                    });
+						}
+					});
 				}
 
 				c.close();
@@ -1177,18 +1277,22 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 	}
 
 	public void showAbout() {
-		View aboutView = LayoutInflater.from(this).inflate(R.layout.dialog_about, null);
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this).setView(aboutView);
+		View aboutView = LayoutInflater.from(this).inflate(
+				R.layout.dialog_about, null);
+		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this)
+				.setView(aboutView);
 		final AlertDialog aboutDialog = dialogBuilder.create();
 		aboutDialog.setIcon(android.R.drawable.ic_menu_help);
 		aboutDialog.setTitle(getString(R.string.about));
 		aboutDialog.setCancelable(true);
 
-		WindowManager.LayoutParams params = aboutDialog.getWindow().getAttributes();
+		WindowManager.LayoutParams params = aboutDialog.getWindow()
+				.getAttributes();
 		params.width = WindowManager.LayoutParams.MATCH_PARENT;
 		aboutDialog.getWindow().setAttributes(params);
 
-		aboutDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.btn_chlog),
+		aboutDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+				getString(R.string.btn_chlog),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						Uri uri = Uri.parse(getString(R.string.change_log_url));
@@ -1201,83 +1305,93 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 	private void displayOptionsDialog() {
 
-		final SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(this);
+		final SharedPreferences sPref = PreferenceManager
+				.getDefaultSharedPreferences(this);
 		final Editor editor = sPref.edit();
 
-		View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_order_popup, null);
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext).setView(view);
+		View view = LayoutInflater.from(mContext).inflate(
+				R.layout.dialog_order_popup, null);
+		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext)
+				.setView(view);
 		final AlertDialog orderDialog = dialogBuilder.create();
 		orderDialog.setIcon(android.R.drawable.ic_menu_sort_by_size);
 		orderDialog.setTitle(getString(R.string.menu_display_options));
 		orderDialog.setCancelable(true);
 
-		final RadioButton ord_rct = (RadioButton) view.findViewById(R.id.org_rct);
-		final RadioButton ord_abc = (RadioButton) view.findViewById(R.id.org_abc);
-		final RadioButton ord_rat = (RadioButton) view.findViewById(R.id.org_rat);
-		final RadioButton ord_dwn = (RadioButton) view.findViewById(R.id.org_dwn);
-		final RadioButton ord_price = (RadioButton) view.findViewById(R.id.org_price);
+		final RadioButton ord_rct = (RadioButton) view
+				.findViewById(R.id.org_rct);
+		final RadioButton ord_abc = (RadioButton) view
+				.findViewById(R.id.org_abc);
+		final RadioButton ord_rat = (RadioButton) view
+				.findViewById(R.id.org_rat);
+		final RadioButton ord_dwn = (RadioButton) view
+				.findViewById(R.id.org_dwn);
+		final RadioButton ord_price = (RadioButton) view
+				.findViewById(R.id.org_price);
 		final RadioButton btn1 = (RadioButton) view.findViewById(R.id.shw_ct);
 		final RadioButton btn2 = (RadioButton) view.findViewById(R.id.shw_all);
 
-		final ToggleButton adult = (ToggleButton) view.findViewById(R.id.adultcontent_toggle);
+		final ToggleButton adult = (ToggleButton) view
+				.findViewById(R.id.adultcontent_toggle);
 
-		orderDialog.setButton(Dialog.BUTTON_NEUTRAL, "Ok", new Dialog.OnClickListener() {
-			boolean pop_change = false;
-			private boolean pop_change_category = false;
+		orderDialog.setButton(Dialog.BUTTON_NEUTRAL, "Ok",
+				new Dialog.OnClickListener() {
+					boolean pop_change = false;
+					private boolean pop_change_category = false;
 
-			public void onClick(DialogInterface dialog, int which) {
-				if (ord_rct.isChecked()) {
-					pop_change = true;
-					order = Order.DATE;
-				} else if (ord_abc.isChecked()) {
-					pop_change = true;
-					order = Order.NAME;
-				} else if (ord_rat.isChecked()) {
-					pop_change = true;
-					order = Order.RATING;
-				} else if (ord_dwn.isChecked()) {
-					pop_change = true;
-					order = Order.DOWNLOADS;
-				} else if (ord_price.isChecked()) {
-					pop_change = true;
-					order = Order.PRICE;
-				}
-
-				if (btn1.isChecked()) {
-					pop_change = true;
-					pop_change_category = true;
-					editor.putBoolean("orderByCategory", true);
-				} else if (btn2.isChecked()) {
-					pop_change = true;
-					pop_change_category = true;
-					editor.putBoolean("orderByCategory", false);
-				}
-				if (adult.isChecked()) {
-					pop_change = true;
-					editor.putBoolean("matureChkBox", false);
-				} else {
-					editor.putBoolean("matureChkBox", true);
-				}
-				if (pop_change) {
-					editor.putInt("order_list", order.ordinal());
-					editor.commit();
-					if (pop_change_category) {
-
-						if (!depth.equals(ListDepth.CATEGORY1)
-								&& !depth.equals(ListDepth.STORES)) {
-							if (depth.equals(ListDepth.APPLICATIONS)) {
-								removeLastBreadCrumb();
-							}
-							removeLastBreadCrumb();
-							depth = ListDepth.CATEGORY1;
+					public void onClick(DialogInterface dialog, int which) {
+						if (ord_rct.isChecked()) {
+							pop_change = true;
+							order = Order.DATE;
+						} else if (ord_abc.isChecked()) {
+							pop_change = true;
+							order = Order.NAME;
+						} else if (ord_rat.isChecked()) {
+							pop_change = true;
+							order = Order.RATING;
+						} else if (ord_dwn.isChecked()) {
+							pop_change = true;
+							order = Order.DOWNLOADS;
+						} else if (ord_price.isChecked()) {
+							pop_change = true;
+							order = Order.PRICE;
 						}
 
+						if (btn1.isChecked()) {
+							pop_change = true;
+							pop_change_category = true;
+							editor.putBoolean("orderByCategory", true);
+						} else if (btn2.isChecked()) {
+							pop_change = true;
+							pop_change_category = true;
+							editor.putBoolean("orderByCategory", false);
+						}
+						if (adult.isChecked()) {
+							pop_change = true;
+							editor.putBoolean("matureChkBox", false);
+						} else {
+							editor.putBoolean("matureChkBox", true);
+						}
+						if (pop_change) {
+							editor.putInt("order_list", order.ordinal());
+							editor.commit();
+							if (pop_change_category) {
+
+								if (!depth.equals(ListDepth.CATEGORY1)
+										&& !depth.equals(ListDepth.STORES)) {
+									if (depth.equals(ListDepth.APPLICATIONS)) {
+										removeLastBreadCrumb();
+									}
+									removeLastBreadCrumb();
+									depth = ListDepth.CATEGORY1;
+								}
+
+							}
+							redrawAll();
+							refreshAvailableList(true);
+						}
 					}
-					redrawAll();
-					refreshAvailableList(true);
-				}
-			}
-		});
+				});
 
 		if (sPref.getBoolean("orderByCategory", false)) {
 			btn1.setChecked(true);
@@ -1286,7 +1400,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		}
 		if (!ApplicationAptoide.MATURECONTENTSWITCH) {
 			adult.setVisibility(View.GONE);
-			view.findViewById(R.id.dialog_adult_content_label).setVisibility(View.GONE);
+			view.findViewById(R.id.dialog_adult_content_label).setVisibility(
+					View.GONE);
 		}
 		adult.setChecked(!sPref.getBoolean("matureChkBox", false));
 		// adult.setOnCheckedChangeListener(adultCheckedListener);
@@ -1320,7 +1435,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 			@Override
 			public void run() {
-				List<PackageInfo> system_installed_list = getPackageManager().getInstalledPackages(0);
+				List<PackageInfo> system_installed_list = getPackageManager()
+						.getInstalledPackages(0);
 				List<String> database_installed_list = db.getStartupInstalled();
 				for (PackageInfo pkg : system_installed_list) {
 					if (!database_installed_list.contains(pkg.packageName)) {
@@ -1329,7 +1445,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 							apk.setApkid(pkg.packageName);
 							apk.setVercode(pkg.versionCode);
 							apk.setVername(pkg.versionName);
-							apk.setName((String) pkg.applicationInfo.loadLabel(getPackageManager()));
+							apk.setName((String) pkg.applicationInfo
+									.loadLabel(getPackageManager()));
 							db.insertInstalled(apk);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -1343,7 +1460,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 					@Override
 					public void run() {
-						installedLoader = getSupportLoaderManager().initLoader(INSTALLED_LOADER, null, MainActivity.this);
+						installedLoader = getSupportLoaderManager().initLoader(
+								INSTALLED_LOADER, null, MainActivity.this);
 						installedView.setAdapter(installedAdapter);
 						getUpdates();
 					}
@@ -1353,7 +1471,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 	}
 
 	private void getUpdates() {
-		updatesLoader = getSupportLoaderManager().initLoader(UPDATES_LOADER, null, MainActivity.this);
+		updatesLoader = getSupportLoaderManager().initLoader(UPDATES_LOADER,
+				null, MainActivity.this);
 		updatesListView.setAdapter(updatesAdapter);
 		((UpdatesAdapter) updatesAdapter).setLoader(updatesLoader);
 	}
@@ -1374,7 +1493,9 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 				@Override
 				public void run() {
 					try {
-						result = service.deleteStore(db, ((AdapterContextMenuInfo) item.getMenuInfo()).id);
+						result = service
+								.deleteStore(db, ((AdapterContextMenuInfo) item
+										.getMenuInfo()).id);
 					} catch (Exception e) {
 						e.printStackTrace();
 					} finally {
@@ -1388,7 +1509,10 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 									installedLoader.forceLoad();
 									updatesLoader.forceLoad();
 								} else {
-									Toast toast = Toast.makeText(mContext, mContext.getString(R.string.error_delete_store), Toast.LENGTH_SHORT);
+									Toast toast = Toast.makeText(
+											mContext,
+											mContext.getString(R.string.error_delete_store),
+											Toast.LENGTH_SHORT);
 									toast.show();
 								}
 
@@ -1408,7 +1532,9 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 				@Override
 				public void run() {
 					try {
-						service.parseServer(db,db.getServer(((AdapterContextMenuInfo) item.getMenuInfo()).id, false));
+						service.parseServer(db,
+								db.getServer(((AdapterContextMenuInfo) item
+										.getMenuInfo()).id, false));
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
@@ -1451,7 +1577,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			try {
 				installedLoader.forceLoad();
 				updatesLoader.forceLoad();
-				service.setUpdatesNotification(Database.getInstance().getUpdates(Order.DATE));
+				service.setUpdatesNotification(Database.getInstance()
+						.getUpdates(Order.DATE));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -1463,7 +1590,7 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		@Override
 		public void onReceive(Context arg0, Intent arg1) {
 			try {
-				Log.d("MainActivity-openUpdatesReceiver","change page");
+				Log.d("MainActivity-openUpdatesReceiver", "change page");
 				pager.setCurrentItem(3);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -1479,35 +1606,52 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		public void onReceive(Context context, Intent intent) {
 			Log.d("Aptoide-MainActivity", "onNewRepoReceive");
 			if (intent.hasExtra("newrepo")) {
-				ArrayList<String> repos = (ArrayList<String>) intent.getSerializableExtra("newrepo");
+				ArrayList<String> repos = (ArrayList<String>) intent
+						.getSerializableExtra("newrepo");
 				for (final String uri2 : repos) {
-                    if(Database.getInstance().getServer(RepoUtils.formatRepoUri(uri2))!=null){
-                        Toast.makeText(MainActivity.this, "Store already added", Toast.LENGTH_LONG).show();
-                    }else{
-                        View simpleView = LayoutInflater.from(mContext).inflate(R.layout.dialog_simple_layout, null);
-                        Builder dialogBuilder = new AlertDialog.Builder(mContext).setView(simpleView);
-                        final AlertDialog addNewRepoDialog = dialogBuilder.create();
-                        addNewRepoDialog.setTitle(getString(R.string.add_store));
-                        addNewRepoDialog.setIcon(android.R.drawable.ic_menu_add);
+					if (Database.getInstance().getServer(
+							RepoUtils.formatRepoUri(uri2)) != null) {
+						Toast.makeText(MainActivity.this,
+								"Store already added", Toast.LENGTH_LONG)
+								.show();
+					} else {
+						View simpleView = LayoutInflater.from(mContext)
+								.inflate(R.layout.dialog_simple_layout, null);
+						Builder dialogBuilder = new AlertDialog.Builder(
+								mContext).setView(simpleView);
+						final AlertDialog addNewRepoDialog = dialogBuilder
+								.create();
+						addNewRepoDialog
+								.setTitle(getString(R.string.add_store));
+						addNewRepoDialog
+								.setIcon(android.R.drawable.ic_menu_add);
 
-                        TextView message = (TextView) simpleView.findViewById(R.id.dialog_message);
-                        message.setText((getString(R.string.newrepo_alrt)+ uri2 + " ?"));
+						TextView message = (TextView) simpleView
+								.findViewById(R.id.dialog_message);
+						message.setText((getString(R.string.newrepo_alrt)
+								+ uri2 + " ?"));
 
-                        addNewRepoDialog.setCancelable(false);
-                        addNewRepoDialog.setButton(Dialog.BUTTON_POSITIVE, getString(android.R.string.yes), new Dialog.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                dialogAddStore(uri2, null, null);
-                            }
-                        });
-                        addNewRepoDialog.setButton(Dialog.BUTTON_NEGATIVE, getString(android.R.string.no), new Dialog.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int arg1) {
-                                dialog.cancel();
-                            }
-                        });
-                        addNewRepoDialog.show();
-                    }
+						addNewRepoDialog.setCancelable(false);
+						addNewRepoDialog.setButton(Dialog.BUTTON_POSITIVE,
+								getString(android.R.string.yes),
+								new Dialog.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface arg0,
+											int arg1) {
+										dialogAddStore(uri2, null, null);
+									}
+								});
+						addNewRepoDialog.setButton(Dialog.BUTTON_NEGATIVE,
+								getString(android.R.string.no),
+								new Dialog.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int arg1) {
+										dialog.cancel();
+									}
+								});
+						addNewRepoDialog.show();
+					}
 				}
 			}
 
@@ -1524,9 +1668,12 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			// established, giving us the object we can use to
 			// interact with the service. We are communicating with the
 			// service using AIDL, so here we set the remote service interface.
-			serviceDownloadManager = ((ServiceManagerDownload.LocalBinder)service).getService();
-			((UpdatesAdapter) updatesAdapter).setServiceDownloadManager(serviceDownloadManager);
-			Log.v("Aptoide-UpdatesAdapter", "Connected to ServiceDownloadManager");
+			serviceDownloadManager = ((ServiceManagerDownload.LocalBinder) service)
+					.getService();
+			((UpdatesAdapter) updatesAdapter)
+					.setServiceDownloadManager(serviceDownloadManager);
+			Log.v("Aptoide-UpdatesAdapter",
+					"Connected to ServiceDownloadManager");
 
 		}
 
@@ -1535,7 +1682,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			// unexpectedly disconnected -- that is, its process crashed.
 			serviceDownloadManagerIntent = null;
 
-			Log.v("Aptoide-UpdatesAdapter","Disconnected from ServiceDownloadManager");
+			Log.v("Aptoide-UpdatesAdapter",
+					"Disconnected from ServiceDownloadManager");
 		}
 	};
 
@@ -1545,7 +1693,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			System.out.println("server url "+ intent.getExtras().getString("url"));
+			System.out.println("server url "
+					+ intent.getExtras().getString("url"));
 			showUpdateStoreCredentialsDialog(intent.getStringExtra("url"));
 		}
 	};
@@ -1555,27 +1704,31 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		AptoideThemePicker.setAptoideTheme(this);
 		super.onCreate(savedInstanceState);
 
-        mContext = this;
+		mContext = this;
 
-//        getSupportActionBar().hide();
-
+		// getSupportActionBar().hide();
 
 		File sdcard_file = new File(SDCARD);
 		if (!sdcard_file.exists() || !sdcard_file.canWrite()) {
-			View simpleView = LayoutInflater.from(mContext).inflate(R.layout.dialog_simple_layout, null);
-			Builder dialogBuilder = new AlertDialog.Builder(mContext).setView(simpleView);
+			View simpleView = LayoutInflater.from(mContext).inflate(
+					R.layout.dialog_simple_layout, null);
+			Builder dialogBuilder = new AlertDialog.Builder(mContext)
+					.setView(simpleView);
 			final AlertDialog noSDDialog = dialogBuilder.create();
 			noSDDialog.setTitle(getText(R.string.remote_in_noSD_title));
 			noSDDialog.setIcon(android.R.drawable.ic_dialog_alert);
-			TextView message = (TextView) simpleView.findViewById(R.id.dialog_message);
+			TextView message = (TextView) simpleView
+					.findViewById(R.id.dialog_message);
 			message.setText(getText(R.string.remote_in_noSD));
 			noSDDialog.setCancelable(false);
-			noSDDialog.setButton(Dialog.BUTTON_NEUTRAL, getString(android.R.string.ok), new Dialog.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface arg0, int arg1) {
-					finish();
-			    }
-			});
+			noSDDialog.setButton(Dialog.BUTTON_NEUTRAL,
+					getString(android.R.string.ok),
+					new Dialog.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							finish();
+						}
+					});
 			noSDDialog.show();
 		} else {
 			StatFs stat = new StatFs(sdcard_file.getPath());
@@ -1592,40 +1745,48 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			if (avail < 10) {
 				Log.d("Aptoide", "No space left on SDCARD...");
 				Log.d("Aptoide", "* * * * * * * * * *");
-				View simpleView = LayoutInflater.from(this).inflate(R.layout.dialog_simple_layout, null);
-				Builder dialogBuilder = new AlertDialog.Builder(this).setView(simpleView);
+				View simpleView = LayoutInflater.from(this).inflate(
+						R.layout.dialog_simple_layout, null);
+				Builder dialogBuilder = new AlertDialog.Builder(this)
+						.setView(simpleView);
 				final AlertDialog noSpaceDialog = dialogBuilder.create();
 				noSpaceDialog.setIcon(android.R.drawable.ic_dialog_alert);
-				TextView message = (TextView) simpleView.findViewById(R.id.dialog_message);
+				TextView message = (TextView) simpleView
+						.findViewById(R.id.dialog_message);
 				message.setText(getText(R.string.remote_in_noSDspace));
-				noSpaceDialog.setButton(Dialog.BUTTON_NEUTRAL, getText(android.R.string.ok), new Dialog.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						finish();
-				    }
-				});
+				noSpaceDialog.setButton(Dialog.BUTTON_NEUTRAL,
+						getText(android.R.string.ok),
+						new Dialog.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								finish();
+							}
+						});
 				noSpaceDialog.show();
 			} else {
 
-				SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-				editor = PreferenceManager.getDefaultSharedPreferences(mContext).edit();
+				SharedPreferences sPref = PreferenceManager
+						.getDefaultSharedPreferences(mContext);
+				editor = PreferenceManager
+						.getDefaultSharedPreferences(mContext).edit();
 
 				if (!sPref.contains("matureChkBox")) {
 
-					editor.putBoolean("matureChkBox", ApplicationAptoide.MATURECONTENTSWITCHVALUE);
-					SharedPreferences sPrefOld = getSharedPreferences("aptoide_prefs", MODE_PRIVATE);
-					if (sPrefOld.getString("app_rating", "none").equals("Mature")) {
+					editor.putBoolean("matureChkBox",
+							ApplicationAptoide.MATURECONTENTSWITCHVALUE);
+					SharedPreferences sPrefOld = getSharedPreferences(
+							"aptoide_prefs", MODE_PRIVATE);
+					if (sPrefOld.getString("app_rating", "none").equals(
+							"Mature")) {
 						editor.putBoolean("matureChkBox", false);
 					}
 
 				}
 
-                if (sPref.getString("myId", null) == null) {
+				if (sPref.getString("myId", null) == null) {
 					String rand_id = UUID.randomUUID().toString();
 					editor.putString("myId", rand_id);
 				}
-
-
 
 				if (sPref.getInt("scW", 0) == 0 || sPref.getInt("scH", 0) == 0) {
 					DisplayMetrics dm = new DisplayMetrics();
@@ -1653,58 +1814,62 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 						// application files dir
 						File dir = new File(LOCAL_PATH + "/apks");
 
+						if (dir.mkdir()) {
+							// Optain onGoingArrayList of files in the
+							// directory.
+							// listFiles() returns a onGoingArrayList of File
+							// objects to each
+							// file found.
+							File[] files = dir.listFiles();
 
-                        if(dir.mkdir()){
-                            // Optain onGoingArrayList of files in the directory.
-                            // listFiles() returns a onGoingArrayList of File objects to each
-                            // file found.
-                            File[] files = dir.listFiles();
+							// Loop through all files
+							for (File f : files) {
 
-                            // Loop through all files
-                            for (File f : files) {
+								// Get the last modified date. Miliseconds since
+								// 1970
+								long lastmodified = f.lastModified();
 
-                                // Get the last modified date. Miliseconds since
-                                // 1970
-                                long lastmodified = f.lastModified();
-
-                                // Do stuff here to deal with the file..
-                                // For instance delete files older than 1 month
-                                if (lastmodified + MAXFILEAGE < System
-                                        .currentTimeMillis()) {
-                                    f.delete();
-                                }
-                            }
-                        }
-                    }
+								// Do stuff here to deal with the file..
+								// For instance delete files older than 1 month
+								if (lastmodified + MAXFILEAGE < System
+										.currentTimeMillis()) {
+									f.delete();
+								}
+							}
+						}
+					}
 				}).start();
 				db = Database.getInstance();
 
 				Intent i = new Intent(mContext, MainService.class);
 				startService(i);
-				bindService(i, conn, Context.BIND_AUTO_CREATE);
-				order = Order.values()[PreferenceManager.getDefaultSharedPreferences(mContext).getInt("order_list", 0)];
+				bindService(i, conn, BIND_AUTO_CREATE);
+				order = Order.values()[PreferenceManager
+						.getDefaultSharedPreferences(mContext).getInt(
+								"order_list", 0)];
 
 				registerReceiver(updatesReceiver, new IntentFilter("update"));
 				registerReceiver(statusReceiver, new IntentFilter("status"));
 				registerReceiver(loginReceiver, new IntentFilter("login"));
 				registerReceiver(storePasswordReceiver, new IntentFilter("401"));
-				registerReceiver(redrawInstalledReceiver, new IntentFilter("pt.caixamagica.aptoide.REDRAW"));
-				registerReceiver(openUpdatesReceiver, new IntentFilter("open_updates"));
+				registerReceiver(redrawInstalledReceiver, new IntentFilter(
+						"pt.caixamagica.aptoide.REDRAW"));
+				registerReceiver(openUpdatesReceiver, new IntentFilter(
+						"open_updates"));
 				if (!ApplicationAptoide.MULTIPLESTORES) {
-					registerReceiver(parseFailedReceiver, new IntentFilter("PARSE_FAILED"));
+					registerReceiver(parseFailedReceiver, new IntentFilter(
+							"PARSE_FAILED"));
 				}
 
-				registerReceiver(newRepoReceiver, new IntentFilter("pt.caixamagica.aptoide.NEWREPO"));
+				registerReceiver(newRepoReceiver, new IntentFilter(
+						"pt.caixamagica.aptoide.NEWREPO"));
 				registered = true;
 
 				categoriesStrings = new HashMap<String, Integer>();
 
-//				categoriesStrings.put("Applications", R.string.applications);
+				// categoriesStrings.put("Applications", R.string.applications);
 
-
-
-
-                boolean serversFileIsEmpty = true;
+				boolean serversFileIsEmpty = true;
 
 				if (sPref.getBoolean("firstrun", true)) {
 					// Intent shortcutIntent = new Intent(Intent.ACTION_MAIN);
@@ -1730,19 +1895,20 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 							&& ApplicationAptoide.DEFAULTSTORENAME == null) {
 						try {
 
-							SAXParserFactory spf = SAXParserFactory.newInstance();
+							SAXParserFactory spf = SAXParserFactory
+									.newInstance();
 							SAXParser sp = spf.newSAXParser();
 
 							MyappHandler handler = new MyappHandler();
 
-							sp.parse(new File(LOCAL_PATH + "/servers.xml"), handler);
+							sp.parse(new File(LOCAL_PATH + "/servers.xml"),
+									handler);
 							ArrayList<String> server = handler.getServers();
-                            if(server.isEmpty()){
-                                serversFileIsEmpty = true;
-                            }else{
-                                getIntent().putExtra("newrepo", server);
-                            }
-
+							if (server.isEmpty()) {
+								serversFileIsEmpty = true;
+							} else {
+								getIntent().putExtra("newrepo", server);
+							}
 
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -1754,61 +1920,92 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 					editor.commit();
 				}
 
-
-                if (getIntent().hasExtra("newrepo")) {
-					ArrayList<String> repos = (ArrayList<String>) getIntent().getSerializableExtra("newrepo");
+				if (getIntent().hasExtra("newrepo")) {
+					ArrayList<String> repos = (ArrayList<String>) getIntent()
+							.getSerializableExtra("newrepo");
 					for (final String uri2 : repos) {
 
-                        if(Database.getInstance().getServer(RepoUtils.formatRepoUri(uri2))!=null){
-                            Toast.makeText(this, "Store already added", Toast.LENGTH_LONG).show();
-                        }else{
-                            View simpleView = LayoutInflater.from(mContext).inflate(R.layout.dialog_simple_layout, null);
-                            Builder dialogBuilder = new AlertDialog.Builder(mContext).setView(simpleView);
-                            final AlertDialog addNewRepoDialog = dialogBuilder.create();
-                            addNewRepoDialog.setTitle(getString(R.string.add_store));
-                            addNewRepoDialog.setIcon(android.R.drawable.ic_menu_add);
+						if (Database.getInstance().getServer(
+								RepoUtils.formatRepoUri(uri2)) != null) {
+							Toast.makeText(this, "Store already added",
+									Toast.LENGTH_LONG).show();
+						} else {
+							View simpleView = LayoutInflater.from(mContext)
+									.inflate(R.layout.dialog_simple_layout,
+											null);
+							Builder dialogBuilder = new AlertDialog.Builder(
+									mContext).setView(simpleView);
+							final AlertDialog addNewRepoDialog = dialogBuilder
+									.create();
+							addNewRepoDialog
+									.setTitle(getString(R.string.add_store));
+							addNewRepoDialog
+									.setIcon(android.R.drawable.ic_menu_add);
 
-                            TextView message = (TextView) simpleView.findViewById(R.id.dialog_message);
-                            message.setText((getString(R.string.newrepo_alrt)+ uri2 + " ?"));
+							TextView message = (TextView) simpleView
+									.findViewById(R.id.dialog_message);
+							message.setText((getString(R.string.newrepo_alrt)
+									+ uri2 + " ?"));
 
-                            addNewRepoDialog.setCancelable(false);
-                            addNewRepoDialog.setButton(Dialog.BUTTON_POSITIVE, getString(android.R.string.yes), new Dialog.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    dialogAddStore(uri2, null, null);
-                                }
-                            });
-                            addNewRepoDialog.setButton(Dialog.BUTTON_NEGATIVE, getString(android.R.string.no), new Dialog.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                }
-                            });
-                            addNewRepoDialog.show();
-                        }
+							addNewRepoDialog.setCancelable(false);
+							addNewRepoDialog.setButton(Dialog.BUTTON_POSITIVE,
+									getString(android.R.string.yes),
+									new Dialog.OnClickListener() {
+										@Override
+										public void onClick(
+												DialogInterface arg0, int arg1) {
+											dialogAddStore(uri2, null, null);
+										}
+									});
+							addNewRepoDialog.setButton(Dialog.BUTTON_NEGATIVE,
+									getString(android.R.string.no),
+									new Dialog.OnClickListener() {
+										@Override
+										public void onClick(
+												DialogInterface dialog, int arg1) {
+											dialog.cancel();
+										}
+									});
+							addNewRepoDialog.show();
+						}
 
 					}
-				} else if (db.getStores(false).getCount() == 0 && ApplicationAptoide.DEFAULTSTORENAME == null && serversFileIsEmpty) {
-					View simpleView = LayoutInflater.from(mContext).inflate(R.layout.dialog_simple_layout, null);
-					Builder dialogBuilder = new AlertDialog.Builder(mContext).setView(simpleView);
-					final AlertDialog addAppsRepoDialog = dialogBuilder.create();
+				} else if (db.getStores(false).getCount() == 0
+						&& ApplicationAptoide.DEFAULTSTORENAME == null
+						&& serversFileIsEmpty) {
+					View simpleView = LayoutInflater.from(mContext).inflate(
+							R.layout.dialog_simple_layout, null);
+					Builder dialogBuilder = new AlertDialog.Builder(mContext)
+							.setView(simpleView);
+					final AlertDialog addAppsRepoDialog = dialogBuilder
+							.create();
 					addAppsRepoDialog.setTitle(getString(R.string.add_store));
 					addAppsRepoDialog.setIcon(android.R.drawable.ic_menu_add);
-					TextView message = (TextView) simpleView.findViewById(R.id.dialog_message);
-					message.setText(getString(R.string.myrepo_alrt) + "\n"+ "http://apps.store.aptoide.com/");
+					TextView message = (TextView) simpleView
+							.findViewById(R.id.dialog_message);
+					message.setText(getString(R.string.myrepo_alrt) + "\n"
+							+ "http://apps.store.aptoide.com/");
 					addAppsRepoDialog.setCancelable(false);
-					addAppsRepoDialog.setButton(Dialog.BUTTON_POSITIVE, getString(android.R.string.yes), new Dialog.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface arg0, int arg1) {
-							dialogAddStore("http://apps.store.aptoide.com",null, null);
-					    }
-					});
-					addAppsRepoDialog.setButton(Dialog.BUTTON_NEGATIVE, getString(android.R.string.no), new Dialog.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int arg1) {
-							dialog.cancel();
-					    }
-					});
+					addAppsRepoDialog.setButton(Dialog.BUTTON_POSITIVE,
+							getString(android.R.string.yes),
+							new Dialog.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface arg0,
+										int arg1) {
+									dialogAddStore(
+											"http://apps.store.aptoide.com",
+											null, null);
+								}
+							});
+					addAppsRepoDialog.setButton(Dialog.BUTTON_NEGATIVE,
+							getString(android.R.string.no),
+							new Dialog.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int arg1) {
+									dialog.cancel();
+								}
+							});
 					addAppsRepoDialog.show();
 				}
 
@@ -1818,7 +2015,9 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 					public void run() {
 						try {
 							getUpdateParameters();
-							if (getPackageManager().getPackageInfo(getPackageName(), 0).versionCode < Integer.parseInt(updateParams.get("versionCode"))) {
+							if (getPackageManager().getPackageInfo(
+									getPackageName(), 0).versionCode < Integer
+									.parseInt(updateParams.get("versionCode"))) {
 								runOnUiThread(new Runnable() {
 									@Override
 									public void run() {
@@ -1834,100 +2033,135 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 			}
 
+			featuredView = LayoutInflater.from(mContext).inflate(
+					R.layout.page_featured, null);
+			availableView = LayoutInflater.from(mContext).inflate(
+					R.layout.page_available, null);
+			updateView = LayoutInflater.from(mContext).inflate(
+					R.layout.page_updates, null);
+			banner = (LinearLayout) availableView.findViewById(R.id.banner);
+			breadcrumbs = (LinearLayout) LayoutInflater.from(mContext).inflate(
+					R.layout.breadcrumb_container, null);
+			installedView = new ListView(mContext);
+			updatesListView = (ListView) updateView
+					.findViewById(R.id.updates_list);
 
-            featuredView = LayoutInflater.from(mContext).inflate(R.layout.page_featured, null);
-            availableView = LayoutInflater.from(mContext).inflate(R.layout.page_available, null);
-            updateView = LayoutInflater.from(mContext).inflate(R.layout.page_updates, null);
-            banner = (LinearLayout) availableView.findViewById(R.id.banner);
-            breadcrumbs = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.breadcrumb_container, null);
-            installedView = new ListView(mContext);
-            updatesListView = (ListView) updateView.findViewById(R.id.updates_list);
+			availableListView = (ListView) availableView
+					.findViewById(R.id.available_list);
+			joinStores = (CheckBox) availableView
+					.findViewById(R.id.join_stores);
 
-            availableListView = (ListView) availableView.findViewById(R.id.available_list);
-            joinStores = (CheckBox) availableView.findViewById(R.id.join_stores);
+			availableAdapter = new AvailableListAdapter(mContext, null,
+					CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+			installedAdapter = new InstalledAdapter(mContext, null,
+					CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER, db);
+			updatesAdapter = new UpdatesAdapter(mContext, null,
+					CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
-            availableAdapter = new AvailableListAdapter(mContext, null, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-            installedAdapter = new InstalledAdapter(mContext, null, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER, db);
-            updatesAdapter = new UpdatesAdapter(mContext, null, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+			pb = (TextView) availableView.findViewById(R.id.loading_pb);
+			addStoreButton = availableView.findViewById(R.id.add_store);
 
-            pb = (TextView) availableView.findViewById(R.id.loading_pb);
-            addStoreButton = availableView.findViewById(R.id.add_store);
+			bannerStoreAvatar = (ImageView) banner
+					.findViewById(R.id.banner_store_avatar);
+			bannerStoreName = (TextView) banner
+					.findViewById(R.id.banner_store_name);
+			bannerStoreDescription = (AutoScaleTextView) banner
+					.findViewById(R.id.banner_store_description);
 
-            bannerStoreAvatar = (ImageView) banner.findViewById(R.id.banner_store_avatar);
-            bannerStoreName = (TextView) banner.findViewById(R.id.banner_store_name);
-            bannerStoreDescription = (AutoScaleTextView) banner.findViewById(R.id.banner_store_description);
+			try {
 
-            try {
+				if (PreferenceManager.getDefaultSharedPreferences(this).getInt(
+						"version", 0) < getPackageManager().getPackageInfo(
+						getPackageName(), 0).versionCode) {
+					ApplicationAptoide.setRestartLauncher(true);
+					PreferenceManager
+							.getDefaultSharedPreferences(this)
+							.edit()
+							.putInt("version",
+									getPackageManager().getPackageInfo(
+											getPackageName(), 0).versionCode)
+							.commit();
+				}
 
-                if (PreferenceManager.getDefaultSharedPreferences(this).getInt("version", 0) < getPackageManager().getPackageInfo(getPackageName(), 0).versionCode) {
-                    ApplicationAptoide.setRestartLauncher(true);
-                    PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("version", getPackageManager().getPackageInfo(getPackageName(), 0).versionCode).commit();
-                }
+				if (ApplicationAptoide.isRestartLauncher()
+						&& !ApplicationAptoide.BRAND.equals("brand_aptoide")) {
 
-                if(ApplicationAptoide.isRestartLauncher() && !ApplicationAptoide.BRAND.equals("brand_aptoide")){
+					View simpleLayoutView = LayoutInflater.from(this).inflate(
+							R.layout.dialog_simple_layout, null);
+					Builder dialogBuilder = new AlertDialog.Builder(this)
+							.setView(simpleLayoutView);
+					final AlertDialog restartLauncherDialog = dialogBuilder
+							.create();
+					restartLauncherDialog
+							.setTitle(getString(R.string.payment_warning_title));
+					restartLauncherDialog
+							.setIcon(android.R.drawable.ic_menu_info_details);
+					TextView message = (TextView) simpleLayoutView
+							.findViewById(R.id.dialog_message);
+					message.setText(getString(R.string.restart_launcher,
+							ApplicationAptoide.MARKETNAME));
+					restartLauncherDialog.setCancelable(false);
 
-                	View simpleLayoutView = LayoutInflater.from(this).inflate(R.layout.dialog_simple_layout, null);
-                	Builder dialogBuilder = new AlertDialog.Builder(this).setView(simpleLayoutView);
-                	final AlertDialog restartLauncherDialog = dialogBuilder.create();
-                	restartLauncherDialog.setTitle(getString(R.string.payment_warning_title));
-                	restartLauncherDialog.setIcon(android.R.drawable.ic_menu_info_details);
-                	TextView message = (TextView) simpleLayoutView.findViewById(R.id.dialog_message);
-        			message.setText(getString(R.string.restart_launcher, ApplicationAptoide.MARKETNAME));
-                	restartLauncherDialog.setCancelable(false);
+					restartLauncherDialog.setButton(Dialog.BUTTON_NEUTRAL,
+							getString(android.R.string.ok),
+							new Dialog.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface arg0,
+										int arg1) {
+									ApplicationAptoide
+											.restartLauncher(MainActivity.this);
+									ApplicationAptoide
+											.setRestartLauncher(false);
+								}
+							});
+					restartLauncherDialog.show();
 
-                	restartLauncherDialog.setButton(Dialog.BUTTON_NEUTRAL, getString(android.R.string.ok), new Dialog.OnClickListener() {
-        				@Override
-        				public void onClick(DialogInterface arg0, int arg1) {
-        					ApplicationAptoide.restartLauncher(MainActivity.this);
-        					ApplicationAptoide.setRestartLauncher(false);
-        			    }
-        			});
-                	restartLauncherDialog.show();
+					// AlertDialog ad = new AlertDialog.Builder(this).create();
+					// ad.setCancelable(false);
+					// ad.setMessage(getString(R.string.restart_launcher,
+					// ApplicationAptoide.MARKETNAME));
+					// ad.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new
+					// DialogInterface.OnClickListener() {
+					// @Override
+					// public void onClick(DialogInterface dialog, int which) {
+					// ApplicationAptoide.restartLauncher(MainActivity.this);
+					// ApplicationAptoide.setRestartLauncher(false);
+					// ManagerPreferences.removePreviousShortcuts(MainActivity.this,
+					// false);
+					// ManagerPreferences.removePreviousShortcuts(MainActivity.this,
+					// true);
+					// Handler handler = new Handler();
+					// handler.postDelayed(new Runnable() {
+					// @Override
+					// public void run() {
+					// new
+					// ManagerPreferences(MainActivity.this).createLauncherShortcut(MainActivity.this);
+					// }
+					// },5000);
+					// }
+					// });
+					// ad.show();
+				}
+			} catch (PackageManager.NameNotFoundException e) {
+				e.printStackTrace();
+				Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
+			}
 
-//                	AlertDialog ad = new AlertDialog.Builder(this).create();
-//                    ad.setCancelable(false);
-//                    ad.setMessage(getString(R.string.restart_launcher, ApplicationAptoide.MARKETNAME));
-//                    ad.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            ApplicationAptoide.restartLauncher(MainActivity.this);
-//                            ApplicationAptoide.setRestartLauncher(false);
-//                            ManagerPreferences.removePreviousShortcuts(MainActivity.this, false);
-//                            ManagerPreferences.removePreviousShortcuts(MainActivity.this, true);
-//                            Handler handler = new Handler();
-//                            handler.postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    new ManagerPreferences(MainActivity.this).createLauncherShortcut(MainActivity.this);
-//                                }
-//                            },5000);
-//                        }
-//                    });
-//                    ad.show();
-                }
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
-            }
-
-            
-            // BRUTUS CODE - starts the web install service if the device is associated with logged user account
-          	if(Login.isTheDeviceRegistered(getApplicationContext())) {
-          		Toast.makeText(this, "The device is associated with a user account!!", Toast.LENGTH_LONG).show();
-              	startService(new Intent(this, AsynchronousWebInstallService.class));
-          		Toast.makeText(this, "Web install service started because device is already registered!!!", Toast.LENGTH_LONG).show();
-
-          	} else {
-          		Toast.makeText(this, "DEVICE NOT REGISTERED, web install service not started!!!", Toast.LENGTH_LONG).show();
-          	}
-        }
-    }
+			// BRUTUS CODE - starts the sinchronous web install service if the
+			// device is associated with logged user account and stops the
+			// asynchronous
+			if (Login.isDeviceRegistered(getApplicationContext())) {
+				Intent intent = new Intent("cm.aptoide.pt.SYNC_START");
+				sendBroadcast(intent);
+			}
+		}
+	}
 
 	ImageView bannerStoreAvatar;
 	TextView bannerStoreName;
 	AutoScaleTextView bannerStoreDescription;
 
-    private void loadUi() {
+	private void loadUi() {
 		setContentView(R.layout.activity_aptoide);
 		TitlePageIndicator indicator = (TitlePageIndicator) findViewById(R.id.indicator);
 		pager = (ViewPager) findViewById(R.id.viewpager);
@@ -1937,31 +2171,36 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			store_id = 1;
 		}
 
-		updateView.findViewById(R.id.update_button).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				updateAll();
-				Toast toast = Toast.makeText(mContext, mContext.getString(R.string.starting_download), Toast.LENGTH_SHORT);
-				toast.show();
-			}
-		});
+		updateView.findViewById(R.id.update_button).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						updateAll();
+						Toast toast = Toast.makeText(mContext,
+								mContext.getString(R.string.starting_download),
+								Toast.LENGTH_SHORT);
+						toast.show();
+					}
+				});
 
 		availableListView.setFastScrollEnabled(true);
-		availableListView.addHeaderView(breadcrumbs,null,false);
+		availableListView.addHeaderView(breadcrumbs, null, false);
 
 		registerForContextMenu(updatesListView);
 		updatesListView.setLongClickable(true);
 
-		availableView.findViewById(R.id.refresh_view_layout).findViewById(R.id.refresh_view).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				refreshClick = true;
-				availableView.findViewById(R.id.refresh_view_layout)
-				.setVisibility(View.GONE);
-				refreshAvailableList(false);
+		availableView.findViewById(R.id.refresh_view_layout)
+				.findViewById(R.id.refresh_view)
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						refreshClick = true;
+						availableView.findViewById(R.id.refresh_view_layout)
+								.setVisibility(View.GONE);
+						refreshAvailableList(false);
 
-			}
-		});
+					}
+				});
 
 		joinStores.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
@@ -1977,8 +2216,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			}
 		});
 
-
-		bindService(new Intent(this,ServiceManagerDownload.class), serviceManagerConnection, BIND_AUTO_CREATE);
+		bindService(new Intent(this, ServiceManagerDownload.class),
+				serviceManagerConnection, BIND_AUTO_CREATE);
 
 		pb.setText(R.string.add_store_button_below);
 
@@ -1988,21 +2227,24 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			addStoreButton.setVisibility(View.GONE);
 		}
 
-
 		availableListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				Intent i;
 				View v = availableListView.getChildAt(0);
-				scrollMemory.put(depth, new ListViewPosition((v == null) ? 0 : v.getTop(), availableListView.getFirstVisiblePosition()));
+				scrollMemory.put(depth,
+						new ListViewPosition((v == null) ? 0 : v.getTop(),
+								availableListView.getFirstVisiblePosition()));
 				switch (depth) {
 				case STORES:
 					depth = ListDepth.CATEGORY1;
 					store_id = id;
 					break;
 				case CATEGORY1:
-					String category = ((Cursor) parent.getItemAtPosition(position)).getString(1);
+					String category = ((Cursor) parent
+							.getItemAtPosition(position)).getString(1);
 					if (category.equals("Top Apps")) {
 						depth = ListDepth.TOPAPPS;
 					} else if (category.equals("Latest Apps")) {
@@ -2013,7 +2255,10 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 						depth = ListDepth.LATEST_COMMENTS;
 					} else if (id == -3) {
 						if (!Login.isLoggedIn(mContext)) {
-							Toast toast = Toast.makeText(mContext, mContext.getString(R.string.you_need_to_login_toast), Toast.LENGTH_SHORT);
+							Toast toast = Toast.makeText(
+									mContext,
+									mContext.getString(R.string.you_need_to_login_toast),
+									Toast.LENGTH_SHORT);
 							toast.show();
 							return;
 						} else {
@@ -2022,7 +2267,9 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 					} else if (id == -4) {
 						depth = ListDepth.ALLAPPLICATIONS;
 					} else if (id == -10) {
-						Toast toast = Toast.makeText(mContext, mContext.getString(R.string.store_beginning_to_load), Toast.LENGTH_SHORT);
+						Toast toast = Toast.makeText(mContext, mContext
+								.getString(R.string.store_beginning_to_load),
+								Toast.LENGTH_SHORT);
 						toast.show();
 						return;
 					} else {
@@ -2059,20 +2306,23 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 					return;
 				case LATEST_COMMENTS:
 				case LATEST_LIKES:
-					String apkid = ((Cursor) parent.getItemAtPosition(position)).getString(1);
+					String apkid = ((Cursor) parent.getItemAtPosition(position))
+							.getString(1);
 					latestClick(apkid);
 					return;
 				default:
 					return;
 				}
-				addBreadCrumb(((Cursor) parent.getItemAtPosition(position)).getString(1), depth);
+				addBreadCrumb(((Cursor) parent.getItemAtPosition(position))
+						.getString(1), depth);
 				refreshAvailableList(true);
 			}
 		});
 		installedView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long id) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long id) {
 				Intent i = new Intent(MainActivity.this, ApkInfo.class);
 				i.putExtra("_id", id);
 				i.putExtra("installed", true);
@@ -2081,30 +2331,30 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			}
 		});
 
+		ImageView brandIv = (ImageView) findViewById(R.id.brand);
 
-        ImageView brandIv = (ImageView) findViewById(R.id.brand);
-
-
-		if(ApplicationAptoide.APTOIDETHEME.equalsIgnoreCase("jblow")){
+		if (ApplicationAptoide.APTOIDETHEME.equalsIgnoreCase("jblow")) {
 			brandIv.setImageResource(R.drawable.brand_jblow);
-		}else if(ApplicationAptoide.APTOIDETHEME.equalsIgnoreCase("magalhaes")){
+		} else if (ApplicationAptoide.APTOIDETHEME
+				.equalsIgnoreCase("magalhaes")) {
 			brandIv.setImageResource(R.drawable.brand_magalhaes);
-		}else if(ApplicationAptoide.APTOIDETHEME.equalsIgnoreCase("timwe")){
+		} else if (ApplicationAptoide.APTOIDETHEME.equalsIgnoreCase("timwe")) {
 			brandIv.setImageResource(R.drawable.brand_timwe);
-		}else if(ApplicationAptoide.APTOIDETHEME.equalsIgnoreCase("digitallydifferent")){
+		} else if (ApplicationAptoide.APTOIDETHEME
+				.equalsIgnoreCase("digitallydifferent")) {
 			brandIv.setImageResource(R.drawable.brand_digitallydifferent);
-		}else if(ApplicationAptoide.APTOIDETHEME.equalsIgnoreCase("eocean")){
+		} else if (ApplicationAptoide.APTOIDETHEME.equalsIgnoreCase("eocean")) {
 			brandIv.setImageResource(R.drawable.brand_eocean);
-		}else if(ApplicationAptoide.APTOIDETHEME.equalsIgnoreCase("educomp")){
+		} else if (ApplicationAptoide.APTOIDETHEME.equalsIgnoreCase("educomp")) {
 			brandIv.setImageResource(R.drawable.brand_educomp);
-		}else if(ApplicationAptoide.APTOIDETHEME.equalsIgnoreCase("peoplenet")){
+		} else if (ApplicationAptoide.APTOIDETHEME
+				.equalsIgnoreCase("peoplenet")) {
 			brandIv.setImageResource(R.drawable.brand_peoplenet);
-		}else if(ApplicationAptoide.BRAND!=null){
+		} else if (ApplicationAptoide.BRAND != null) {
 			brandIv.setImageResource(getBrandDrawableResource());
-		}else{
+		} else {
 			brandIv.setImageResource(R.drawable.brand_aptoide);
 		}
-
 
 		findViewById(R.id.btsearch).setOnClickListener(new OnClickListener() {
 			@Override
@@ -2116,7 +2366,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		updatesListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long id) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long id) {
 				Intent i = new Intent(MainActivity.this, ApkInfo.class);
 				i.putExtra("_id", id);
 				i.putExtra("updates", true);
@@ -2125,7 +2376,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			}
 		});
 		// LoaderManager.enableDebugLogging(true);
-		availableLoader = getSupportLoaderManager().initLoader(AVAILABLE_LOADER, null, this);
+		availableLoader = getSupportLoaderManager().initLoader(
+				AVAILABLE_LOADER, null, this);
 
 		ArrayList<View> views = new ArrayList<View>();
 		views.add(featuredView);
@@ -2144,8 +2396,10 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		}
 
 		if (!ApplicationAptoide.MATURECONTENTSWITCH) {
-			featuredView.findViewById(R.id.toggleButton1).setVisibility(View.GONE);
-			featuredView.findViewById(R.id.adultcontent_label).setVisibility(View.GONE);
+			featuredView.findViewById(R.id.toggleButton1).setVisibility(
+					View.GONE);
+			featuredView.findViewById(R.id.adultcontent_label).setVisibility(
+					View.GONE);
 		}
 
 	}
@@ -2153,42 +2407,53 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 	private int getBrandDrawableResource() {
 		int brandDrawableResource;
 
-		brandDrawableResource = this.getResources().getIdentifier(ApplicationAptoide.BRAND, "drawable", this.getPackageName());
-		if(brandDrawableResource==0){
-			brandDrawableResource = this.getResources().getIdentifier("brand_aptoide", "drawable", this.getPackageName());
-			Log.d("MainActivity-brand", ApplicationAptoide.BRAND + ": resource not found, using default");
+		brandDrawableResource = this.getResources().getIdentifier(
+				ApplicationAptoide.BRAND, "drawable", this.getPackageName());
+		if (brandDrawableResource == 0) {
+			brandDrawableResource = this.getResources().getIdentifier(
+					"brand_aptoide", "drawable", this.getPackageName());
+			Log.d("MainActivity-brand", ApplicationAptoide.BRAND
+					+ ": resource not found, using default");
 		}
 
 		EnumAptoideThemes enumAptoideTheme = null;
-		String aptoideThemeString = "APTOIDE_THEME_"+ ApplicationAptoide.APTOIDETHEME.toUpperCase(Locale.ENGLISH);
+		String aptoideThemeString = "APTOIDE_THEME_"
+				+ ApplicationAptoide.APTOIDETHEME.toUpperCase(Locale.ENGLISH);
 		try {
 			enumAptoideTheme = EnumAptoideThemes.valueOf(aptoideThemeString);
 		} catch (Exception e) {
 			enumAptoideTheme = EnumAptoideThemes.APTOIDE_THEME_DEFAULT;
 		}
-		switch(enumAptoideTheme){
+		switch (enumAptoideTheme) {
 		case APTOIDE_THEME_DIGITALLYDIFFERENT:
-			brandDrawableResource = this.getResources().getIdentifier("brand_digitallydifferent", "drawable", this.getPackageName());
+			brandDrawableResource = this.getResources().getIdentifier(
+					"brand_digitallydifferent", "drawable",
+					this.getPackageName());
 			Log.d("MainActivity-brand", ApplicationAptoide.BRAND);
 			break;
 		case APTOIDE_THEME_EOCEAN:
-			brandDrawableResource = this.getResources().getIdentifier("brand_eocean", "drawable", this.getPackageName());
+			brandDrawableResource = this.getResources().getIdentifier(
+					"brand_eocean", "drawable", this.getPackageName());
 			Log.d("MainActivity-brand", ApplicationAptoide.BRAND);
 			break;
 		case APTOIDE_THEME_JBLOW:
-			brandDrawableResource = this.getResources().getIdentifier("brand_jblow", "drawable", this.getPackageName());
+			brandDrawableResource = this.getResources().getIdentifier(
+					"brand_jblow", "drawable", this.getPackageName());
 			Log.d("MainActivity-brand", ApplicationAptoide.BRAND);
 			break;
 		case APTOIDE_THEME_LAZERPLAY:
-			brandDrawableResource = this.getResources().getIdentifier("brand_lazerplay", "drawable", this.getPackageName());
+			brandDrawableResource = this.getResources().getIdentifier(
+					"brand_lazerplay", "drawable", this.getPackageName());
 			Log.d("MainActivity-brand", ApplicationAptoide.BRAND);
 			break;
 		case APTOIDE_THEME_MAGALHAES:
-			brandDrawableResource = this.getResources().getIdentifier("brand_magalhaes", "drawable", this.getPackageName());
+			brandDrawableResource = this.getResources().getIdentifier(
+					"brand_magalhaes", "drawable", this.getPackageName());
 			Log.d("MainActivity-brand", ApplicationAptoide.BRAND);
 			break;
 		case APTOIDE_THEME_TIMWE:
-			brandDrawableResource = this.getResources().getIdentifier("brand_timwe", "drawable", this.getPackageName());
+			brandDrawableResource = this.getResources().getIdentifier(
+					"brand_timwe", "drawable", this.getPackageName());
 			Log.d("MainActivity-brand", ApplicationAptoide.BRAND);
 			break;
 
@@ -2209,7 +2474,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 						@Override
 						public void run() {
-							Intent i = new Intent(MainActivity.this, ApkInfo.class);
+							Intent i = new Intent(MainActivity.this,
+									ApkInfo.class);
 							i.putExtra("_id", id);
 							i.putExtra("top", false);
 							i.putExtra("category", Category.INFOXML.ordinal());
@@ -2221,7 +2487,9 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 						@Override
 						public void run() {
-							Toast toast = Toast.makeText(mContext, mContext.getString(R.string.error_latest_apk), Toast.LENGTH_SHORT);
+							Toast toast = Toast.makeText(mContext, mContext
+									.getString(R.string.error_latest_apk),
+									Toast.LENGTH_SHORT);
 							toast.show();
 						}
 					});
@@ -2247,7 +2515,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			itemAtPosition = itemAtPosition.split("http://")[1];
 			itemAtPosition = itemAtPosition.split(".store")[0];
 		}
-		Button bt = (Button) LayoutInflater.from(mContext).inflate( R.layout.breadcrumb, null);
+		Button bt = (Button) LayoutInflater.from(mContext).inflate(
+				R.layout.breadcrumb, null);
 		bt.setText(itemAtPosition);
 		bt.setTag(new BreadCrumb(depth, breadcrumbs.getChildCount() + 1));
 		bt.setOnClickListener(new OnClickListener() {
@@ -2255,20 +2524,26 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			@Override
 			public void onClick(View v) {
 				depth = ((BreadCrumb) v.getTag()).depth;
-				breadcrumbs.removeViews(((BreadCrumb) v.getTag()).i , breadcrumbs.getChildCount() - ((BreadCrumb) v.getTag()).i);
+				breadcrumbs.removeViews(((BreadCrumb) v.getTag()).i,
+						breadcrumbs.getChildCount()
+								- ((BreadCrumb) v.getTag()).i);
 				refreshAvailableList(true);
 			}
 		});
-		breadcrumbs.addView(bt, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
-        breadcrumbs.setOnClickListener(null);
+		breadcrumbs.addView(bt, new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+		breadcrumbs.setOnClickListener(null);
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
 
 		switch (v.getId()) {
 		case R.id.available_list:
-			Integer tag = (Integer) ((AdapterContextMenuInfo) menuInfo).targetView.getTag();
+			Integer tag = (Integer) ((AdapterContextMenuInfo) menuInfo).targetView
+					.getTag();
 			if (tag != null && tag == 1) {
 				menu.add(0, 1, 0, R.string.menu_context_reparse);
 			}
@@ -2276,20 +2551,23 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			break;
 		case R.id.updates_list:
 			Log.d("onCreateContextMenu", "onCreateContextMenu");
-			menu.add(0, (int) ((AdapterContextMenuInfo) menuInfo).id, 0, mContext.getString(R.string.exclude_update)).setOnMenuItemClickListener(
-					new MenuItem.OnMenuItemClickListener() {
-						@Override
-						public boolean onMenuItemClick(MenuItem item) {
-							System.out.println(item.getItemId());
-							db.addToExcludeUpdate(item.getItemId());
-							updatesLoader.forceLoad();
-							Toast toast = Toast.makeText(mContext,
-									mContext.getString(R.string.add_to_excluded_updates_list),
-									Toast.LENGTH_SHORT);
-							toast.show();
-							return false;
-						}
-					});
+			menu.add(0, (int) ((AdapterContextMenuInfo) menuInfo).id, 0,
+					mContext.getString(R.string.exclude_update))
+					.setOnMenuItemClickListener(
+							new MenuItem.OnMenuItemClickListener() {
+								@Override
+								public boolean onMenuItemClick(MenuItem item) {
+									System.out.println(item.getItemId());
+									db.addToExcludeUpdate(item.getItemId());
+									updatesLoader.forceLoad();
+									Toast toast = Toast.makeText(
+											mContext,
+											mContext.getString(R.string.add_to_excluded_updates_list),
+											Toast.LENGTH_SHORT);
+									toast.show();
+									return false;
+								}
+							});
 			break;
 		}
 
@@ -2308,27 +2586,43 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 					case STORES:
 						return db.getStores(joinStores_boolean);
 					case CATEGORY1:
-						return db.getCategory1(store_id, joinStores_boolean, !PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("orderByCategory", true));
+						return db.getCategory1(
+								store_id,
+								joinStores_boolean,
+								!PreferenceManager.getDefaultSharedPreferences(
+										mContext).getBoolean("orderByCategory",
+										true));
 					case CATEGORY2:
-						return db.getCategory2(category_id, store_id, joinStores_boolean);
+						return db.getCategory2(category_id, store_id,
+								joinStores_boolean);
 					case ALLAPPLICATIONS:
 					case APPLICATIONS:
-						return db.getApps(category2_id, store_id, joinStores_boolean, order, !PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("orderByCategory", true));
+						return db.getApps(category2_id, store_id,
+								joinStores_boolean, order, !PreferenceManager
+										.getDefaultSharedPreferences(mContext)
+										.getBoolean("orderByCategory", true));
 					case TOPAPPS:
 						return db.getTopApps(store_id, joinStores_boolean);
 					case LATESTAPPS:
 						return db.getLatestApps(store_id, joinStores_boolean);
 					case LATEST_LIKES:
-						return new LatestLikesComments(store_id, db, mContext).getLikes();
+						return new LatestLikesComments(store_id, db, mContext)
+								.getLikes();
 					case LATEST_COMMENTS:
-						return new LatestLikesComments(store_id, db, mContext).getComments();
+						return new LatestLikesComments(store_id, db, mContext)
+								.getComments();
 					case RECOMMENDED:
-						final Cursor c = db.getUserBasedApk(store_id,joinStores_boolean);
+						final Cursor c = db.getUserBasedApk(store_id,
+								joinStores_boolean);
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
 								if (c.getCount() == 0) {
-									Toast toast = Toast.makeText(mContext, mContext.getString(R.string.no_recommended_toast), Toast.LENGTH_SHORT);
+									Toast toast = Toast
+											.makeText(
+													mContext,
+													mContext.getString(R.string.no_recommended_toast),
+													Toast.LENGTH_SHORT);
 									toast.show();
 								}
 							}
@@ -2369,13 +2663,14 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 	@Override
 	protected void onDestroy() {
-		// BRUTUS CODE -- stops web install service when it's is destroyed
-		if(WebInstallService.isRunning()) {
-			Intent i = new Intent(this, WebInstallService.class);
-			stopService(i);
-			Toast.makeText(this, "Web install service stopped on Main activity destroy!!!", Toast.LENGTH_LONG).show();
+		// BRUTUS CODE -- stops synchronous web install service when it's is
+		// destroyed
+		if (WebInstallService.isRunning()) {
+			Intent i = new Intent("cm.aptoide.pt.SYNC_STOP");
+			sendBroadcast(i);
 		}
-		
+		// //////////////////////////////////////
+
 		if (service != null) {
 			unbindService(conn);
 		}
@@ -2398,21 +2693,20 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		// stopService(serviceDownloadManagerIntent);
 		generateXML();
 
-        super.onDestroy();
+		super.onDestroy();
 	}
 
-
-
-
-
-    @Override
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			View v = availableListView.getChildAt(0);
-			scrollMemory.put(depth, new ListViewPosition((v == null) ? 0 : v.getTop(), availableListView.getFirstVisiblePosition()));
+			scrollMemory.put(depth,
+					new ListViewPosition((v == null) ? 0 : v.getTop(),
+							availableListView.getFirstVisiblePosition()));
 
 			if (!ApplicationAptoide.MULTIPLESTORES) {
-				if (!depth.equals(ListDepth.CATEGORY1) && pager.getCurrentItem() == 1) {
+				if (!depth.equals(ListDepth.CATEGORY1)
+						&& pager.getCurrentItem() == 1) {
 					if (depth.equals(ListDepth.TOPAPPS)
 							|| depth.equals(ListDepth.LATEST_LIKES)
 							|| depth.equals(ListDepth.LATESTAPPS)
@@ -2428,7 +2722,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 					return false;
 				}
 			} else {
-				if (!depth.equals(ListDepth.STORES) && pager.getCurrentItem() == 1) {
+				if (!depth.equals(ListDepth.STORES)
+						&& pager.getCurrentItem() == 1) {
 					if (depth.equals(ListDepth.TOPAPPS)
 							|| depth.equals(ListDepth.LATEST_LIKES)
 							|| depth.equals(ListDepth.LATESTAPPS)
@@ -2446,7 +2741,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 			}
 		}
-        Log.d("TAAAG", ApplicationAptoide.isRestartLauncher()+" restartLauncher");
+		Log.d("TAAAG", ApplicationAptoide.isRestartLauncher()
+				+ " restartLauncher");
 
 		return super.onKeyDown(keyCode, event);
 	}
@@ -2476,17 +2772,24 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		case UPDATES_LOADER:
 			updatesAdapter.swapCursor(data);
 			if (data.getCount() == 1) {
-				updateView.findViewById(R.id.all_apps_up_to_date).setVisibility(View.GONE);
-				updateView.findViewById(R.id.update_all_view_layout).setVisibility(View.GONE);
+				updateView.findViewById(R.id.all_apps_up_to_date)
+						.setVisibility(View.GONE);
+				updateView.findViewById(R.id.update_all_view_layout)
+						.setVisibility(View.GONE);
 			} else if (data.getCount() > 1) {
-				updateView.findViewById(R.id.update_all_view_layout).setVisibility(View.VISIBLE);
+				updateView.findViewById(R.id.update_all_view_layout)
+						.setVisibility(View.VISIBLE);
 				// updateView.findViewById(R.id.update_all_view_layout).startAnimation(AnimationUtils.loadAnimation(mContext,
 				// android.R.anim.fade_in));
-				updateView.findViewById(R.id.all_apps_up_to_date).setVisibility(View.GONE);
+				updateView.findViewById(R.id.all_apps_up_to_date)
+						.setVisibility(View.GONE);
 			} else {
-				updateView.findViewById(R.id.update_all_view_layout).setVisibility(View.GONE);
-				updateView.findViewById(R.id.all_apps_up_to_date).setVisibility(View.VISIBLE);
-				((TextView) updateView.findViewById(R.id.all_apps_up_to_date)).setText(R.string.all_updated);
+				updateView.findViewById(R.id.update_all_view_layout)
+						.setVisibility(View.GONE);
+				updateView.findViewById(R.id.all_apps_up_to_date)
+						.setVisibility(View.VISIBLE);
+				((TextView) updateView.findViewById(R.id.all_apps_up_to_date))
+						.setText(R.string.all_updated);
 			}
 			break;
 		default:
@@ -2494,44 +2797,54 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		}
 		pb.setVisibility(View.GONE);
 
-        if(availableListView.getAdapter()!=null){
-            if (availableListView.getAdapter().getCount() > 2 || joinStores_boolean) {
-                joinStores.setVisibility(View.VISIBLE);
-            } else {
-                joinStores.setVisibility(View.INVISIBLE);
-            }
+		if (availableListView.getAdapter() != null) {
+			if (availableListView.getAdapter().getCount() > 2
+					|| joinStores_boolean) {
+				joinStores.setVisibility(View.VISIBLE);
+			} else {
+				joinStores.setVisibility(View.INVISIBLE);
+			}
 
-            if (availableListView.getAdapter().getCount() > 1) {
-                pb.setVisibility(View.GONE);
-            } else if (depth == ListDepth.STORES) {
-                pb.setVisibility(View.VISIBLE);
-                pb.setText(R.string.add_store_button_below);
-            }
-        }
+			if (availableListView.getAdapter().getCount() > 1) {
+				pb.setVisibility(View.GONE);
+			} else if (depth == ListDepth.STORES) {
+				pb.setVisibility(View.VISIBLE);
+				pb.setText(R.string.add_store_button_below);
+			}
+		}
 
 	}
 
 	private void refreshAvailableList(boolean setAdapter) {
 		if (depth.equals(ListDepth.STORES)) {
-			availableView.findViewById(R.id.add_store_layout).setVisibility(View.VISIBLE);
+			availableView.findViewById(R.id.add_store_layout).setVisibility(
+					View.VISIBLE);
 			registerForContextMenu(availableListView);
 			availableListView.setLongClickable(true);
 			banner.setVisibility(View.GONE);
 		} else {
 			unregisterForContextMenu(availableListView);
-			availableView.findViewById(R.id.add_store_layout).setVisibility(View.GONE);
-			if(ApplicationAptoide.MULTIPLESTORES && !joinStores_boolean){
+			availableView.findViewById(R.id.add_store_layout).setVisibility(
+					View.GONE);
+			if (ApplicationAptoide.MULTIPLESTORES && !joinStores_boolean) {
 				banner.setVisibility(View.VISIBLE);
-				RelativeLayout background_layout = (RelativeLayout) banner.findViewById(R.id.banner_background_layout);
-				setBackgroundLayoutStoreTheme(db.getStoreTheme(store_id),background_layout);
+				RelativeLayout background_layout = (RelativeLayout) banner
+						.findViewById(R.id.banner_background_layout);
+				setBackgroundLayoutStoreTheme(db.getStoreTheme(store_id),
+						background_layout);
 				bannerStoreName.setText(db.getStoreName(store_id));
 				String avatarURL = db.getStoreAvatar(store_id);
-				cm.aptoide.com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(avatarURL, bannerStoreAvatar);
-				bannerStoreDescription.setText(db.getStoreDescription(store_id));
-				bannerStoreDescription.setMovementMethod(new ScrollingMovementMethod());
+				cm.aptoide.com.nostra13.universalimageloader.core.ImageLoader
+						.getInstance().displayImage(avatarURL,
+								bannerStoreAvatar);
+				bannerStoreDescription
+						.setText(db.getStoreDescription(store_id));
+				bannerStoreDescription
+						.setMovementMethod(new ScrollingMovementMethod());
 			}
 		}
-		availableView.findViewById(R.id.refresh_view_layout).setVisibility(View.GONE);
+		availableView.findViewById(R.id.refresh_view_layout).setVisibility(
+				View.GONE);
 		refreshClick = true;
 		availableAdapter.changeCursor(null);
 		pb.setVisibility(View.VISIBLE);
@@ -2543,41 +2856,59 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 	}
 
 	private void showAddStoreDialog() {
-		alertDialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_add_store, null);
-		alertDialog = new AlertDialog.Builder(mContext).setView(alertDialogView).create();
+		alertDialogView = LayoutInflater.from(mContext).inflate(
+				R.layout.dialog_add_store, null);
+		alertDialog = new AlertDialog.Builder(mContext)
+				.setView(alertDialogView).create();
 		alertDialog.setTitle(getString(R.string.new_store));
-		alertDialog.setButton(Dialog.BUTTON_NEGATIVE, getString(R.string.new_store), addRepoListener);
-		alertDialog.setButton(Dialog.BUTTON_POSITIVE, getString(R.string.search_for_stores), searchStoresListener);
-		((EditText) alertDialogView.findViewById(R.id.edit_uri)).setText(storeUri);
-        if(!isFinishing()){
-            alertDialog.show();
-        }
+		alertDialog.setButton(Dialog.BUTTON_NEGATIVE,
+				getString(R.string.new_store), addRepoListener);
+		alertDialog.setButton(Dialog.BUTTON_POSITIVE,
+				getString(R.string.search_for_stores), searchStoresListener);
+		((EditText) alertDialogView.findViewById(R.id.edit_uri))
+				.setText(storeUri);
+		if (!isFinishing()) {
+			alertDialog.show();
+		}
 	}
 
 	private void showAddStoreCredentialsDialog(String string) {
-		View credentialsDialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_add_pvt_store, null);
-		AlertDialog credentialsDialog = new AlertDialog.Builder(mContext).setView(credentialsDialogView).create();
-		credentialsDialog.setTitle(getString(R.string.add_private_store) + " "+ RepoUtils.split(string));
-		credentialsDialog.setButton(Dialog.BUTTON_NEUTRAL, getString(R.string.new_store), new AddStoreCredentialsListener(string, credentialsDialogView));
-        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-        if(RepoUtils.split(string).equals(sPref.getString(Configs.LOGIN_DEFAULT_REPO,""))){
-            ((EditText)credentialsDialogView.findViewById(R.id.username)).setText(sPref.getString(Configs.LOGIN_USER_LOGIN,""));
-        }
+		View credentialsDialogView = LayoutInflater.from(mContext).inflate(
+				R.layout.dialog_add_pvt_store, null);
+		AlertDialog credentialsDialog = new AlertDialog.Builder(mContext)
+				.setView(credentialsDialogView).create();
+		credentialsDialog.setTitle(getString(R.string.add_private_store) + " "
+				+ RepoUtils.split(string));
+		credentialsDialog.setButton(Dialog.BUTTON_NEUTRAL,
+				getString(R.string.new_store), new AddStoreCredentialsListener(
+						string, credentialsDialogView));
+		SharedPreferences sPref = PreferenceManager
+				.getDefaultSharedPreferences(mContext);
+		if (RepoUtils.split(string).equals(
+				sPref.getString(Configs.LOGIN_DEFAULT_REPO, ""))) {
+			((EditText) credentialsDialogView.findViewById(R.id.username))
+					.setText(sPref.getString(Configs.LOGIN_USER_LOGIN, ""));
+		}
 
-
-        if(!isFinishing()){
-            credentialsDialog.show();
-        }
+		if (!isFinishing()) {
+			credentialsDialog.show();
+		}
 	}
 
 	private void showUpdateStoreCredentialsDialog(String string) {
-		View credentialsDialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_add_pvt_store, null);
-		AlertDialog credentialsDialog = new AlertDialog.Builder(mContext).setView(credentialsDialogView).create();
-		credentialsDialog.setTitle(getString(R.string.add_private_store) + " "+ RepoUtils.split(string));
-		credentialsDialog.setButton(Dialog.BUTTON_NEUTRAL, getString(R.string.new_store), new UpdateStoreCredentialsListener(string, credentialsDialogView));
-        if(!isFinishing()){
-            credentialsDialog.show();
-        }
+		View credentialsDialogView = LayoutInflater.from(mContext).inflate(
+				R.layout.dialog_add_pvt_store, null);
+		AlertDialog credentialsDialog = new AlertDialog.Builder(mContext)
+				.setView(credentialsDialogView).create();
+		credentialsDialog.setTitle(getString(R.string.add_private_store) + " "
+				+ RepoUtils.split(string));
+		credentialsDialog.setButton(Dialog.BUTTON_NEUTRAL,
+				getString(R.string.new_store),
+				new UpdateStoreCredentialsListener(string,
+						credentialsDialogView));
+		if (!isFinishing()) {
+			credentialsDialog.show();
+		}
 
 	}
 
@@ -2587,7 +2918,6 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 	public class AvailableListAdapter extends CursorAdapter {
 
-
 		public AvailableListAdapter(Context context, Cursor c, int flags) {
 			super(context, c, flags);
 		}
@@ -2595,38 +2925,56 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		@Override
 		public void bindView(View view, Context context, Cursor cursor) {
 
-
 			String categoryName = null;
 			int categoryNameResource = 0;
 
 			switch (depth) {
 			case STORES:
 
-				LinearLayout store_background_dialog = (LinearLayout) view.findViewById(R.id.store_background_dialog);
-				if(!joinStores_boolean){
-					setBackgroundDialogStoreTheme(cursor.getString(cursor.getColumnIndex(DbStructure.COLUMN_STORE_THEME)), store_background_dialog);
-				}else{
-					setBackgroundDialogStoreTheme("none", store_background_dialog);
+				LinearLayout store_background_dialog = (LinearLayout) view
+						.findViewById(R.id.store_background_dialog);
+				if (!joinStores_boolean) {
+					setBackgroundDialogStoreTheme(cursor.getString(cursor
+							.getColumnIndex(DbStructure.COLUMN_STORE_THEME)),
+							store_background_dialog);
+				} else {
+					setBackgroundDialogStoreTheme("none",
+							store_background_dialog);
 				}
-				Log.d("MainActivity-store_theme",cursor.getString(cursor.getColumnIndex(DbStructure.COLUMN_STORE_THEME)));
+				Log.d("MainActivity-store_theme", cursor.getString(cursor
+						.getColumnIndex(DbStructure.COLUMN_STORE_THEME)));
 
-
-				String hashcode = cursor.getString(cursor.getColumnIndex("avatar_url"));
-				cm.aptoide.com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(
-								cursor.getString(cursor.getColumnIndex("avatar_url")),
+				String hashcode = cursor.getString(cursor
+						.getColumnIndex("avatar_url"));
+				cm.aptoide.com.nostra13.universalimageloader.core.ImageLoader
+						.getInstance().displayImage(
+								cursor.getString(cursor
+										.getColumnIndex("avatar_url")),
 								(ImageView) view.findViewById(R.id.avatar),
 								hashcode);
-				((TextView) view.findViewById(R.id.store_name)).setText(cursor.getString(cursor.getColumnIndex("name")));
+				((TextView) view.findViewById(R.id.store_name)).setText(cursor
+						.getString(cursor.getColumnIndex("name")));
 
-				if (cursor.getString(cursor.getColumnIndex("status")).equals("PARSED")) {
-					((TextView) view.findViewById(R.id.store_dwn_number)).setText(cursor.getString(cursor.getColumnIndex("downloads"))+ " " +getString(R.string.downloads));
+				if (cursor.getString(cursor.getColumnIndex("status")).equals(
+						"PARSED")) {
+					((TextView) view.findViewById(R.id.store_dwn_number))
+							.setText(cursor.getString(cursor
+									.getColumnIndex("downloads"))
+									+ " "
+									+ getString(R.string.downloads));
 				}
-				if (cursor.getString(cursor.getColumnIndex("status")).equals("QUEUED")) {
-					((TextView) view.findViewById(R.id.store_dwn_number)).setText(getString(R.string.preparing_to_load));
+				if (cursor.getString(cursor.getColumnIndex("status")).equals(
+						"QUEUED")) {
+					((TextView) view.findViewById(R.id.store_dwn_number))
+							.setText(getString(R.string.preparing_to_load));
 				}
-				if (cursor.getString(cursor.getColumnIndex("status")).contains("PARSING")) {
-					((TextView) view.findViewById(R.id.store_dwn_number)).setText(cursor.getString(cursor.getColumnIndex("downloads"))
-									+ " " + getString(R.string.downloads)
+				if (cursor.getString(cursor.getColumnIndex("status")).contains(
+						"PARSING")) {
+					((TextView) view.findViewById(R.id.store_dwn_number))
+							.setText(cursor.getString(cursor
+									.getColumnIndex("downloads"))
+									+ " "
+									+ getString(R.string.downloads)
 									+ " - "
 									+ getString(R.string.loading_store));
 				}
@@ -2650,12 +2998,16 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 				// + " downloads" + " - " + "Updating Latest");
 				// }
 
-				if (cursor.getString(cursor.getColumnIndex("status")).equals(State.FAILED.name())) {
-					((TextView) view.findViewById(R.id.store_dwn_number)).setText(R.string.loading_failed);
+				if (cursor.getString(cursor.getColumnIndex("status")).equals(
+						State.FAILED.name())) {
+					((TextView) view.findViewById(R.id.store_dwn_number))
+							.setText(R.string.loading_failed);
 				}
 
-				if (cursor.getString(cursor.getColumnIndex("status")).equals(State.FAILED.name())
-						|| cursor.getString(cursor.getColumnIndex("status")).equals(State.PARSED.name())) {
+				if (cursor.getString(cursor.getColumnIndex("status")).equals(
+						State.FAILED.name())
+						|| cursor.getString(cursor.getColumnIndex("status"))
+								.equals(State.PARSED.name())) {
 					view.setTag(1);
 				}
 				break;
@@ -2669,24 +3021,33 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 					holder = new ViewHolder();
 					holder.name = (TextView) view.findViewById(R.id.app_name);
 					holder.icon = (ImageView) view.findViewById(R.id.app_icon);
-					holder.vername = (TextView) view.findViewById(R.id.installed_versionname);
-					holder.downloads = (TextView) view.findViewById(R.id.downloads);
+					holder.vername = (TextView) view
+							.findViewById(R.id.installed_versionname);
+					holder.downloads = (TextView) view
+							.findViewById(R.id.downloads);
 					holder.rating = (RatingBar) view.findViewById(R.id.stars);
 					view.setTag(holder);
 				}
 				holder.name.setText(cursor.getString(1));
 				cm.aptoide.com.nostra13.universalimageloader.core.ImageLoader
 						.getInstance()
-						.displayImage(cursor.getString(cursor.getColumnIndex("iconspath"))
-										+ cursor.getString(cursor.getColumnIndex("imagepath")),
+						.displayImage(
+								cursor.getString(cursor
+										.getColumnIndex("iconspath"))
+										+ cursor.getString(cursor
+												.getColumnIndex("imagepath")),
 								holder.icon,
-								(cursor.getString(cursor.getColumnIndex("apkid")) + "|" +
-								 cursor.getString(cursor.getColumnIndex("vercode"))).hashCode()
+								(cursor.getString(cursor
+										.getColumnIndex("apkid")) + "|" + cursor
+											.getString(cursor
+													.getColumnIndex("vercode")))
+										.hashCode()
 										+ "");
 
 				holder.vername.setText(cursor.getString(2));
 				try {
-					holder.rating.setRating(Float.parseFloat(cursor.getString(5)));
+					holder.rating.setRating(Float.parseFloat(cursor
+							.getString(5)));
 				} catch (Exception e) {
 					holder.rating.setRating(0);
 				}
@@ -2694,41 +3055,60 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 				break;
 			case CATEGORY1:
 				try {
-					categoryNameResource = EnumCategories.categories.get(cursor.getString(1));
+					categoryNameResource = EnumCategories.categories.get(cursor
+							.getString(1));
 				} catch (Exception e) {
 					categoryName = cursor.getString(1);
-					Log.d("MainActivity-CATEGORY1","Untranslated Category Name: "+categoryName);
+					Log.d("MainActivity-CATEGORY1",
+							"Untranslated Category Name: " + categoryName);
 				}
-				if(categoryName==null) {
+				if (categoryName == null) {
 					categoryName = getString(categoryNameResource);
 				}
 
-				((TextView) view.findViewById(R.id.category_name)).setText(categoryName);
+				((TextView) view.findViewById(R.id.category_name))
+						.setText(categoryName);
 				break;
 			case CATEGORY2:
 				try {
-					categoryNameResource = EnumCategories.categories.get(cursor.getString(1));
+					categoryNameResource = EnumCategories.categories.get(cursor
+							.getString(1));
 				} catch (Exception e) {
 					categoryName = cursor.getString(1);
-					Log.d("MainActivity-CATEGORY2","Untranslated Category Name: "+categoryName);
+					Log.d("MainActivity-CATEGORY2",
+							"Untranslated Category Name: " + categoryName);
 				}
-				if(categoryName==null) {
+				if (categoryName == null) {
 					categoryName = getString(categoryNameResource);
 				}
-				((TextView) view.findViewById(R.id.category_name)).setText(categoryName);
+				((TextView) view.findViewById(R.id.category_name))
+						.setText(categoryName);
 				break;
 			case LATEST_LIKES:
-				((TextView) view.findViewById(R.id.app_name)).setText(cursor.getString(cursor.getColumnIndex("name")));
-				((TextView) view.findViewById(R.id.app_name)).setCompoundDrawablesWithIntrinsicBounds(0, 0, cursor.getString(cursor.getColumnIndex("like"))
+				((TextView) view.findViewById(R.id.app_name)).setText(cursor
+						.getString(cursor.getColumnIndex("name")));
+				((TextView) view.findViewById(R.id.app_name))
+						.setCompoundDrawablesWithIntrinsicBounds(0, 0, cursor
+								.getString(cursor.getColumnIndex("like"))
 								.equals("TRUE") ? R.drawable.up
 								: R.drawable.down, 0);
-				((TextView) view.findViewById(R.id.user_like)).setText(getString(R.string.like_or_comment_by_user, cursor.getString(cursor.getColumnIndex("username"))));
+				((TextView) view.findViewById(R.id.user_like))
+						.setText(getString(R.string.like_or_comment_by_user,
+								cursor.getString(cursor
+										.getColumnIndex("username"))));
 				break;
 			case LATEST_COMMENTS:
-				((TextView) view.findViewById(R.id.comment_on_app)).setText(getString(R.string.comment_on_application, cursor.getString(cursor.getColumnIndex("name"))));
-				((TextView) view.findViewById(R.id.comment)).setText(cursor.getString(cursor.getColumnIndex("text")));
-				((TextView) view.findViewById(R.id.comment_owner)).setText(getString(R.string.like_or_comment_by_user, cursor.getString(cursor.getColumnIndex("username"))));
-				((TextView) view.findViewById(R.id.time)).setText(cursor.getString(cursor.getColumnIndex("time")));
+				((TextView) view.findViewById(R.id.comment_on_app))
+						.setText(getString(R.string.comment_on_application,
+								cursor.getString(cursor.getColumnIndex("name"))));
+				((TextView) view.findViewById(R.id.comment)).setText(cursor
+						.getString(cursor.getColumnIndex("text")));
+				((TextView) view.findViewById(R.id.comment_owner))
+						.setText(getString(R.string.like_or_comment_by_user,
+								cursor.getString(cursor
+										.getColumnIndex("username"))));
+				((TextView) view.findViewById(R.id.time)).setText(cursor
+						.getString(cursor.getColumnIndex("time")));
 				break;
 			default:
 				break;
@@ -2740,31 +3120,38 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			View v = null;
 			switch (depth) {
 			case STORES:
-				v = LayoutInflater.from(context).inflate(R.layout.row_stores, null);
+				v = LayoutInflater.from(context).inflate(R.layout.row_stores,
+						null);
 				break;
 			case CATEGORY1:
-				v = LayoutInflater.from(context).inflate(R.layout.row_catg_list, null);
+				v = LayoutInflater.from(context).inflate(
+						R.layout.row_catg_list, null);
 				break;
 			case CATEGORY2:
-				v = LayoutInflater.from(context).inflate(R.layout.row_catg_list, null);
+				v = LayoutInflater.from(context).inflate(
+						R.layout.row_catg_list, null);
 				break;
 			case TOPAPPS:
 			case LATESTAPPS:
 			case ALLAPPLICATIONS:
 			case APPLICATIONS:
 			case RECOMMENDED:
-				v = LayoutInflater.from(context).inflate(R.layout.row_app, null);
+				v = LayoutInflater.from(context)
+						.inflate(R.layout.row_app, null);
 				break;
 			case LATEST_LIKES:
-				v = LayoutInflater.from(context).inflate(R.layout.row_latest_likes, null);
+				v = LayoutInflater.from(context).inflate(
+						R.layout.row_latest_likes, null);
 				break;
 			case LATEST_COMMENTS:
-				v = LayoutInflater.from(context).inflate(R.layout.row_latest_comments, null);
+				v = LayoutInflater.from(context).inflate(
+						R.layout.row_latest_comments, null);
 				break;
 			default:
 				break;
 			}
-			Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in);
+			Animation animation = AnimationUtils.loadAnimation(mContext,
+					android.R.anim.fade_in);
 			v.startAnimation(animation);
 			return v;
 		}
@@ -2787,44 +3174,54 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
 			if (isChecked) {
-				View simpleView = LayoutInflater.from(mContext).inflate(R.layout.dialog_simple_layout, null);
-				Builder dialogBuilder = new AlertDialog.Builder(mContext).setView(simpleView);
+				View simpleView = LayoutInflater.from(mContext).inflate(
+						R.layout.dialog_simple_layout, null);
+				Builder dialogBuilder = new AlertDialog.Builder(mContext)
+						.setView(simpleView);
 				final AlertDialog adultContentDialog = dialogBuilder.create();
 				adultContentDialog.setTitle(getString(R.string.adult_content));
-				adultContentDialog.setIcon(android.R.drawable.ic_menu_info_details);
-				TextView message = (TextView) simpleView.findViewById(R.id.dialog_message);
+				adultContentDialog
+						.setIcon(android.R.drawable.ic_menu_info_details);
+				TextView message = (TextView) simpleView
+						.findViewById(R.id.dialog_message);
 				message.setText(getString(R.string.are_you_adult));
 				adultContentDialog.setCancelable(false);
-				adultContentDialog.setButton(Dialog.BUTTON_POSITIVE, getString(android.R.string.yes), new Dialog.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						editor.putBoolean("matureChkBox", false);
-						editor.commit();
-						pd = new ProgressDialog(mContext);
-						pd.setMessage(getString(R.string.please_wait));
-						pd.show();
-						new Thread(new Runnable() {
-							public void run() {
-								// loadUItopapps();
-								redrawAll();
-								runOnUiThread(new Runnable() {
+				adultContentDialog.setButton(Dialog.BUTTON_POSITIVE,
+						getString(android.R.string.yes),
+						new Dialog.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								editor.putBoolean("matureChkBox", false);
+								editor.commit();
+								pd = new ProgressDialog(mContext);
+								pd.setMessage(getString(R.string.please_wait));
+								pd.show();
+								new Thread(new Runnable() {
 									public void run() {
-										pd.dismiss();
+										// loadUItopapps();
+										redrawAll();
+										runOnUiThread(new Runnable() {
+											public void run() {
+												pd.dismiss();
+											}
+										});
 									}
-								});
+								}).start();
 							}
-						}).start();
-				    }
-				});
-				adultContentDialog.setButton(Dialog.BUTTON_NEGATIVE, getString(android.R.string.no), new Dialog.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						((ToggleButton) featuredView .findViewById(R.id.toggleButton1)).setChecked(false);
-						// if(adult!=null){
-						// adult.setChecked(false);
-						// }
-					}
-				});
+						});
+				adultContentDialog.setButton(Dialog.BUTTON_NEGATIVE,
+						getString(android.R.string.no),
+						new Dialog.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								((ToggleButton) featuredView
+										.findViewById(R.id.toggleButton1))
+										.setChecked(false);
+								// if(adult!=null){
+								// adult.setChecked(false);
+								// }
+							}
+						});
 				adultContentDialog.show();
 
 			} else {
@@ -2851,7 +3248,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 	protected void generateXML() {
 		System.out.println("Generating servers.xml");
-		File newxmlfile = new File(Environment.getExternalStorageDirectory()+ "/.aptoide/servers.xml");
+		File newxmlfile = new File(Environment.getExternalStorageDirectory()
+				+ "/.aptoide/servers.xml");
 		try {
 			newxmlfile.createNewFile();
 		} catch (IOException e) {
@@ -2888,9 +3286,11 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 	}
 
-	public void setBackgroundLayoutStoreTheme(String theme, RelativeLayout bannerLayout) {
+	public void setBackgroundLayoutStoreTheme(String theme,
+			RelativeLayout bannerLayout) {
 		EnumStoreTheme aptoideBackgroundTheme = null;
-		String storeThemeString = "APTOIDE_STORE_THEME_"+ theme.toUpperCase(Locale.ENGLISH);
+		String storeThemeString = "APTOIDE_STORE_THEME_"
+				+ theme.toUpperCase(Locale.ENGLISH);
 		try {
 			aptoideBackgroundTheme = EnumStoreTheme.valueOf(storeThemeString);
 		} catch (Exception e) {
@@ -2899,28 +3299,33 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 		switch (aptoideBackgroundTheme) {
 		case APTOIDE_STORE_THEME_DEFAULT:
-			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_aptoide);
+			bannerLayout
+					.setBackgroundResource(R.drawable.actionbar_bgd_aptoide);
 			break;
 		case APTOIDE_STORE_THEME_BLUE:
 			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_blue);
 			break;
 		case APTOIDE_STORE_THEME_DIMGRAY:
-			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_dimgray);
+			bannerLayout
+					.setBackgroundResource(R.drawable.actionbar_bgd_dimgray);
 			break;
 		case APTOIDE_STORE_THEME_GOLD:
 			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_gold);
 			break;
 		case APTOIDE_STORE_THEME_LIGHTSKY:
-			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_lightsky);
+			bannerLayout
+					.setBackgroundResource(R.drawable.actionbar_bgd_lightsky);
 			break;
 		case APTOIDE_STORE_THEME_MAGENTA:
-			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_magenta);
+			bannerLayout
+					.setBackgroundResource(R.drawable.actionbar_bgd_magenta);
 			break;
 		case APTOIDE_STORE_THEME_MAROON:
 			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_maroon);
 			break;
 		case APTOIDE_STORE_THEME_MIDNIGHT:
-			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_midnight);
+			bannerLayout
+					.setBackgroundResource(R.drawable.actionbar_bgd_midnight);
 			break;
 		case APTOIDE_STORE_THEME_ORANGE:
 			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_orange);
@@ -2932,27 +3337,33 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_red);
 			break;
 		case APTOIDE_STORE_THEME_SEAGREEN:
-			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_seagreen);
+			bannerLayout
+					.setBackgroundResource(R.drawable.actionbar_bgd_seagreen);
 			break;
 		case APTOIDE_STORE_THEME_SILVER:
 			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_silver);
 			break;
 		case APTOIDE_STORE_THEME_SLATEGRAY:
-			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_slategray);
+			bannerLayout
+					.setBackgroundResource(R.drawable.actionbar_bgd_slategray);
 			break;
 		case APTOIDE_STORE_THEME_SPRINGGREEN:
-			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_springgreen);
+			bannerLayout
+					.setBackgroundResource(R.drawable.actionbar_bgd_springgreen);
 			break;
 
 		default:
-			bannerLayout.setBackgroundResource(R.drawable.actionbar_bgd_aptoide);
+			bannerLayout
+					.setBackgroundResource(R.drawable.actionbar_bgd_aptoide);
 			break;
 		}
 	}
 
-	public void setBackgroundDialogStoreTheme(String theme, LinearLayout store_background_dialog) {
+	public void setBackgroundDialogStoreTheme(String theme,
+			LinearLayout store_background_dialog) {
 		EnumStoreTheme aptoideThemeDefault = null;
-		String storeThemeString = "APTOIDE_STORE_THEME_"+ theme.toUpperCase(Locale.ENGLISH);
+		String storeThemeString = "APTOIDE_STORE_THEME_"
+				+ theme.toUpperCase(Locale.ENGLISH);
 		try {
 			aptoideThemeDefault = EnumStoreTheme.valueOf(storeThemeString);
 		} catch (Exception e) {
@@ -2961,56 +3372,73 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 		switch (aptoideThemeDefault) {
 		case APTOIDE_STORE_THEME_DEFAULT:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_default);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_default);
 			break;
 
 		case APTOIDE_STORE_THEME_GOLD:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_gold);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_gold);
 			break;
 		case APTOIDE_STORE_THEME_MAROON:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_maroon);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_maroon);
 			break;
 		case APTOIDE_STORE_THEME_MIDNIGHT:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_midnight);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_midnight);
 			break;
 		case APTOIDE_STORE_THEME_ORANGE:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_orange);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_orange);
 			break;
 		case APTOIDE_STORE_THEME_SPRINGGREEN:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_springgreen);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_springgreen);
 			break;
 		case APTOIDE_STORE_THEME_MAGENTA:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_magenta);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_magenta);
 			break;
 		case APTOIDE_STORE_THEME_BLUE:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_blue);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_blue);
 			break;
 		case APTOIDE_STORE_THEME_DIMGRAY:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_dimgray);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_dimgray);
 			break;
 		case APTOIDE_STORE_THEME_LIGHTSKY:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_lightsky);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_lightsky);
 			break;
 		case APTOIDE_STORE_THEME_PINK:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_pink);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_pink);
 			break;
 		case APTOIDE_STORE_THEME_RED:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_red);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_red);
 			break;
 		case APTOIDE_STORE_THEME_SEAGREEN:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_seagreen);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_seagreen);
 			break;
 		case APTOIDE_STORE_THEME_SILVER:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_silver);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_silver);
 			break;
 		case APTOIDE_STORE_THEME_SLATEGRAY:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light_slategray);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light_slategray);
 			break;
 		case APTOIDE_STORE_THEME_NONE:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light);
 			break;
 		default:
-			store_background_dialog.setBackgroundResource(R.drawable.dialog_background_light);
+			store_background_dialog
+					.setBackgroundResource(R.drawable.dialog_background_light);
 			break;
 		}
 
@@ -3018,10 +3446,12 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 
 	private void getUpdateParameters() {
 		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilderFactory factory = DocumentBuilderFactory
+					.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 
-			URLConnection url = new URL(LATEST_VERSION_CODE_URI).openConnection();
+			URLConnection url = new URL(LATEST_VERSION_CODE_URI)
+					.openConnection();
 			url.setReadTimeout(3000);
 			url.setConnectTimeout(3000);
 
@@ -3033,24 +3463,30 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			if (items.getLength() > 0) {
 				Node item = items.item(0);
 				Log.d("Aptoide-XmlElement Name", item.getNodeName());
-				Log.d("Aptoide-XmlElement Value", item.getFirstChild().getNodeValue().trim());
-				updateParams.put("versionCode", item.getFirstChild().getNodeValue().trim());
+				Log.d("Aptoide-XmlElement Value", item.getFirstChild()
+						.getNodeValue().trim());
+				updateParams.put("versionCode", item.getFirstChild()
+						.getNodeValue().trim());
 			}
 
 			items = dom.getElementsByTagName("uri");
 			if (items.getLength() > 0) {
 				Node item = items.item(0);
 				Log.d("Aptoide-XmlElement Name", item.getNodeName());
-				Log.d("Aptoide-XmlElement Value", item.getFirstChild().getNodeValue().trim());
-				updateParams.put("uri", item.getFirstChild().getNodeValue().trim());
+				Log.d("Aptoide-XmlElement Value", item.getFirstChild()
+						.getNodeValue().trim());
+				updateParams.put("uri", item.getFirstChild().getNodeValue()
+						.trim());
 			}
 
 			items = dom.getElementsByTagName("md5");
 			if (items.getLength() > 0) {
 				Node item = items.item(0);
 				Log.d("Aptoide-XmlElement Name", item.getNodeName());
-				Log.d("Aptoide-XmlElement Value", item.getFirstChild().getNodeValue().trim());
-				updateParams.put("md5", item.getFirstChild().getNodeValue().trim());
+				Log.d("Aptoide-XmlElement Value", item.getFirstChild()
+						.getNodeValue().trim());
+				updateParams.put("md5", item.getFirstChild().getNodeValue()
+						.trim());
 			}
 
 		} catch (Exception e) {
@@ -3060,35 +3496,43 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 	}
 
 	private void requestUpdateSelf() {
-		View simpleView = LayoutInflater.from(mContext).inflate(R.layout.dialog_simple_layout, null);
-		Builder dialogBuilder = new AlertDialog.Builder(mContext).setView(simpleView);
+		View simpleView = LayoutInflater.from(mContext).inflate(
+				R.layout.dialog_simple_layout, null);
+		Builder dialogBuilder = new AlertDialog.Builder(mContext)
+				.setView(simpleView);
 		final AlertDialog updateSelfDialog = dialogBuilder.create();
 		updateSelfDialog.setTitle(getText(R.string.update_self_title));
 		updateSelfDialog.setIcon(R.drawable.icon_brand_aptoide);
-		TextView message = (TextView) simpleView.findViewById(R.id.dialog_message);
-		message.setText(getString(R.string.update_self_msg, ApplicationAptoide.MARKETNAME));
+		TextView message = (TextView) simpleView
+				.findViewById(R.id.dialog_message);
+		message.setText(getString(R.string.update_self_msg,
+				ApplicationAptoide.MARKETNAME));
 		updateSelfDialog.setCancelable(false);
-		updateSelfDialog.setButton(Dialog.BUTTON_POSITIVE, getString(android.R.string.yes), new Dialog.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-				new DownloadSelfUpdate().execute();
+		updateSelfDialog.setButton(Dialog.BUTTON_POSITIVE,
+				getString(android.R.string.yes), new Dialog.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						new DownloadSelfUpdate().execute();
 
-//                ViewApk apk = new ViewApk();
-//                apk.setName("Aptoide");
-//                apk.setVername(updateParams.get("versionCode"));
-//                apk.setMd5(updateParams.get("md5"));
-//                apk.setPath(updateParams.get("uri"));
-//                Toast.makeText(MainActivity.this, "Downlading Self-Update", Toast.LENGTH_LONG).show();
-//                serviceDownloadManager.startDownload(serviceDownloadManager.getDownload(apk), apk);
+						// ViewApk apk = new ViewApk();
+						// apk.setName("Aptoide");
+						// apk.setVername(updateParams.get("versionCode"));
+						// apk.setMd5(updateParams.get("md5"));
+						// apk.setPath(updateParams.get("uri"));
+						// Toast.makeText(MainActivity.this,
+						// "Downlading Self-Update", Toast.LENGTH_LONG).show();
+						// serviceDownloadManager.startDownload(serviceDownloadManager.getDownload(apk),
+						// apk);
 
-		    }
-		});
-		updateSelfDialog.setButton(Dialog.BUTTON_NEGATIVE, getString(android.R.string.no), new Dialog.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int arg1) {
-				dialog.dismiss();
-		    }
-		});
+					}
+				});
+		updateSelfDialog.setButton(Dialog.BUTTON_NEGATIVE,
+				getString(android.R.string.no), new Dialog.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int arg1) {
+						dialog.dismiss();
+					}
+				});
 		updateSelfDialog.show();
 
 	}
@@ -3105,7 +3549,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 				referenceMd5 = updateParams.get("md5");
 			} catch (Exception e) {
 				e.printStackTrace();
-				Log.d("Aptoide-Auto-Update", "Update connection failed!  Keeping current version.");
+				Log.d("Aptoide-Auto-Update",
+						"Update connection failed!  Keeping current version.");
 			}
 		}
 
@@ -3170,7 +3615,8 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			} catch (Exception e) {
 				// download_error_handler.sendMessage(msg_al);
 				e.printStackTrace();
-				Log.d("Aptoide-Auto-Update", "Update connection failed!  Keeping current version.");
+				Log.d("Aptoide-Auto-Update",
+						"Update connection failed!  Keeping current version.");
 			}
 			return null;
 		}
@@ -3198,11 +3644,13 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 						// msg_al.arg1 = 0;
 						// download_error_handler.sendMessage(msg_al);doUpdateSelf();
 
-						throw new Exception(referenceMd5 + " VS " + Md5Handler.md5Calc(apk));
+						throw new Exception(referenceMd5 + " VS "
+								+ Md5Handler.md5Calc(apk));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					Log.d("Aptoide-Auto-Update", "Update package checksum failed!  Keeping current version.");
+					Log.d("Aptoide-Auto-Update",
+							"Update package checksum failed!  Keeping current version.");
 					if (this.dialog.isShowing()) {
 						this.dialog.dismiss();
 					}
@@ -3217,27 +3665,33 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 		Intent intent = new Intent();
 		intent.setAction(android.content.Intent.ACTION_VIEW);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.setDataAndType(Uri.parse("file://" + TMP_UPDATE_FILE), "application/vnd.android.package-archive");
+		intent.setDataAndType(Uri.parse("file://" + TMP_UPDATE_FILE),
+				"application/vnd.android.package-archive");
 		startActivityForResult(intent, 99);
 	}
 
 	public void showFollow() {
-		View socialNetworksView = LayoutInflater.from(this).inflate(R.layout.dialog_social_networks, null);
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this).setView(socialNetworksView);
+		View socialNetworksView = LayoutInflater.from(this).inflate(
+				R.layout.dialog_social_networks, null);
+		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this)
+				.setView(socialNetworksView);
 		final AlertDialog socialDialog = dialogBuilder.create();
 		socialDialog.setIcon(android.R.drawable.ic_menu_share);
 		socialDialog.setTitle(getString(R.string.social_networks));
 		socialDialog.setCancelable(true);
 
-		Button facebookButton = (Button) socialNetworksView.findViewById(R.id.find_facebook);
+		Button facebookButton = (Button) socialNetworksView
+				.findViewById(R.id.find_facebook);
 		facebookButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (isAppInstalled("com.facebook.katana")) {
 					Intent sharingIntent;
 					try {
-						getPackageManager().getPackageInfo("com.facebook.katana", 0);
-						sharingIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/225295240870860"));
+						getPackageManager().getPackageInfo(
+								"com.facebook.katana", 0);
+						sharingIntent = new Intent(Intent.ACTION_VIEW, Uri
+								.parse("fb://profile/225295240870860"));
 						startActivity(sharingIntent);
 					} catch (NameNotFoundException e) {
 						e.printStackTrace();
@@ -3250,13 +3704,15 @@ public class MainActivity extends SherlockFragmentActivity implements LoaderCall
 			}
 		});
 
-		Button twitterButton = (Button) socialNetworksView.findViewById(R.id.follow_twitter);
+		Button twitterButton = (Button) socialNetworksView
+				.findViewById(R.id.follow_twitter);
 		twitterButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (isAppInstalled("com.twitter.android")) {
 					String url = "http://www.twitter.com/aptoide";
-					Intent twitterIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+					Intent twitterIntent = new Intent(Intent.ACTION_VIEW, Uri
+							.parse(url));
 					startActivity(twitterIntent);
 				} else {
 					Intent intent = new Intent(mContext, WebViewTwitter.class);
