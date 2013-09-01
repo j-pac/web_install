@@ -4,57 +4,54 @@ require_once 'Publisher.php';
 
 define("SERVICE_NAME", "web_install_");
 
-if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST['mode']))
+if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST['device_name']) && isset($_REQUEST['mode']))
 {
 
-        // Request Parameters
-        $token = $_REQUEST['token'];
-        $device_id = $_REQUEST['device_id'];
-        // XMl is the default response format                                                            
+        // Request Parameters escaped to avoid SQL injection
+        $token = pg_escape_string(utf8_encode($_REQUEST['token']));
+        $device_id = pg_escape_string(utf8_encode($_REQUEST['device_id']));
+        $device_name = pg_escape_string(utf8_encode($_REQUEST['device_name']));
         $mode  = strtolower($_REQUEST['mode']) == 'json' ? 'json' : 'xml';
 
-	//Response Parameters
-	$status;
-	$error= '';
+			
+        // Database Connection
+        $db = pg_connect("host=localhost port=5432 dbname=aptoide user=postgres password=godIsAProgrammer");
+	if(!$db)
+	{
+	  $r_body = createResponse('FAIL', '', 'Internal Server Error'); 
+	  $r_body = formatResponse($r_body, $mode);
+	  sendResponse(500, 'Internal Server Error', $r_body, 'application/' . $mode);
+	  exit();
+	}
 	
-        // DATABASE AND RABBITMQ CONNECTIONS
-        $db = pg_connect("host=localhost port=5432 dbname=register user=postgres password=godIsAProgrammer") or die('Connection to database failed: ' . pg_last_error());
+        $queue_id = generateQueueName($token, $device_id);
 
-        $publisher = new Publisher();
+        // Register device in Aptoide Database, if its a valid aptoide user token and device its not registered yet
+	$register_query = pg_query($db, "INSERT INTO device (device_id, name, registered_on) SELECT '{$device_id}', '{$device_name}', CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM device WHERE device_id = '{$device_id}') AND EXISTS (SELECT 1 FROM aptoide_user WHERE token = '{$token}')");
+	
+	// Associate device with user aptoide account
+	$association_query = pg_query($db, "INSERT INTO user_device (device_id, usertoken, queue_id, association_date) SELECT '{$device_id}', '{$token}', '{$queue_id}', CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM user_device WHERE device_id = '{$device_id}' AND usertoken = '{$token}')");
 
-        $queue_id = generateQueueName($username, $device_id);
+	pg_close($db);
+	
+	if(!$association_query) 
+	{
+	  $response = createResponse('FAIL', '', 'Unauthorized');
+	  $response = formatResponse($response, $mode);
+	  sendResponse(401, 'Unauthorized', $response, 'application/' . $mode);
+	  exit();
+	}
 
-        // PREPARED STATEMENT AND INSERTION
-	$p_statement = "INSERT INTO queue (device_imei, username, queue_name) VALUES ($1, $2, $3)";
-	pg_prepare('register_query', $p_statement);
-	pg_execute('register_query', array($device_id, $token, $queue_id)) or die('Error while inserting!');
-
-	// CREATING RABBITMQ QUEUE
+	// Create RabbitMq user queue
+	$publisher = new Publisher();
+	
 	$publisher->create_queue($queue_id);
 
 	$publisher->close();
-	pg_close($db);
-
-	$status = 'OK';
-
-	$response = array();
-	$response['status'] = $status;
-	$response['queue_id'] = $queue_id;
-	$response['errors'] = $error;
 	
-	if($mode == 'json')
-	  {
-	    sendResponse(200, 'OK', json_encode($response), 'application/json');
-	  }
-	else
-	  {
-	    $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><Response />');
-	    foreach($response as $key => $value) 
-	    {
-	      $xml->addChild($key, $value);
-	    }    
-	    sendResponse(200, 'OK', $xml->asXML(), 'text/xml');
-	  }
+	$response = createResponse('OK', $queue_id, '');
+	$response = formatResponse($response, $mode);
+	sendResponse(200, 'OK', $response, 'application/'. $mode);
 }
 else
 {
@@ -62,12 +59,35 @@ else
 }
 
 
-function generateQueueName($username, $device_imei)
+function generateQueueName($token, $device_id)
 {
-	$hash_input = $username . $device_imei;
+	$hash_input = $token . $device_id;
 	return SERVICE_NAME . sha1($hash_input);
 }
 
+function createResponse($status, $queue_id, $error) {
+  $response = array();
+  $response['status'] = $status;
+  $response['queue_id'] = $queue_id;
+  $response['errors'] = $error;
+  return $response;
+}
+
+function formatResponse($response, $mode) {
+  if($mode == 'json') 
+  {
+    return json_encode($response);
+  }
+  else 
+  {
+    $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><Response />');
+    foreach($response as $key => $value) 
+    {
+	$xml->addChild($key, $value);
+    }
+    return $xml->asXML();
+  }
+}
 
 function sendResponse($status_code = 200, $status_message = 'OK', $body = '', $content_type = 'text/html')
 {
