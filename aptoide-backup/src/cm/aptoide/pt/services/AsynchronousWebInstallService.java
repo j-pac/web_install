@@ -2,6 +2,7 @@ package cm.aptoide.pt.services;
 
 import java.io.IOException;
 
+import cm.aptoide.pt.Configs;
 import cm.aptoide.pt.IntentReceiver;
 
 import com.rabbitmq.client.AMQP;
@@ -13,19 +14,22 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
 public class AsynchronousWebInstallService extends IntentService {
 
 	private static final String TAG = "cm.aptoid.pt.services.AsynchronousWebInstallService";
-	private static final long ELAPSED_TIME_TO_START = 5*60*1000; // Starts each 5
-																// minutes,
-																// while device
-	// is associated
-	// with aptoide
+	private static final long ELAPSED_TIME_TO_START = 5 * 60 * 1000; // Starts
+																		// each
+																		// 5
+																		// minutes,
 
-	private final String queue_routing_key = "web_install_4d4e2d90c4d6eec405d82ecc795a7e3592df1523";
+	// private final String queue_routing_key =
+	// "web_install_4d4e2d90c4d6eec405d82ecc795a7e3592df1523";
+	private String rabbitmq_queue_id;
 
 	private static AlarmManager alarm_manager = null;
 	private static PendingIntent pending_intent = null;
@@ -39,19 +43,32 @@ public class AsynchronousWebInstallService extends IntentService {
 
 	public AsynchronousWebInstallService() {
 		super("AsynchronousWebInstallService");
+		
+	}
+	
+	@Override
+	public void onCreate() {
+		
+		super.onCreate();
+		
+		SharedPreferences sPref = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
+		rabbitmq_queue_id = sPref.getString(Configs.RABBITMQ_QUEUE_ID, null);
 	}
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		Log.i(TAG, "AsynchronousWebInstallService Started");
-
+		
 		Toast.makeText(this, "AsynchronousWebInstallService onHandleIntent()",
 				Toast.LENGTH_SHORT).show();
 
-		// Do the work -- check if rabbitmq has messages
-		CheckRabbitMqClient();
-		// Schedulling a new start
-		scheduleNextBeggining();
+		if (rabbitmq_queue_id != null) {
+			// Do the work -- check if rabbitmq has messages
+			CheckRabbitMqClient();
+			// Schedulling a new start
+			scheduleNextBeggining();
+		}
 
 	}
 
@@ -63,7 +80,7 @@ public class AsynchronousWebInstallService extends IntentService {
 
 	private void CheckRabbitMqClient() {
 		AsynchronousRabbitMqClient rabbitmq_client = new AsynchronousRabbitMqClient(
-				queue_routing_key);
+				rabbitmq_queue_id);
 		try {
 			rabbitmq_client.establishConnection();
 			String message_received = null;
@@ -114,7 +131,7 @@ public class AsynchronousWebInstallService extends IntentService {
 		public void establishConnection() {
 
 			ConnectionFactory factory = new ConnectionFactory();
-			factory.setHost("10.0.2.2");
+			factory.setHost(Configs.LOCAL_IP);
 			try {
 				connection = factory.newConnection();
 				channel = connection.createChannel();

@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import cm.aptoide.pt.Configs;
 import cm.aptoide.pt.IntentReceiver;
 
 import com.rabbitmq.client.ConnectionFactory;
@@ -18,10 +19,12 @@ import com.rabbitmq.client.QueueingConsumer.Delivery;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,9 +32,12 @@ public class WebInstallService extends Service {
 
 	private static final String TAG = "cm.aptoide.pt.services";
 
-	private final String queue_routing_key = "web_install_4d4e2d90c4d6eec405d82ecc795a7e3592df1523";
+	// private final String queue_routing_key =
+	// "web_install_4d4e2d90c4d6eec405d82ecc795a7e3592df1523";
 
 	private RabbitMqClient rabbitmq_client;
+
+	private String rabbitmq_queue_id;
 
 	private Runnable rabbitMq_pull_task;
 
@@ -48,8 +54,12 @@ public class WebInstallService extends Service {
 	@Override
 	public void onCreate() {
 		Log.i(TAG, "WebInstallService created!");
-
-		isRunning = true;
+		SharedPreferences sPref = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		rabbitmq_queue_id = sPref.getString(Configs.RABBITMQ_QUEUE_ID, null);
+		if (rabbitmq_queue_id != null) {
+			isRunning = true;
+		}
 	}
 
 	@Override
@@ -65,7 +75,7 @@ public class WebInstallService extends Service {
 			@Override
 			public void run() {
 				try {
-					rabbitmq_client = new RabbitMqClient(queue_routing_key);
+					rabbitmq_client = new RabbitMqClient(rabbitmq_queue_id);
 					rabbitmq_client.establishConnection();
 
 					while (isRunning) {
@@ -92,15 +102,7 @@ public class WebInstallService extends Service {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} // finally {
-				// //rabbitmq_client.closeConnection();
-				// Toast.makeText(context,
-				// "SYNC THREAD STOPPED!!! :D", Toast.LENGTH_SHORT).show();
-				// System.err.println("SYNC THREAD STOPPED!!!");
-				// }
-				// Toast.makeText(getApplicationContext(),
-				// "SYNC THREAD STOPPED!!! :D", Toast.LENGTH_SHORT).show();
-				// System.err.println("SYNC THREAD STOPPED!!!");
+				}
 			}
 		};
 
@@ -148,7 +150,7 @@ public class WebInstallService extends Service {
 		public void establishConnection() {
 
 			ConnectionFactory factory = new ConnectionFactory();
-			factory.setHost("10.0.2.2");
+			factory.setHost(Configs.LOCAL_IP);
 			try {
 				connection = factory.newConnection();
 				channel = connection.createChannel();

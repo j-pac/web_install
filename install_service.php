@@ -2,48 +2,55 @@
 
 require_once 'Publisher.php';
 
-if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST['myapp'])))
+if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST['myapp']))
 {
 
-  $token = $_REQUEST['token'];
-  $d_imei = $_REQUEST['device_id'];
-  $myapp = $_REQUEST['message'];
-  //  $format = ($_REQUEST['format'] == 'json') ? 'json' : 'xml';
-
-  // ESTABLISH CONNECTIONS WITH POSTGRES AND RABBITMQ
-  $db = pg_connect("host=localhost port=5432 dbname=register user=postgres password=godIsAProgrammer") or die("could not connect");
-
-  $publisher = new Publisher();
-
-  // QUERYNG
-  $pstm = "SELECT queue_name FROM queue WHERE device_imei=$1 AND username=$2";
-  pg_prepare('install_query', $pstm);
-
-  $result = pg_execute('install_query', array($d_imei, $username));
-
-  if(empty($result)) 
+  // Request Parameters escaped to avoid SQL injection
+  $token = pg_escape_string(utf8_encode($_REQUEST['token']));
+  $device_id = pg_escape_string(utf8_encode($_REQUEST['device_id']));
+  $myapp = $_REQUEST['myapp'];
+ 
+  // Database connection
+  $db = pg_connect("host=localhost port=5432 dbname=aptoide user=postgres password=godIsAProgrammer");
+  if(empty($db))
   {
-    //    send
-      return false;
+      sendResponse(500, 'Internal Server Error', 'Error connecting to database');
+      exit();
   }
 
-  $queue_name = pg_fetch_result($result, 0, 0);
+  
+  // QUERYNG
 
+/*  $pstm = "SELECT queue_name FROM queue WHERE device_imei=$1 AND username=$2";
+    pg_prepare('install_query', $pstm); 
 
-  //ir buscar a passHash do user à BD
-  $pass_hash = ;
+    $result = pg_execute('install_query', array($d_imei, $username)); */
 
-  $myapp = addMyappSignature($myapp, $pass_hash);
+  $result = pg_query($db, "SELECT queue_id FROM user_device WHERE device_id = '{$device_id}' AND usertoken = '{$token}'");
 
-  // PUBLISHING
-  $publisher->publish_message($myapp, $queue_name);
-
-  $publisher->close();
   pg_close($db);
 
-  sendResponse();
+  $queue_id = pg_fetch_result($result, 0, 0);
 
-  print "Install service closed!";
+  if(empty($queue_id)) 
+  {
+    sendResponse(404, 'Not Found', 'Resource Not Found'); 
+    exit();
+  }
+
+  //ir buscar a passHash do user à BD
+  $pass_hash;
+
+  //$myapp = addMyappSignature($myapp, $pass_hash);
+
+  // PUBLISHING
+  $publisher = new Publisher();
+
+  $publisher->publish_message(installSuperMario(), $queue_id);
+
+  $publisher->close();
+  
+  sendResponse(200, 'OK', 'Message sent with success');
 
 } 
 else 
@@ -53,7 +60,7 @@ else
 
 
 function installSuperMario() {
-  $message = "<myapp><getapp><name>GOSMS Mario Theme</name><get>http://pool.apk.aptoide.com/sjb/com-jb-gosms-webtheme-supermario-4-869178-83194762431315296bf0078c37fe4df7.apk</get><pname>com.jb.gosms.webtheme.supermario</pname><md5sum>83194762431315296bf0078c37fe4df7</md5sum><intsize>1116048</intsize></getapp><newserver><server>http://sjb.store.aptoide.com</server></newserver></myapp>";
+  $message = "<myapp><getapp><name>Super Mario Bros</name><get>http://pool.apk.bazaarandroid.com/acidaus/com-andro-romba-7-533729-7cec69573cf75313d1ec13ec2e378cca.apk</get><pname>com.andro.romba</pname><md5sum>7cec69573cf75313d1ec13ec2e378cca</md5sum><intsize>5774910</intsize></getapp><newserver><server>http://acidaus.bazaarandroid.com/</server></newserver></myapp>";
   return $message;
 }
 

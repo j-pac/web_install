@@ -29,6 +29,7 @@ public class Configs {
     
     //BRUTUS CODE
     public static final String RABBITMQ_QUEUE_ID = "queueId";
+    public static final String LOCAL_IP = "192.168.1.18";
     
 	public static final boolean SEARCH_GESTURE_ON			= false;
 	public static final double 	MIN_SEARCH_GESTURE_CONFIANCE= 1.5d;

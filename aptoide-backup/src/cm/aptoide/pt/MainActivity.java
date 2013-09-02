@@ -7,6 +7,7 @@
  ******************************************************************************/
 package cm.aptoide.pt;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -25,6 +26,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.CursorAdapter;
+import android.telephony.TelephonyManager;
 import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -1698,6 +1700,17 @@ public class MainActivity extends SherlockFragmentActivity implements
 			showUpdateStoreCredentialsDialog(intent.getStringExtra("url"));
 		}
 	};
+	
+	@SuppressLint("NewApi")
+	public String getDeviceId() {
+		String deviceId = ((TelephonyManager) this
+				.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+		if (deviceId != null) {
+			return deviceId;
+		} else {
+			return android.os.Build.SERIAL;
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -4,13 +4,13 @@ require_once 'Publisher.php';
 
 define("SERVICE_NAME", "web_install_");
 
-if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST['device_name']) && isset($_REQUEST['mode']))
+if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST['device_model']) && isset($_REQUEST['mode']))
 {
 
         // Request Parameters escaped to avoid SQL injection
         $token = pg_escape_string(utf8_encode($_REQUEST['token']));
         $device_id = pg_escape_string(utf8_encode($_REQUEST['device_id']));
-        $device_name = pg_escape_string(utf8_encode($_REQUEST['device_name']));
+        $device_model = pg_escape_string(utf8_encode($_REQUEST['device_model']));
         $mode  = strtolower($_REQUEST['mode']) == 'json' ? 'json' : 'xml';
 
 			
@@ -27,7 +27,7 @@ if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST
         $queue_id = generateQueueName($token, $device_id);
 
         // Register device in Aptoide Database, if its a valid aptoide user token and device its not registered yet
-	$register_query = pg_query($db, "INSERT INTO device (device_id, name, registered_on) SELECT '{$device_id}', '{$device_name}', CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM device WHERE device_id = '{$device_id}') AND EXISTS (SELECT 1 FROM aptoide_user WHERE token = '{$token}')");
+	$register_query = pg_query($db, "INSERT INTO device (device_id, model, registered_on) SELECT '{$device_id}', '{$device_model}', CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM device WHERE device_id = '{$device_id}') AND EXISTS (SELECT 1 FROM aptoide_user WHERE token = '{$token}')");
 	
 	// Associate device with user aptoide account
 	$association_query = pg_query($db, "INSERT INTO user_device (device_id, usertoken, queue_id, association_date) SELECT '{$device_id}', '{$token}', '{$queue_id}', CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM user_device WHERE device_id = '{$device_id}' AND usertoken = '{$token}')");

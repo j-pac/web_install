@@ -170,7 +170,7 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 		// BRUTUS NOTE -- if the checkCredentials task had success and user
 		// wants to register the device, it will start a register device task
 		checkCredentials(username, password);
-		
+
 	}
 
 	public void logout(View v) {
@@ -365,15 +365,12 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 					prefEdit.remove(Configs.LOGIN_USER_USERNAME);
 					prefEdit.commit();
 
+					Toast.makeText(context,
+							"USERTOKEN: " + array.getString("token"),
+							Toast.LENGTH_LONG).show();
+
 					// BRUTUS CODE -- Starts the device register task if the
 					// proper checkBox its checked
-					Toast toast = Toast.makeText(context,
-							"Usertoken: " + array.getString("token"),
-							Toast.LENGTH_SHORT);
-					toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL,
-							0, 30);
-					toast.show();
-
 					// Start the register device Task
 					if (associateDevice.isChecked()) {
 						new AssociateDeviceWithAccount().execute();
@@ -406,35 +403,41 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 	}
 
 	// BRUTUS CODE - Asynctask to registry device with Aptoide account
-
 	private class AssociateDeviceWithAccount extends
-			AsyncTask<Void, Void, String/* JSONObject */> {
+			AsyncTask<Void, Void, JSONObject> {
 
-		private final String URL = "http://10.0.2.2/registry_service.php";
+		private final String URL = "http://" + Configs.LOCAL_IP
+				+ "/registry_service.php";
 		private final String RESPONSE_MODE = "json";
 
 		private String token;
 		private String device_id;
-		private String queue_id = null;
+		private String device_model;
+		private int retry = 0;
 
 		@Override
-		protected String /* JSONObject */doInBackground(Void... voids) {
+		protected JSONObject doInBackground(Void... voids) {
 
 			token = sPref.getString(Configs.LOGIN_USER_TOKEN, null);
 			device_id = getDeviceId();
+			device_model = android.os.Build.MODEL;
 
-			if (token != null && device_id != null) {
+			if (token != null && device_id != null && device_model != null) {
 				try {
 
-					return registerDevice(token, device_id);
+					return registerDevice(token, device_id, device_model);
 
 				} catch (IOException e) {
 					System.err
-							.println("couldn't connect to device's registry web service - "
+							.println("Couldn't connect to device's registry web service - "
 									+ e.getMessage());
 				} catch (JSONException e) {
 					System.err
 							.println("Error creating JSONObject with response from device's registry web service - "
+									+ e.getMessage());
+				} catch (InterruptedException e) {
+					System.err
+							.println("Exceeded attempts to register the device - "
 									+ e.getMessage());
 				}
 			}
@@ -442,95 +445,84 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 		}
 
 		@Override
-		protected void onPostExecute(String response/* JSONObject response */) {
-			// try {
-			// if(response.get("status").equals("OK")) {
-			// String queue_routing_key = (String)
-			// response.get(Configs.RABBITMQ_QUEUE_ID);
-			// if(queue_routing_key != null) {
-			//
-			// prefEdit.putString(Configs.RABBITMQ_QUEUE_ID, queue_routing_key);
-			// prefEdit.commit();
-			// isDeviceRegistered = true;
-			//
-			//
-			// finish();
-			// } else {
-			// Toast toast = Toast.makeText(Login.this,
-			// response.getString("errors"), Toast.LENGTH_SHORT);
-			// toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL,
-			// 0, 30);
-			// toast.show();
-			// }
-			//
-			// }
-			// } catch (Exception e) {
-			// System.err.println("Error occurred - " + e.getMessage());
-			// }
+		protected void onPostExecute(JSONObject response) {
+			try {
+				if (response.getString("status").equals("OK")) {
+					prefEdit.putString(Configs.RABBITMQ_QUEUE_ID,
+							response.getString("queue_id"));
+					prefEdit.commit();
+					succeed = true;
 
-			if (response != null) {
-				prefEdit.putString(Configs.RABBITMQ_QUEUE_ID, response);
-				prefEdit.commit();
-				succeed = true;
+					Toast.makeText(
+							context,
+							"Queue id created: "
+									+ response.getString("queue_id"),
+							Toast.LENGTH_LONG).show();
 
-				Toast.makeText(context, "Queue id created: " + response,
-						Toast.LENGTH_LONG).show();
+					// BRUTUS CODE - Starts the web install service if user
+					// associated his
+					// device with aptoide account, after login is completed
+					Intent intent = new Intent("cm.aptoide.pt.SYNC_START");
+					sendBroadcast(intent);
 
-				// BRUTUS CODE - Starts the web install service if user associated his
-				// device with aptoide account, after login is completed
-				// THIS IS HERE BECAUSE OF A SYNCHRONISM PROBLEM
-//				if (isTheDeviceRegistered(context)) {
-					Intent i1 = new Intent("cm.aptoide.pt.SYNC_START");
-					sendBroadcast(i1);
-					
-//				}
-				/////////////////////////////////////////////////////////////////////
-				
-				
-				Intent i = new Intent("login");
-				sendBroadcast(i);
-				finish();
-			
-			} else {
-				Toast toast = Toast.makeText(Login.this, "QUEUE_ID == NULL",
+					// }
+					// ///////////////////////////////////////////////////////////////////
+
+					Intent i = new Intent("login");
+					sendBroadcast(i);
+					finish();
+
+				} else {
+					Toast toast = Toast.makeText(context,
+							response.getString("errors"), Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL,
+							0, 30);
+					toast.show();
+				}
+			} catch (JSONException e) {
+				Toast toast = Toast.makeText(context,
+						context.getString(R.string.error_occured),
 						Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 30);
 				toast.show();
+				e.printStackTrace();
 			}
 		}
 
 		// This is the method to get a unique device id
 		// to register this device with user's account.
-		// So, if device as an Imei, it will be the id.
+		// So, if device has an Imei, it will be the id.
 		// If Imei doesn't exist then it will be used android.os.Build.SERIAL,
 		// since its probably a tablet
 		@SuppressLint("NewApi")
 		public String getDeviceId() {
 			String deviceId = ((TelephonyManager) context
 					.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-			// if (deviceId != null) {
-			// return deviceId;
-			// } else {
-			return android.os.Build.SERIAL;
-			// }
+			if (deviceId != null) {
+				return deviceId;
+			} else {
+				return android.os.Build.SERIAL;
+			}
 		}
 
-		private String /* JSONObject */registerDevice(String token,
-				String device_id) throws IOException, JSONException {
+		private JSONObject registerDevice(String token, String device_id,
+				String device_model) throws IOException, JSONException,
+				InterruptedException {
 			// Post request to registry webservice
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(URL);
-			// ---set the header---
 			httpPost.addHeader("Content-Type",
 					"application/x-www-form-urlencoded");
 
 			List<NameValuePair> requestKeyValuePairs = new ArrayList<NameValuePair>(
 					3);
-			requestKeyValuePairs.add(new BasicNameValuePair("username", token));
-			requestKeyValuePairs.add(new BasicNameValuePair("device_imei",
+			requestKeyValuePairs.add(new BasicNameValuePair("token", token));
+			requestKeyValuePairs.add(new BasicNameValuePair("device_id",
 					device_id));
-			// requestKeyValuePairs.add(new BasicNameValuePair("mode",
-			// RESPONSE_MODE));
+			requestKeyValuePairs.add(new BasicNameValuePair("device_model",
+					device_model));
+			requestKeyValuePairs.add(new BasicNameValuePair("mode",
+					RESPONSE_MODE));
 
 			httpPost.setEntity(new UrlEncodedFormEntity(requestKeyValuePairs));
 			HttpResponse httpResponse = httpclient.execute(httpPost);
@@ -544,15 +536,22 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 			while ((line = rd.readLine()) != null) {
 				sb.append(line + "\n");
 			}
-
-			// JSONObject response = new JSONObject(sb.toString());
-			// if(response.has("errors")) {
-			// // Try X times
-			// }
-			// return response;
-			System.out.println("Queue id generated: " + sb.toString());
-			return sb.toString();
-
+			in.close();
+			rd.close();
+			JSONObject response = new JSONObject(sb.toString());
+			if (response.has("errors")) {
+				if (response.getString("errors").contains("Server")) {
+					if (retry >= 3) {
+						response = null;
+						throw new IOException();
+					}
+					Thread.sleep(3000);
+					retry++;
+					System.out.println("Retrying device registry " + retry);
+					response = registerDevice(token, device_id, device_model);
+				}
+			}
+			return response;
 		}
 
 	}
