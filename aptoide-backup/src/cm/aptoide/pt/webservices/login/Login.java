@@ -32,8 +32,6 @@ import cm.aptoide.pt.AptoideThemePicker;
 import cm.aptoide.pt.Configs;
 import cm.aptoide.pt.Database;
 import cm.aptoide.pt.R;
-import cm.aptoide.pt.services.AsynchronousWebInstallService;
-import cm.aptoide.pt.services.RealWebInstallService;
 import cm.aptoide.pt.services.WebInstallService;
 import cm.aptoide.pt.util.Algorithms;
 import cm.aptoide.pt.views.ViewApk;
@@ -176,7 +174,7 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 	public void logout(View v) {
 
 		// BRUTUS CODE -- stops the web install service after user's logout
-		if (WebInstallService.isRunning()) {
+		if (Login.isDeviceRegistered(getApplicationContext())) {
 			Intent i = new Intent("cm.aptoide.pt.SYNC_STOP");
 			sendBroadcast(i);
 		}
@@ -447,7 +445,8 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 		@Override
 		protected void onPostExecute(JSONObject response) {
 			try {
-				if (response.getString("status").equals("OK")) {
+				if (response != null
+						&& response.getString("status").equals("OK")) {
 					prefEdit.putString(Configs.RABBITMQ_QUEUE_ID,
 							response.getString("queue_id"));
 					prefEdit.commit();
@@ -473,8 +472,12 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 					finish();
 
 				} else {
-					Toast toast = Toast.makeText(context,
-							response.getString("errors"), Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(context,/*
+														 * response.getString(
+														 * "errors")
+														 */
+							"Device not registered, try again!",
+							Toast.LENGTH_SHORT);
 					toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL,
 							0, 30);
 					toast.show();
@@ -538,6 +541,7 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 			}
 			in.close();
 			rd.close();
+			System.out.println("RECEIVED: " + sb.toString());
 			JSONObject response = new JSONObject(sb.toString());
 			if (response.has("errors")) {
 				if (response.getString("errors").contains("Server")) {

@@ -3,6 +3,7 @@
 require_once 'Publisher.php';
 
 define("SERVICE_NAME", "web_install_");
+define("LOG_FILE", "./registry_service_log.log");
 
 if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST['device_model']) && isset($_REQUEST['mode']))
 {

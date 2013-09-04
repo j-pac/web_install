@@ -22,7 +22,7 @@ import android.widget.Toast;
 public class AsynchronousWebInstallService extends IntentService {
 
 	private static final String TAG = "cm.aptoid.pt.services.AsynchronousWebInstallService";
-	private static final long ELAPSED_TIME_TO_START = 5 * 60 * 1000; // Starts
+	private static final long ELAPSED_TIME_TO_START = (long)1* 60 * 1000; // Starts
 																		// each
 																		// 5
 																		// minutes,
@@ -76,6 +76,8 @@ public class AsynchronousWebInstallService extends IntentService {
 	public void onDestroy() {
 		Toast.makeText(this, "AsynchronousWebInstallService onDestroy()",
 				Toast.LENGTH_SHORT).show();
+		Log.i(TAG, "AsynchronousWebInstallService Stopped");
+
 	}
 
 	private void CheckRabbitMqClient() {

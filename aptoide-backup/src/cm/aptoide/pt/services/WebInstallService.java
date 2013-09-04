@@ -1,10 +1,22 @@
 package cm.aptoide.pt.services;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
 
 import cm.aptoide.pt.Configs;
 import cm.aptoide.pt.IntentReceiver;
@@ -87,11 +99,6 @@ public class WebInstallService extends Service {
 					}
 
 				} catch (ShutdownSignalException e) {
-					// TODO Auto-generated catch block
-					Toast.makeText(getApplicationContext(),
-							"SYNC THREAD STOPPED!!! :D", Toast.LENGTH_SHORT)
-							.show();
-					System.err.println("SYNC THREAD STOPPED!!!");
 					e.printStackTrace();
 				} catch (ConsumerCancelledException e) {
 					// TODO Auto-generated catch block
@@ -113,8 +120,9 @@ public class WebInstallService extends Service {
 	@Override
 	public void onDestroy() {
 		Log.i(TAG, "WebInstallService destroyed!");
+	
 
-		Toast.makeText(this, "WebInstallService Stopped - onDestroy()! :)",
+		Toast.makeText(getApplicationContext(), "WebInstallService Stopped - onDestroy()! :)",
 				Toast.LENGTH_SHORT).show();
 
 		isRunning = false;
@@ -122,6 +130,7 @@ public class WebInstallService extends Service {
 		rabbitmq_client.closeConnection();
 
 		// rabbitmq_client.cancelConsumer();
+		System.out.println("WebInstallService destroyed!");
 
 	}
 

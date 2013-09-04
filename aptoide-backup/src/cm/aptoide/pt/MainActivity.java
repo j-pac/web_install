@@ -1700,7 +1700,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 			showUpdateStoreCredentialsDialog(intent.getStringExtra("url"));
 		}
 	};
-	
+
 	@SuppressLint("NewApi")
 	public String getDeviceId() {
 		String deviceId = ((TelephonyManager) this
@@ -2678,7 +2678,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 	protected void onDestroy() {
 		// BRUTUS CODE -- stops synchronous web install service when it's is
 		// destroyed
-		if (WebInstallService.isRunning()) {
+		if (Login.isDeviceRegistered(getApplicationContext())) {
 			Intent i = new Intent("cm.aptoide.pt.SYNC_STOP");
 			sendBroadcast(i);
 		}
