@@ -15,6 +15,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -22,13 +25,10 @@ import android.widget.Toast;
 public class AsynchronousWebInstallService extends IntentService {
 
 	private static final String TAG = "cm.aptoid.pt.services.AsynchronousWebInstallService";
-	private static final long ELAPSED_TIME_TO_START = (long)1* 60 * 1000; // Starts
-																		// each
-																		// 5
-																		// minutes,
-
-	// private final String queue_routing_key =
-	// "web_install_4d4e2d90c4d6eec405d82ecc795a7e3592df1523";
+	private static final long ELAPSED_TIME_TO_START = (long) 1 * 60 * 1000; // Starts
+																			// each
+																			// 5
+																			// minutes
 	private String rabbitmq_queue_id;
 
 	private static AlarmManager alarm_manager = null;
@@ -43,14 +43,14 @@ public class AsynchronousWebInstallService extends IntentService {
 
 	public AsynchronousWebInstallService() {
 		super("AsynchronousWebInstallService");
-		
+
 	}
-	
+
 	@Override
 	public void onCreate() {
-		
+
 		super.onCreate();
-		
+
 		SharedPreferences sPref = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
 		rabbitmq_queue_id = sPref.getString(Configs.RABBITMQ_QUEUE_ID, null);
@@ -59,17 +59,18 @@ public class AsynchronousWebInstallService extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		Log.i(TAG, "AsynchronousWebInstallService Started");
-		
+
 		Toast.makeText(this, "AsynchronousWebInstallService onHandleIntent()",
 				Toast.LENGTH_SHORT).show();
 
-		if (rabbitmq_queue_id != null) {
+		if (rabbitmq_queue_id != null && isNetworkConnected(this)) {
 			// Do the work -- check if rabbitmq has messages
 			CheckRabbitMqClient();
 			// Schedulling a new start
 			scheduleNextBeggining();
+		} else {
+			turnOffAlarmManager();
 		}
-
 	}
 
 	@Override
@@ -117,6 +118,14 @@ public class AsynchronousWebInstallService extends IntentService {
 		long next_run_time = System.currentTimeMillis() + ELAPSED_TIME_TO_START;
 
 		alarm_manager.set(AlarmManager.RTC, next_run_time, pending_intent);
+	}
+
+	private boolean isNetworkConnected(Context context) {
+		ConnectivityManager connMgr = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo wifi = connMgr
+				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		return wifi.getState() == NetworkInfo.State.CONNECTED;
 	}
 
 	private class AsynchronousRabbitMqClient {
@@ -177,8 +186,11 @@ public class AsynchronousWebInstallService extends IntentService {
 
 		public void closeConnection() {
 			try {
-				channel.close();
-				connection.close();
+				if (connection.isOpen() && channel != null
+						&& connection != null) {
+					channel.close();
+					connection.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

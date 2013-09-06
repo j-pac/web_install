@@ -1,23 +1,8 @@
 package cm.aptoide.pt.services;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
-
 import cm.aptoide.pt.Configs;
 import cm.aptoide.pt.IntentReceiver;
 
@@ -25,17 +10,14 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.ConsumerCancelledException;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.ShutdownListener;
 import com.rabbitmq.client.ShutdownSignalException;
 import com.rabbitmq.client.QueueingConsumer.Delivery;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
-import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -43,9 +25,6 @@ import android.widget.Toast;
 public class WebInstallService extends Service {
 
 	private static final String TAG = "cm.aptoide.pt.services";
-
-	// private final String queue_routing_key =
-	// "web_install_4d4e2d90c4d6eec405d82ecc795a7e3592df1523";
 
 	private RabbitMqClient rabbitmq_client;
 
@@ -99,6 +78,10 @@ public class WebInstallService extends Service {
 					}
 
 				} catch (ShutdownSignalException e) {
+					Toast.makeText(getApplicationContext(),
+							"Received shutdown signal!!!", Toast.LENGTH_LONG)
+							.show();
+
 					e.printStackTrace();
 				} catch (ConsumerCancelledException e) {
 					// TODO Auto-generated catch block
@@ -108,8 +91,11 @@ public class WebInstallService extends Service {
 					e.printStackTrace();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}
+				Toast.makeText(getApplicationContext(),
+						"MyService Thread ended!!!", Toast.LENGTH_LONG).show();
 			}
 		};
 
@@ -119,18 +105,17 @@ public class WebInstallService extends Service {
 
 	@Override
 	public void onDestroy() {
-		Log.i(TAG, "WebInstallService destroyed!");
-	
 
-		Toast.makeText(getApplicationContext(), "WebInstallService Stopped - onDestroy()! :)",
+		Toast.makeText(getApplicationContext(),
+				"WebInstallService Stopped - onDestroy()! :)",
 				Toast.LENGTH_SHORT).show();
 
 		isRunning = false;
+
 		executor.shutdownNow();
 		rabbitmq_client.closeConnection();
 
-		// rabbitmq_client.cancelConsumer();
-		System.out.println("WebInstallService destroyed!");
+		Log.i(TAG, "WebInstallService destroyed!");
 
 	}
 
@@ -160,21 +145,34 @@ public class WebInstallService extends Service {
 
 			ConnectionFactory factory = new ConnectionFactory();
 			factory.setHost(Configs.LOCAL_IP);
+			factory.setConnectionTimeout(0);
+			// factory.setRequestedHeartbeat(10);
+
 			try {
 				connection = factory.newConnection();
+				connection.addShutdownListener(new ShutdownListener() {
+
+					@Override
+					public void shutdownCompleted(ShutdownSignalException arg0) {
+						stopSelf();
+
+					}
+				});
+
 				channel = connection.createChannel();
 
+				// queueDeclare(java.lang.String queue,
+				// boolean passive,
+				// boolean durable,
+				// boolean exclusive,
+				// boolean autoDelete,
 				channel.queueDeclare(queue_routing_key, true, false, false,
 						null);
 
 				channel.basicQos(0);
 
-				consumer = new QueueingConsumer(channel); // {
-				// @Override
-				// public void handleCancelOk(String consumerTag) {
-				// //closeConnection();
-				// }
-				// };
+				consumer = new QueueingConsumer(channel);
+
 				channel.basicConsume(queue_routing_key, false, consumer);
 
 			} catch (IOException e) {
@@ -201,25 +199,13 @@ public class WebInstallService extends Service {
 
 		public void closeConnection() {
 			try {
-				channel.close();
-				connection.close();
-				Toast.makeText(getApplicationContext(),
-						"RABBITMQ CONNECTION CLOSED!", Toast.LENGTH_LONG)
-						.show();
+				if (connection.isOpen() && connection != null) {
+					connection.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-
-		// public void cancelConsumer() {
-		// try {
-		// channel.basicCancel(((QueueingConsumer) consumer).getConsumerTag());
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
-
 	}
 
 	public static boolean isRunning() {

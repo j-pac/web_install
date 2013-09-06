@@ -6,44 +6,35 @@ import cm.aptoide.pt.webservices.login.Login;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
 
 public class WebInstallReceiver extends BroadcastReceiver {
 
-	private static boolean isSyncRunningTime = false;
+	private static final String TAG = "WebInstallReceiver";
+	private static final String SPREFERENCES_NAME = "WEB_INSTALL_RECEIVER";
+	private static final int MODE_PRIVATE = 0;
+	private static final String SPREF_SYNC_KEY = "isSyncRunningTime";
+
 	private Context context;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		this.context = context;
 		String action = intent.getAction();
+		SharedPreferences spref = context.getSharedPreferences(
+				SPREFERENCES_NAME, MODE_PRIVATE);
+
 		boolean isNetworkConnected = checkNetworkConnection(context);
 
-		if (action.equals("android.net.conn.CONNECTIVITY_CHANGE")) {
-			if (Login.isDeviceRegistered(context)) {
-				// When the connection is lost
-				if (!isNetworkConnected) {
-					if (isSyncRunningTime) {
-						stopSynchronousService();
-					} else {
-						stopAsynchronousService();
-					}
-				} else {
-					// When connection is recovered
-					if (isSyncRunningTime) {
-						startSynchronousService();
-						Toast.makeText(context, "LIGAR SERVICO SINCRONO",
-								Toast.LENGTH_SHORT).show();
-					} else {
-						startAsynchronousService();
-						Toast.makeText(context, "LIGAR SERVICO ASSINCRONO",
-								Toast.LENGTH_SHORT).show();
-					}
-				}
-			}
-		} else if (action.equals("android.intent.action.BOOT_COMPLETED")) {
+		ConnectivityManager conMgr = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
+
+		if (action.equals("android.intent.action.BOOT_COMPLETED")) {
 			if (Login.isDeviceRegistered(context) && isNetworkConnected) {
 				startAsynchronousService();
 			}
@@ -55,16 +46,32 @@ public class WebInstallReceiver extends BroadcastReceiver {
 			if (isNetworkConnected) {
 				startSynchronousService();
 			}
-			isSyncRunningTime = true;
+			spref.edit().putBoolean(SPREF_SYNC_KEY, true).commit();
 		} else if (action.equals("cm.aptoide.pt.SYNC_STOP")) {
 			Toast.makeText(context, "SYNC_STOP CALLED!!!", Toast.LENGTH_SHORT)
 					.show();
 			if (WebInstallService.isRunning()) {
 				stopSynchronousService();
 			}
-			isSyncRunningTime = false;
+			spref.edit().putBoolean(SPREF_SYNC_KEY, false).commit();
 			if (Login.isDeviceRegistered(context) && isNetworkConnected) {
 				startAsynchronousService();
+			}
+		} else if (action.equals("android.net.wifi.STATE_CHANGE")) {
+			if (!spref.contains(SPREF_SYNC_KEY)) {
+				System.out.println("NAO TEM A PREFERENCIA!!!");
+			}
+
+			if (isNetworkConnected) {
+				Log.i(TAG, "Wireless connection detected");
+
+				if (Login.isDeviceRegistered(context)) {
+					if (spref.getBoolean(SPREF_SYNC_KEY, false)) {
+						startSynchronousService();
+					} else {
+						startAsynchronousService();
+					}
+				}
 			}
 		}
 	}
@@ -89,9 +96,10 @@ public class WebInstallReceiver extends BroadcastReceiver {
 	}
 
 	private boolean checkNetworkConnection(Context context) {
-		ConnectivityManager conMgr = (ConnectivityManager) context
+		ConnectivityManager connMgr = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
-		return (activeNetwork != null && activeNetwork.isConnected());
+		NetworkInfo wifi = connMgr
+				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		return wifi.getState() == NetworkInfo.State.CONNECTED;
 	}
 }
