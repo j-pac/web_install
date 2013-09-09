@@ -1,0 +1,84 @@
+public class CodigoDeHamming extends TecnicaControloErros {
+
+	@Override
+	public void definirEstruturaTramaAEnviar(int tamanho_mensagem) {
+		definirTamanhoMensagem(tamanho_mensagem);
+		definirTrama(tamanho_mensagem == 4 ? 7 : 15);
+	}
+
+	@Override
+	public int[] geracaoTramaAEnviar(int[] dados_a_enviar) {
+
+		// Marca na trama o local dos bits de paridade sinalizando-os com -1
+		localizarBitsParidade();
+
+		// Introduçao da mensagem por ordem na trama, nos locais nao marcados
+		// para bits de paridade
+		introduzirMensagemNaTrama(dados_a_enviar);
+
+		// Calculo e introdução dos bits de paridade na trama
+		introduzirBitsParidade();
+		
+		return getEstruturaTrama();
+	}
+
+	@Override
+	public boolean deteccaoErros(int[] trama_recebida) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private void localizarBitsParidade() {
+		int i = 0;
+
+		while (Math.pow(2, i) <= getTotalLength()) {
+			definirBit((int) (Math.pow(2, i) - 1), -1);
+			i++;
+		}
+	}
+
+	private void introduzirMensagemNaTrama(int[] dados_a_enviar) {
+		int dados_index = 0;
+		for (int i = 0; i < getTotalLength(); i++) {
+			if (consultarBit(i) != -1) {
+				definirBit(i, dados_a_enviar[dados_index]);
+				dados_index++;
+			}
+		}
+		assert (dados_index + 1 == getMessageLength()) : "--> Deu bronca: -O Algoritmo nao esta a funcionar correctamente!";
+	}
+
+	// Funçao que define os valores dos bits de paridade
+	private void introduzirBitsParidade() {
+		for (int i = 0, posicao = (int) Math.pow(2, i); posicao < getTotalLength(); i++) {
+
+			definirBit(posicao - 1, calcularBitParidade(posicao));
+		}
+	}
+
+	// Calcula bitparidade sendo dada a sua posicao
+	private int calcularBitParidade(int mod2) {
+		int resultado = 0;
+
+		int j = 0;
+		for (int i = mod2; i <= getTotalLength(); i = j + mod2) {
+			for (j = i; j < i + mod2; j++) {
+				if (j != mod2) {
+					resultado = XOR(resultado, consultarBit(j - 1));
+				}
+
+			}
+
+		}
+		return resultado;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + " Código de Hamming"
+				+ System.getProperty("line.separator")
+				+ "Tamanho da mensagem: " + getMessageLength() + " bits"
+				+ System.getProperty("line.separator");
+
+	}
+}

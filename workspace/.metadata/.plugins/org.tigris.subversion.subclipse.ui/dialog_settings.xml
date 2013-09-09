@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="395" key="passwordStores.size.y"/>
+	<item value="512" key="passwordStores.size.x"/>
+	<item value="200" key="HistoryDialog.weights.2"/>
+	<item value="200" key="HistoryDialog.weights.1"/>
+	<item value="472" key="HistoryTableProvider.HistoryDialog.Comment"/>
+	<item value="767" key="HistoryDialog.size.x"/>
+	<item value="200" key="HistoryDialog.weights.0"/>
+	<item value="400" key="HistoryDialog.size.y"/>
+	<item value="116" key="HistoryTableProvider.HistoryDialog.Date"/>
+	<item value="47" key="HistoryTableProvider.HistoryDialog.Revision"/>
+	<item value="92" key="HistoryTableProvider.HistoryDialog.Author"/>
+	<item value="83" key="passwordStores.location.y"/>
+	<item value="411" key="passwordStores.location.x"/>
+	<item value="88" key="HistoryDialog.location.y"/>
+	<item value="516" key="HistoryDialog.location.x"/>
+</section>

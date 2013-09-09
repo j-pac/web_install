@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory/impl
+END
+FuzzyKeyMemoryCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory/impl/FuzzyKeyMemoryCache.java
+END
+LimitedAgeMemoryCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory/impl/LimitedAgeMemoryCache.java
+END
+WeakMemoryCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory/impl/WeakMemoryCache.java
+END
+LRULimitedMemoryCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory/impl/LRULimitedMemoryCache.java
+END
+FIFOLimitedMemoryCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory/impl/FIFOLimitedMemoryCache.java
+END
+UsingFreqLimitedMemoryCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory/impl/UsingFreqLimitedMemoryCache.java
+END
+LargestLimitedMemoryCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory/impl/LargestLimitedMemoryCache.java
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/view
+END
+StandaloneActionMode.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/view/StandaloneActionMode.java
+END
+ActionProviderWrapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/view/ActionProviderWrapper.java
+END
+View_HasStateListenerSupport.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/view/View_HasStateListenerSupport.java
+END
+View_OnAttachStateChangeListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/view/View_OnAttachStateChangeListener.java
+END

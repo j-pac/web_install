@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidClient</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Aptoide Client</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="my_account">A minha conta</string>
+    <string name="email_view">Email</string>
+    <string name="email_edit">Escreva o seu email</string>
+    <string name="password_text">Password...</string>
+    <string name="login_button">Login</string>
+    <string name="show_password">Mostrar password</string>
+    <string name="associate_device">Associar dispositivo à minha conta</string>
+   	<string name="init_session">Iniciar sessão</string>
+   	<string name="close_session">Terminar sessão</string>
+   	<string name="have_session_inited">Tem sessão iniciada como:</string>
+    
+</resources>

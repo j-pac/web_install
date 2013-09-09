@@ -1,0 +1,90 @@
+package com.aptoide.androidclient;
+
+import java.io.IOException;
+
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.ConsumerCancelledException;
+import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.ShutdownSignalException;
+
+
+public class RabbitMqClient {
+
+	private com.rabbitmq.client.Connection connection;
+	private com.rabbitmq.client.Channel channel;
+	private QueueingConsumer consumer;
+	
+	private String queue_routing_key;
+	
+	
+	public RabbitMqClient(String queue_id) {
+		queue_routing_key = queue_id;
+	}
+	
+	
+	public void establishConnection() {
+		ConnectionFactory factory = new ConnectionFactory();
+		factory.setHost("10.0.2.2");
+		try {
+			connection = factory.newConnection();
+			channel = connection.createChannel();
+
+			channel.queueDeclare(queue_routing_key, true, false, false, null);
+
+			channel.basicQos(0);
+
+			consumer = new QueueingConsumer(channel);
+			channel.basicConsume(queue_routing_key, false, consumer);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+	}
+
+	public void consumeMessages() {
+		while (true) {
+			QueueingConsumer.Delivery delivery;
+
+			try {
+				delivery = consumer.nextDelivery();
+
+				final String message = new String(delivery.getBody());
+
+				/*
+				runOnUiThread(new Runnable() {
+					public void run() {
+						Toast.makeText(RabbitMqClient.this, message, Toast.LENGTH_LONG)
+						.show();
+					}
+				});
+				*/
+				
+				//PARSE XML
+				
+				//CALL SOMETHING TO DOWNLOAD AND INSTALL THE APK 
+
+				channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+				
+				System.out.println("Message obtained: " + message);
+
+			} catch (ShutdownSignalException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ConsumerCancelledException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+}

@@ -1,0 +1,45 @@
+public class BitDeParidade extends TecnicaControloErros {
+
+	
+	@Override
+	public void definirEstruturaTramaAEnviar(int tamanho_mensagem) {
+		definirTamanhoMensagem(tamanho_mensagem);
+		definirTrama(tamanho_mensagem + 1);
+	}
+
+	@Override
+	public int[] geracaoTramaAEnviar(int[] dados_a_enviar) {
+
+		// Colocação dos dados por ordem na Trama
+		for (int i = 0; i < dados_a_enviar.length - 1; i++) {
+			definirBit(i, dados_a_enviar[i]);
+		}
+
+		// Verificaçao da paridade da mensagem e introduçao do bit de controlo
+		if (ePar(dados_a_enviar)) {
+			definirBit((dados_a_enviar.length + 1), 0);
+		} else {
+			definirBit((dados_a_enviar.length + 1), 1);
+		}
+		
+		return getEstruturaTrama();
+	}
+
+	@Override
+	public boolean deteccaoErros(int[] trama_recebida) {
+		return !ePar(trama_recebida);
+	}
+
+	private boolean ePar(int[] trama_a_verificar) {
+		int count = 0;
+		for (int i = 0; i < trama_a_verificar.length; i++) {
+			if (trama_a_verificar[i] == 1) {
+				count++;
+			}
+		}
+		return count % 2 == 0;
+	}
+
+	
+
+}

@@ -1,0 +1,334 @@
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class MainClass implements ActionListener {
+
+	private static String[] TIPO_VERSAO = { "Versão de demonstração",
+			"Versão de simulação" };
+	private static String[][] OPCOES = {
+			{ "Bit de Paridade", "CRC G23(x)", "Código de Hamming" },
+			{ "4 bits", "11 bits" }, { "Opção A", "Opção B" } };
+	private static int[] TAMANHO_MENSAGEM = { 4, 11 };
+
+	private JFrame janela;
+	private Container contentor;
+
+	private Versao versao_a_correr;
+	private FicheiroDeResultados ficheiro;
+	private Emissor emissor;
+	private CanalRuidoso canal;
+	private Receptor receptor;
+
+	public static void main(String[] args) {
+		new MainClass().init();
+	}
+
+	// ---------------------- Método responsavel pelo inicio da execuçao do Programa ----------------------------------
+	public void init() {
+		// Criaçao dos actores da arquitectura
+		construirArquitectura();
+
+		// Instanciação da classe Versao
+		versao_a_correr = new Versao();
+		
+		// Instanciaçao da classe do ficheiro
+		ficheiro = new FicheiroDeResultados();
+		
+		// Apresentaçao dialogo para escolha do Modo de funcionamento
+		iniciarOpcoes();
+	}
+
+	private void construirArquitectura() {
+		canal = new CanalRuidoso();
+		emissor = new Emissor();
+		receptor = new Receptor();
+	}
+
+	public void iniciarOpcoes() {
+		janela = new JFrame("Trabalho Prático I: Detecção e correcção de erros");
+		janela.setVisible(true);
+		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// janela.setResizable(false);
+		janela.setSize(500, 100);
+		janela.setLocation(400, 150);
+
+		contentor = janela.getContentPane();
+
+		showOptionPanel(TIPO_VERSAO, "Escolha a versão a executar: ");
+
+	}
+
+	// public void apresentarOpcoesDemonstracao() {
+	// contentor.removeAll();
+	// contentor.setLayout(new BorderLayout());
+	// janela.setSize(500, 280);
+	// JPanel painel_opcoes = new JPanel();
+	// painel_opcoes.add(createOptionPanel(OPCOES[0],
+	// "Escolha a técnica a demonstrar: "));
+	// painel_opcoes.add(createOptionPanel(OPCOES[1],
+	// "Escolha o tamanho da mensagem(M): "));
+	// painel_opcoes.add(createOptionPanel(OPCOES[2],
+	// "Escolha uma das seguintes opções: "));
+	//
+	// JPanel finalizar = new JPanel();
+	// finalizar.setLayout(new BorderLayout());
+	// JLabel label = new JLabel("Validar opções: ", JLabel.CENTER);
+	// label.setFont(new Font("Serif", Font.BOLD, 30));
+	// finalizar.add(label, BorderLayout.NORTH);
+	// finalizar.add(new JButton("Correr demonstração"), BorderLayout.CENTER);
+	//
+	// contentor.add(painel_opcoes, BorderLayout.CENTER);
+	// contentor.add(finalizar, BorderLayout.SOUTH);
+	// contentor.validate();
+	// contentor.repaint();
+	// }
+
+	public void showOptionPanel(String[] options, String label) {
+		contentor.removeAll();
+		JPanel painel_global = new JPanel();
+		painel_global.setLayout(new BorderLayout());
+
+		JPanel painel_botoes = new JPanel();
+
+		for (int i = 0; i < options.length; i++) {
+			JButton botao = new JButton(options[i]);
+			botao.addActionListener(this);
+			painel_botoes.add(botao);
+		}
+
+		painel_global.add(new JLabel(label, JLabel.CENTER), BorderLayout.NORTH);
+		painel_global.add(painel_botoes, BorderLayout.CENTER);
+		contentor.add(painel_global);
+		contentor.repaint();
+		contentor.validate();
+	}
+
+	private class Versao {
+
+		private static final int N_ITERACOES_DEMONSTRACAO = 1;
+		private static final int N_ITERACOES_SIMULACAO = 10000;
+
+		private TecnicaControloErros tecnica_a_correr;
+		private int tamanho_mensagem_actual;
+
+		private int[] mensagem;
+		private int[] trama_a_enviar;
+		private int[] padrao_erros;
+		private int[] mensagem_a_receber;
+
+		public void definirMensagem(int[] mensagem) {
+			this.mensagem = mensagem;
+			System.out.println("mensagem definida: " + mensagem.toString());
+		}
+
+		public void definirPadraoErros(int[] padrao_erros) {
+			this.padrao_erros = padrao_erros;
+			System.out.println("padrao erros definido: "
+					+ padrao_erros.toString());
+		}
+
+		public void definirTecnicaCorrente(TecnicaControloErros tecnica) {
+			tecnica_a_correr = tecnica;
+		}
+
+		public void definirTamanhoMensagemCorrente(int tamanho_mensagem) {
+			tecnica_a_correr.definirEstruturaTramaAEnviar(tamanho_mensagem);
+		}
+
+		public TecnicaControloErros consultarTecnica() {
+			return tecnica_a_correr;
+		}
+
+		// VERSAO DEMONSTRAÇAO
+		public void correrVersaoDemonstracao(char opcao) {
+
+			emissor.definirTecnicaControlo(tecnica_a_correr);
+			receptor.definirTecnicaDeteccao(tecnica_a_correr);
+			
+			ficheiro = new FicheiroDeResultados.FicheiroDaDemonstracao("Versão de Demonstração");
+
+			// O EMISSOR GERA A MENSAGEM A ENVIAR, NO CASO DA OPÇAO B
+			if (opcao == 'B') {
+				mensagem = emissor.gerarDados(tamanho_mensagem_actual);
+			}
+
+			// O EMISSOR GERA A TRAMA CONFORME A TECNICA A UTILIZAR
+			trama_a_enviar = emissor.gerarTrama(mensagem);
+
+			// O CANAL DEFINE UM PADRAO DE ERROS EM FUNÇAO DO PADRAO DE ERROS
+			// RECEBIDO, NO CASO DA OPÇAO B
+			if (opcao == 'B') {
+				padrao_erros = canal.geracaoPadraoErros(trama_a_enviar.length);
+			}
+
+			// A MENSAGEM ORIGINAL É ALTERADA CONFORME OS ERROS QUE OCORRERAM,
+			// FORMANDO A MENSAGEM A RECEBER
+			mensagem_a_receber = canal.geracaoTramaReceber(trama_a_enviar,
+					padrao_erros);
+
+			// O RECEPTOR PROCEDE Á VERIFICAÇAO DE ERROS
+			boolean deuErro = receptor.detectarErros(mensagem_a_receber);
+
+			
+			
+			System.exit(0);
+
+		}
+
+		// VERSAO SIMULAÇAO
+		public void correrVersaoSimulacao() {
+
+			for(int i = 0; i < N_ITERACOES_SIMULACAO; i++) {
+				
+				int[] dados = emissor.gerarDados(tamanho_mensagem_actual);
+				
+				int[] trama_a_enviar = emissor.gerarTrama(dados);
+				
+				int[] padrao_erros = canal.geracaoPadraoErros(trama_a_enviar.length);
+				
+				int[] mensagem_recebida = canal.geracaoTramaReceber(trama_a_enviar, padrao_erros);
+			}
+			
+			System.exit(0);
+
+		}
+
+	}
+
+	// private class VersaoDemonstracao extends Versao {
+	//
+	// private char opcao;
+	//
+	// private int[] mensagem;
+	// private int[] trama_a_enviar;
+	// private int[] padrao_erros;
+	// private int[] mensagem_a_receber;
+	//
+	// public void escolherOpcao(char opcao) {
+	// this.opcao = opcao;
+	// }
+	//
+	// public void run() {
+	// setMensagem(mensagem)
+	// if(opcao == 'A') {
+	//
+	// }
+	//
+	// }
+	//
+	// }
+	//
+	// private class VersaoSimulacao {
+	//
+	// @Override
+	// public void run() {
+	// }
+	//
+	//
+	// @Override
+	// public void escolherOpcao(char opcao) {};
+	//
+	// }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		if (e.getActionCommand().equals(TIPO_VERSAO[0])) {
+			showOptionPanel(OPCOES[0], "Escolha a técnica a demonstrar: ");
+		} else if (e.getActionCommand().equals(TIPO_VERSAO[1])) {
+
+			janela.setVisible(false);
+			versao_a_correr.correrVersaoSimulacao();
+
+		} else if (e.getActionCommand().equals(OPCOES[0][0])) {
+			versao_a_correr.definirTecnicaCorrente(new BitDeParidade());
+			showOptionPanel(OPCOES[1], "Escolha o tamanho da mensagem: ");
+		} else if (e.getActionCommand().equals(OPCOES[0][1])) {
+			versao_a_correr
+					.definirTecnicaCorrente(new CodigoRedundanciaCiclica());
+
+			showOptionPanel(OPCOES[1], "Escolha o tamanho da mensagem: ");
+		} else if (e.getActionCommand().equals(OPCOES[0][2])) {
+			versao_a_correr.definirTecnicaCorrente(new CodigoDeHamming());
+			showOptionPanel(OPCOES[1], "Escolha o tamanho da mensagem: ");
+
+		} else if (e.getActionCommand().equals(OPCOES[1][0])) {
+			versao_a_correr.definirTamanhoMensagemCorrente(TAMANHO_MENSAGEM[0]);
+			showOptionPanel(OPCOES[2], "Escolha uma das seguintes opções: ");
+		} else if (e.getActionCommand().equals(OPCOES[1][1])) {
+			versao_a_correr.definirTamanhoMensagemCorrente(TAMANHO_MENSAGEM[1]);
+			showOptionPanel(OPCOES[2], "Escolha uma das seguintes opções: ");
+
+		} else if (e.getActionCommand().equals(OPCOES[2][0])) {
+			// Opcao A : O utilizador introduz os bits de dados(M) e o padrao de
+			// erros(E)
+			boolean dados_aceitaveis = false;
+			while (!dados_aceitaveis) {
+				String dados = JOptionPane.showInputDialog(janela,
+						"Introduza os "
+								+ versao_a_correr.consultarTecnica()
+										.getMessageLength()
+								+ " bits da Mensagem a enviar:");
+				String padrao_erros = JOptionPane.showInputDialog(janela,
+						"Introduza os "
+								+ versao_a_correr.consultarTecnica()
+										.getTotalLength()
+								+ " bits do padrão de erro:");
+				if (dados.length() == versao_a_correr.consultarTecnica()
+						.getMessageLength()
+						&& padrao_erros.length() == versao_a_correr
+								.consultarTecnica().getTotalLength()) {
+					// FALTA VERIFICAR QUE SAO TODOS OS BITS 0 OU 1
+					versao_a_correr
+							.definirMensagem(convertStringToBitsArray(dados));
+					versao_a_correr
+							.definirPadraoErros(convertStringToBitsArray(padrao_erros));
+					dados_aceitaveis = true;
+					
+					// DAQUI COMEÇA A CORRER A VERSAO DE DEMONSTRAÇAO
+					versao_a_correr.correrVersaoDemonstracao('A');
+				}
+			}
+			janela.setVisible(false);
+			
+
+		} else if (e.getActionCommand().equals(OPCOES[2][1])) {
+			// Opcao B : O utilizador introduz a peb --> define a parametro do
+			// canal
+			boolean dados_aceitaveis = false;
+			while (!dados_aceitaveis) {
+				String peb_str = JOptionPane.showInputDialog(janela,
+						"Introduza a probabilidade de Erro: ");
+				if (peb_str.contains("0.")) {
+					double peb = Double.parseDouble(peb_str);
+					canal.definirProbabilidadeErro(peb);
+					dados_aceitaveis = true;
+					
+					// DAQUI COMEÇA A CORRER A VERSAO DE DEMONSTRAÇAO
+					versao_a_correr.correrVersaoDemonstracao('B');
+				}
+			}
+			janela.setVisible(false);
+			
+		}
+	}
+
+	private int[] convertStringToBitsArray(String str) {
+		int[] bits_array = new int[str.length()];
+
+		for (int i = 0; i < str.length(); i++) {
+			bits_array[i] = Character.digit(str.charAt(i), 10);
+		}
+		return bits_array;
+	}
+}

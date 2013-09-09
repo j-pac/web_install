@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core
+END
+ImageLoadingInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/ImageLoadingInfo.java
+END
+LoadAndDisplayImageTask.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/LoadAndDisplayImageTask.java
+END
+ImageLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/ImageLoader.java
+END
+ImageDecoder.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/ImageDecoder.java
+END
+ImageLoaderConfiguration.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/ImageLoaderConfiguration.java
+END
+DisplayBitmapTask.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/DisplayBitmapTask.java
+END
+DefaultConfigurationFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/DefaultConfigurationFactory.java
+END
+DisplayImageOptions.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/DisplayImageOptions.java
+END

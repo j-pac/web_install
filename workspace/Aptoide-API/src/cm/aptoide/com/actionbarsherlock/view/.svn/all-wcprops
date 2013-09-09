@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/view
+END
+Window.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/view/Window.java
+END
+Menu.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/view/Menu.java
+END
+SubMenu.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/view/SubMenu.java
+END
+MenuInflater.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/view/MenuInflater.java
+END
+ActionMode.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/view/ActionMode.java
+END
+ActionProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/view/ActionProvider.java
+END
+CollapsibleActionView.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/view/CollapsibleActionView.java
+END
+MenuItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/view/MenuItem.java
+END

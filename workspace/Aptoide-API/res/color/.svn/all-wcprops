@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/res/color
+END
+abs__primary_text_holo_dark.xml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/res/color/abs__primary_text_holo_dark.xml
+END
+abs__primary_text_disable_only_holo_light.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/res/color/abs__primary_text_disable_only_holo_light.xml
+END
+vpi__dark_theme.xml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/res/color/vpi__dark_theme.xml
+END
+vpi__light_theme.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/res/color/vpi__light_theme.xml
+END
+abs__primary_text_disable_only_holo_dark.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/res/color/abs__primary_text_disable_only_holo_dark.xml
+END
+abs__primary_text_holo_light.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/res/color/abs__primary_text_holo_light.xml
+END

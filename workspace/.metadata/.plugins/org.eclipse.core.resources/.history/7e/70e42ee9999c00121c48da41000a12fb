@@ -1,0 +1,27 @@
+
+public class Exp {
+	
+	public static void main(String[] args) {
+		
+		int[] trama = { -1, -1, 0, -1, 0, 0, 0};
+		int mod2 = (int)Math.pow(2, 0);
+		
+		int j = 0;
+		int resultado = 0;
+		
+		for(int i = mod2; i < trama.length; i = j +1) {
+			for(j = i; i < mod2; j++) {
+				resultado = XOR(resultado, trama[j-1]);
+			}
+		}
+		
+		trama[mod2-1] = resultado; 
+		
+		System.out.println();
+	}
+	
+	public static int XOR(int bit1, int bit2) {
+		return ((bit1 + bit2) == 1 ? 1 : 0);
+	}
+
+}

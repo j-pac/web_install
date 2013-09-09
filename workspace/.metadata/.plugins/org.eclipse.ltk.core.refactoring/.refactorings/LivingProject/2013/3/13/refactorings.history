@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;SequenciaBits.java&apos; to &apos;MainClass.java&apos;&#x0A;- Original project: &apos;LivingProject&apos;&#x0A;- Destination element: &apos;MainClass.java&apos;&#x0A;- Original element: &apos;SequenciaBits.java&apos;&#x0A;- Update references to refactored element" description="Move file" element1="SequenciaBits.java" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1364583028035" target="/1º Projecto de Redes/src/MainClass.java" units="0" version="1.0"/>
+</session>

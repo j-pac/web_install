@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView 
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:background="@color/Green"
+    	android:textColor="@android:color/white"
+    	android:textSize="23sp"
+    	android:text="@string/init_session" />    
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email_view" />
+    
+    <EditText android:id="@+id/email_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/email_edit" />
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password_text"/>
+    
+    <EditText android:id="@+id/password_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="@string/password_text"/>
+    
+    <CheckBox android:id="@+id/show_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_password" />
+    
+    <CheckBox  android:id="@+id/associate_device"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/associate_device" />
+        
+    <Button 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/Green"
+    	android:textColor="@android:color/white"
+        android:onClick="doLogin"
+        android:text="@string/login_button" />
+        
+        
+</LinearLayout>

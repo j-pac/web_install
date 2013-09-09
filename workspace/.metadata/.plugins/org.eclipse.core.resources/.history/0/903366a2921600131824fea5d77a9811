@@ -1,0 +1,5 @@
+package cm.aptoide.pt;
+
+public class NetworkChangeReceiver {
+
+}

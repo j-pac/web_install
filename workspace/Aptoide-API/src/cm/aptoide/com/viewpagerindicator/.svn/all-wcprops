@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/viewpagerindicator
+END
+PageIndicator.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/viewpagerindicator/PageIndicator.java
+END
+CirclePageIndicator.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/viewpagerindicator/CirclePageIndicator.java
+END
+LinePageIndicator.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/viewpagerindicator/LinePageIndicator.java
+END
+TabPageIndicator.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/viewpagerindicator/TabPageIndicator.java
+END
+IcsLinearLayout.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/viewpagerindicator/IcsLinearLayout.java
+END
+TitlePageIndicator.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/viewpagerindicator/TitlePageIndicator.java
+END
+IconPageIndicator.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/viewpagerindicator/IconPageIndicator.java
+END
+IconPagerAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/viewpagerindicator/IconPagerAdapter.java
+END
+UnderlinePageIndicator.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/viewpagerindicator/UnderlinePageIndicator.java
+END

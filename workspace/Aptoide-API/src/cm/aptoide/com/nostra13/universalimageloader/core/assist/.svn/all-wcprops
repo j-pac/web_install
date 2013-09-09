@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist
+END
+ViewScaleType.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/ViewScaleType.java
+END
+QueueProcessingType.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/QueueProcessingType.java
+END
+ImageSize.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/ImageSize.java
+END
+ImageScaleType.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/ImageScaleType.java
+END
+SimpleImageLoadingListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/SimpleImageLoadingListener.java
+END
+FlushedInputStream.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/FlushedInputStream.java
+END
+PauseOnScrollListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/PauseOnScrollListener.java
+END
+ImageLoadingListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/ImageLoadingListener.java
+END
+MemoryCacheUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/MemoryCacheUtil.java
+END
+FailReason.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/FailReason.java
+END

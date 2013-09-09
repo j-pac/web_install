@@ -1,0 +1,185 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads
+END
+MraidBrowserController.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MraidBrowserController.java
+END
+MraidInterstitialAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MraidInterstitialAdapter.java
+END
+MraidProperty.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MraidProperty.java
+END
+GoogleAdMobAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/GoogleAdMobAdapter.java
+END
+MoPubActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MoPubActivity.java
+END
+AdView.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/AdView.java
+END
+MoPubConversionTracker.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MoPubConversionTracker.java
+END
+MoPubInterstitial.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MoPubInterstitial.java
+END
+MraidDisplayController.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MraidDisplayController.java
+END
+MoPubActivityBroadcastReceiver.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MoPubActivityBroadcastReceiver.java
+END
+MraidActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MraidActivity.java
+END
+AdFetcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/AdFetcher.java
+END
+MoPubView.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MoPubView.java
+END
+BaseActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/BaseActivity.java
+END
+BaseAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/BaseAdapter.java
+END
+MraidView.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MraidView.java
+END
+MoPub.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MoPub.java
+END
+CustomEventInterstitialAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/CustomEventInterstitialAdapter.java
+END
+MoPubErrorCode.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MoPubErrorCode.java
+END
+CustomEventBannerAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/CustomEventBannerAdapter.java
+END
+MraidAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MraidAdapter.java
+END
+CustomEventInterstitial.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/CustomEventInterstitial.java
+END
+MraidAbstractController.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MraidAbstractController.java
+END
+CustomEventBanner.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/CustomEventBanner.java
+END
+FacebookKeywordProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/FacebookKeywordProvider.java
+END
+MraidCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MraidCommand.java
+END
+BaseInterstitialAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/BaseInterstitialAdapter.java
+END
+MraidCommandRegistry.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MraidCommandRegistry.java
+END
+MraidBrowser.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/MraidBrowser.java
+END
+Utils.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repo/!svn/ver/1184/libraries/aptoide-support-libs/src/com/mopub/mobileads/Utils.java
+END

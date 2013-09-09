@@ -1,0 +1,80 @@
+package com.aptoide.aptoideclient;
+
+import java.io.IOException;
+
+import com.rabbitmq.client.AMQP.Channel;
+import com.rabbitmq.client.AMQP.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.ConsumerCancelledException;
+import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.ShutdownSignalException;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+
+
+public class RequestDataActivity extends Activity {
+	
+	private static final String DEVICE_ID = "xxx";
+	
+//	private Connection connection;
+//	private Channel channel;
+//	private String requestQueueName = "rpc_queue";
+//	private String replyQueueName;
+//	private QueueingConsumer consumer;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_request_data);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.request_data, menu);
+		return true;
+	}
+	
+	private void establishConnection() throws IOException {
+		
+		//ESTABLISHING THE CONNECTION WITH RABBITMQ
+		ConnectionFactory factory = new ConnectionFactory();
+		factory.setHost("localhost");
+		
+		com.rabbitmq.client.Connection connection = factory.newConnection();
+		com.rabbitmq.client.Channel channel = connection.createChannel();
+		
+		// CREATING AND NAMMING THE QUEUE
+		channel.queueDeclare(DEVICE_ID, false, false, false, null);
+		
+		//channel.basicQos(1);
+		
+		// CREATING THE CONSUMER AND ASSIGNING IT WITH A QUEUE
+		QueueingConsumer consumer = new QueueingConsumer(channel);
+		channel.basicConsume(DEVICE_ID, false, consumer);
+		
+		// CONSUMING INDEFINITELY MESSAGES FROM QUEUE
+		while(true) {
+			QueueingConsumer.Delivery delivery = null;
+			try {
+				delivery = consumer.nextDelivery();
+			} catch (ShutdownSignalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ConsumerCancelledException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String message = new String(delivery.getBody());
+			
+			//Start the activity to show or do some work with the message
+			
+			channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+		}	
+	}
+}

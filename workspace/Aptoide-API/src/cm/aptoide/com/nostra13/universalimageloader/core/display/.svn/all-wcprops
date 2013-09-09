@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/display
+END
+BitmapDisplayer.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/display/BitmapDisplayer.java
+END
+FadeInBitmapDisplayer.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/display/FadeInBitmapDisplayer.java
+END
+SimpleBitmapDisplayer.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/display/SimpleBitmapDisplayer.java
+END
+FakeBitmapDisplayer.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/display/FakeBitmapDisplayer.java
+END
+RoundedBitmapDisplayer.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/display/RoundedBitmapDisplayer.java
+END

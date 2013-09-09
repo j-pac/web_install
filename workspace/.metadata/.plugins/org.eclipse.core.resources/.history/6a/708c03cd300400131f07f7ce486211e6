@@ -1,0 +1,78 @@
+package com.aptoide.androidclient;
+
+import java.io.IOException;
+
+import android.widget.Toast;
+
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.QueueingConsumer;
+
+
+public class RabbitMqClient {
+
+	private com.rabbitmq.client.Connection connection;
+	private com.rabbitmq.client.Channel channel;
+	private QueueingConsumer consumer;
+	
+	private String queue_name;
+	
+	
+	public void establishConnection() {
+		ConnectionFactory factory = new ConnectionFactory();
+		factory.setHost("10.0.2.2");
+		try {
+			connection = factory.newConnection();
+			channel = connection.createChannel();
+
+			channel.queueDeclare(DEVICE_ID, true, false, false, null);
+
+			channel.basicQos(0);
+
+			consumer = new QueueingConsumer(channel);
+			channel.basicConsume(DEVICE_ID, false, consumer);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+	}
+
+	public void consumeMessages() {
+		while (true) {
+			QueueingConsumer.Delivery delivery;
+
+			try {
+				delivery = consumer.nextDelivery();
+
+				final String message = new String(delivery.getBody());
+
+				runOnUiThread(new Runnable() {
+					public void run() {
+						Toast.makeText(RabbitMqClient.this, message, Toast.LENGTH_LONG)
+						.show();
+					}
+				});
+				
+
+				channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+
+			} catch (ShutdownSignalException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ConsumerCancelledException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+}

@@ -1,0 +1,10 @@
+Técnica de controlo de erros utilizada:  Código de Hamming
+Tamanho da mensagem: 11 bits
+
+Mensagem: [1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0]
+Trama: [1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0]
+Padrão de erros: [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1]
+Mensagem recebida: [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1]
+Erros detectados: Sim
+Critério de detecção de erros: Bits de verificação
+Trama Corrigida: [0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1]

@@ -1,0 +1,1463 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" xmlns:og="http://opengraphprotocol.org/schema/" lang="pt"><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Style-Type" content="text/css">
+        <meta http-equiv="Content-Script-Type" content="text/javascript">
+                <meta name="keywords" content="bazaar, android, aptoide, market, apktor, apps, download"> 
+        <meta name="description" content="O Aptoide é a maior loja independente de aplicações Android que lhe permite configurar e gerir o seu próprio mercado Android. Carregue, teste e aprove as suas aplicações."> 
+                    <meta property="og:title" content="Super Mario Bros - Download grátis para Android">
+                    <meta property="og:description" content="Get the Super Mario Bros Android App (3617799 Downloads) No description available">
+                    <meta property="og:url" content="http://apps.store.aptoide.com/app/market/com.ggnes.supermario2/23/30220/Super Mario Bros">
+                    <meta property="og:image" content="http://cdn1.aptoide.com/includes/themes/default/images/logotipo.png">
+        
+        <title>Super Mario Bros | Android Apps (Free APK)</title> 
+
+        <link rel="shortcut icon" href="http://cdn1.aptoide.com/includes/themes/default/favicon.ico">
+
+                    <link rel="alternate" type="application/rss+xml" title="Latest Applications - apps - Aptoide - Your Own Market" href="http://www.aptoide.com/feed/apps">
+        
+                     
+                <link rel="stylesheet" type="text/css" href="/home/brutus/Área de Trabalho/Páginas Dummy/Super Mario Bros | Android Apps (Free APK)_ficheiros/style.css">
+             
+                <link rel="stylesheet" type="text/css" href="/home/brutus/Área de Trabalho/Páginas Dummy/Super Mario Bros | Android Apps (Free APK)_ficheiros/style2.css">
+             
+                <link rel="stylesheet" type="text/css" href="/home/brutus/Área de Trabalho/Páginas Dummy/Super Mario Bros | Android Apps (Free APK)_ficheiros/jquery.css">
+                    
+                
+        <style type="text/css">
+	        #menu_superior_admin[submenu] ul li a {
+	        	padding-left: 15px;
+	        	padding-right: 15px;
+	        }
+        </style>
+
+                     
+                <script async="" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/cbgapi.loaded_1"></script><script async="" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/cbgapi.loaded_0"></script><script src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/ga.js" async="" type="text/javascript"></script><script src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/widgets.js" id="twitter-wjs"></script><script gapi_processed="true" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/plusone.js" async="" type="text/javascript"></script><script src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/all.js" id="facebook-jssdk"></script><script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/jquery-1.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/jquery_002.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/jquery_004.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/bazaar_007.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/bazaar_005.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/bazaar_004.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/bazaar_002.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/bazaar.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/jquery.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/jquery_005.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/jquery_003.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/bazaar_006.js"></script>
+             
+                <script type="text/javascript" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/bazaar_003.js"></script>
+                    
+         
+             
+                <script language="javascript" type="text/javascript">var baseurl='http://www.aptoide.com/';</script>           
+             
+                <script language="javascript" type="text/javascript">var repoUrl = 'http://apps.store.aptoide.com/ajax/get-ajax_user-repos.php';</script>           
+             
+                <script language="javascript" type="text/javascript">$(document).ready(function() {
+		
+		if($("#screenshotContainer ul li").length > 2) {
+			$("#next-nav").show();
+			$("#prev-nav").show();
+			$("#screenshotContainer").jCarouselLite({
+				btnNext: "#next-nav",
+				btnPrev: "#prev-nav",
+				visible: 2,
+				mouseWheel: true
+
+			});
+		} else {
+			$("#screenshotContainer").jCarouselLite({
+				visible: 2,
+			});
+		}
+
+		$("#screenshotContainer ul li a").fancybox({
+			'transitionIn'  : 'elastic',
+			'speedIn'       : 600,
+			'speedOut'      : 200,
+			'overlayColor'   : '#000'
+		});
+
+		$("#installInfoContainer").hide();
+		$("#showInstall").fancybox({
+			'transitionIn'   : 'elastic',
+			'transitionOut'  : 'elastic',
+			'speedIn'        : 600,
+			'speedOut'       : 200,
+			'overlayColor'   : '#000',
+			'autoDimensions': false,
+			'autoScale'		: false,
+			'padding'       : 0,
+			'width'         : 900,
+			'height'        : 500
+			
+		});
+		
+		$("#malwareInfoContainer").hide();
+		$("#showMalwareDescription").fancybox({
+			'transitionIn'   : 'elastic',
+			'transitionOut'  : 'elastic',
+			'speedIn'        : 600,
+			'speedOut'       : 200,
+			'overlayColor'   : '#000',
+			'autoDimensions' : false,
+			'autoScale'      : false,
+			'padding'        : 0,
+			'width'          : 900,
+			'height'         : 500
+		        
+		});
+		
+		$("#loginToVoteInfoContainer").hide();
+		$("#showLoginVoteInfo").fancybox({
+			'transitionIn'   : 'elastic',
+			'transitionOut'  : 'elastic',
+			'speedIn'        : 600,
+			'speedOut'       : 200,
+			'overlayColor'   : '#000'
+		});
+		$("#showLoginVoteInfoN").fancybox({
+			'transitionIn'   : 'elastic',
+			'transitionOut'  : 'elastic',
+			'speedIn'        : 600,
+			'speedOut'       : 200,
+			'overlayColor'   : '#000'
+		});
+		
+		$("#preview_window_cont").hide();
+		$("#preview_snippet").fancybox({
+			'transitionIn'   : 'elastic',
+			'transitionOut'  : 'elastic',
+			'speedIn'        : 600,
+			'speedOut'       : 200,
+			'overlayColor'   : '#000',
+			'padding'		 : '0px'
+		});
+		
+		$("#mustLoginToReportContainer").hide();
+		$("#showLoginReportInfo").fancybox({
+			'transitionIn'   : 'elastic',
+			'transitionOut'  : 'elastic',
+			'speedIn'        : 600,
+			'speedOut'       : 200,
+			'overlayColor'   : '#000'
+		});
+		
+		$(".list-size").hide();
+	    $(".show-hide-size").show("fast");
+	        
+	    $('.show-hide-size').click(function(){
+	        $(".list-size").toggle("fast");
+	    });
+		
+		$("#microdataRating").hide();
+		$("#microdataPrice").hide();
+	});</script>           
+                        <style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_reset > div{overflow:hidden}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+.fb_dialog_top_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+.fb_dialog_top_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+.fb_dialog_bottom_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+.fb_dialog_bottom_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;left:-10000px;overflow:visible;position:absolute;top:-10000px;width:100%
+}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0 0, 0 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0 0, 0 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fb_edge_widget_with_comment{position:relative;*z-index:1000}
+.fb_edge_widget_with_comment span.fb_edge_comment_widget{position:absolute}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget{z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget .FB_Loader{left:0;top:1px;margin-top:6px;margin-left:0;background-position:50% 50%;background-color:#fff;height:150px;width:394px;border:1px #666 solid;border-bottom:2px solid #283e6c;z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.dark .FB_Loader{background-color:#000;border-bottom:2px solid #ccc}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.siderender
+.FB_Loader{margin-top:0}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+.fbpluginrecommendationsbarleft{left:10px}
+.fbpluginrecommendationsbarright{right:10px}</style></head>
+    
+    <body data-twttr-rendered="true">
+        <div id="site">
+            <div id="topo">
+                <div id="logo"><a href="http://www.aptoide.com/"><img src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/logotipo.png" alt="Ir para o Início"></a></div>
+                <div id="topo_right">
+                    <div id="menu_superior_login">                       
+                        <select id="locale_select" class="locale_select" name="locale_select" size="1">
+                                                            <option value="http://www.aptoide.com/locale/en_GB">English</option>
+                                                            <option value="http://www.aptoide.com/locale/pt_PT" selected="selected">Português</option>
+                                                            <option value="http://www.aptoide.com/locale/es_ES">Español</option>
+                                                            <option value="http://www.aptoide.com/locale/fr_FR">Français</option>
+                                                            <option value="http://www.aptoide.com/locale/de_DE">Deutsch</option>
+                                                            <option value="http://www.aptoide.com/locale/ru_RU">Русский</option>
+                                                            <option value="http://www.aptoide.com/locale/zh_CN">中文</option>
+                                                            <option value="http://www.aptoide.com/locale/it_IT">Italiano</option>
+                                                            <option value="http://www.aptoide.com/locale/ko_KR">한국어</option>
+                                                            <option value="http://www.aptoide.com/locale/ar_AR">العربية</option>
+                                                            <option value="http://www.aptoide.com/locale/hi_HI">हिंदी</option>
+                                                    </select>
+                        <ul>
+                                                            <li><a href="https://www.aptoide.com/account/login">Entrar</a> | </li>
+                                <li><a href="https://www.aptoide.com/account/new-user">Novo Utilizador</a> | </li>
+                                <li><a href="https://www.aptoide.com/account/password-recovery">Recuperar palavra-passe</a></li>
+                                                    </ul>
+                    </div>
+
+                    <div id="pesquisa_input">
+                        <form action="http://www.aptoide.com/search/view" method="get">
+                                                            <input name="search_top" id="pesquisa_input_text" value="Pesquisar no Aptoide..." onblur="if(this.value == '') this.value=this.defaultValue;" onfocus="if (this.defaultValue == this.value) this.value = '';" type="text">
+                                                        <input id="pesquisa_input_submit" value="" type="submit">
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+			            <div id="menu_superior">
+                <div id="menu_superior_left"></div>
+                <ul>
+                    <li>
+                        <a href="http://www.aptoide.com/">Início</a>
+                    </li>
+                    <li id="menu_superior_selected">
+                        <a href="http://www.aptoide.com/repo/view">Navegar</a>
+                    </li>
+                    <!-- <li>
+                    	<a href="http://www.aptoide.com/search">Pesquisa Avançada</a>
+                    </li> -->
+                    <li>
+                                                    <a href="https://www.aptoide.com/application/new">Carregar Aplicação</a>
+                                            </li>
+                    <li>
+                        <a href="https://www.aptoide.com/account/my-apps">As Minhas Aplicações</a>
+                    </li>
+                    <li>
+                        <a href="https://www.aptoide.com/account/my-stores">As Minhas Lojas</a>
+                    </li>
+                    <li>
+                        <a href="http://www.aptoide.com/webservices">Devel</a>
+                    </li>
+                    <!-- <li style="border-right: none;"><a href="http://www.aptoide.com/search/view">Pesquisar &nbsp;<font style="color: #f4ce2b; text-decoration: underline;">new</font></a></li> -->
+                </ul>
+                
+                <div id="menu_superior_right"></div>
+                            </div>
+
+            
+            
+
+<div id="principal">
+    
+                <div class="caixa3">
+                    
+                    <a href="http://apps.store.aptoide.com/" style="display:inline;">
+                    <div class="caixa3_topo">
+                        <span class="caixa3_titulo">apps</span>
+                    </div>
+                    </a>
+                    <div style="display: none;" id="categoriesListingHelp" class="caixa3_conteudo">
+                    	<br>
+                        <ul class="subcategorias_listagem">
+                        	<li><a href="#" id="categoriesHelp"><b>+ Clique para Expandir</b></a></li>
+                        </ul>
+                    </div>
+                    <div id="categoriesListing" class="caixa3_conteudo">
+
+                        <ul class="categorias_listagem">
+                            <li><a href="http://apps.store.aptoide.com/">Tudo</a></li>
+                            <li><a href="http://apps.store.aptoide.com/cat/Applications">Aplicações</a>
+                                <ul class="subcategorias_listagem">
+   		   								<li><a href="http://apps.store.aptoide.com/cat/Comics">Banda Desenhada</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Communication">Comunicação</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Entertainment">Entretenimento</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Finance">Finanças</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Health">Saúde</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Lifestyle">Estilo de Vida</a></li>
+   		   		   								<li><a href="#" id="appsMore"><b>+ [Ver Todos]</b></a></li>
+   								<span style="display: none;" id="appsMoreListing">
+   		   								<li><a href="http://apps.store.aptoide.com/cat/Multimedia">Multimédia</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/News%20&amp;%20Weather">Notícias &amp; Meteorologia</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Productivity">Produtividade</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Reference">Referência</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Shopping">Compras</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Social">Social</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Sports">Desporto</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Themes">Temas</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Tools">Ferramentas</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Travel">Viagens</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Demo">Demo</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Software%20Libraries">Bibliotecas de Software</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Weather">Weather</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Travel%20&amp;%20Local">Travel &amp; Local</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Transportation">Transportation</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Medical">Medical</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Libraries%20&amp;%20Demo">Libraries &amp; Demo</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Transport">Transport</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/News%20&amp;%20Magazines">News &amp; Magazines</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Music%20&amp;%20Audio">Music &amp; Audio</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Photography">Photography</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Personalization">Personalization</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Books%20&amp;%20Reference">Books &amp; Reference</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Health%20&amp;%20Fitness">Health &amp; Fitness</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Media%20&amp;%20Video">Media &amp; Video</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Education">Education</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Business">Business</a></li>
+   		</span>                                </ul>
+                            </li>
+                            <li><a href="http://apps.store.aptoide.com/cat/Games">Games</a>
+                                <ul class="subcategorias_listagem">
+   		   								<li><a href="http://apps.store.aptoide.com/cat/Arcade%20&amp;%20Action">Arcade &amp; Action</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Brain%20&amp;%20Puzzle">Brain &amp; Puzzle</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Cards%20&amp;%20Casino">Cards &amp; Casino</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Casual">Casual</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Sports%20Games">Sports Games</a></li>
+   		   		   								<li><a href="http://apps.store.aptoide.com/cat/Racing">Racing</a></li>
+   		                                </ul>
+                            </li>
+
+
+
+                             <br>
+                             <a href="http://www.twitter.com/bazaar_android" class="botao_twitter_followme"><img src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/twitter-follow_me-a-clear.png" alt="Follow bazaar_android on Twitter" title="Follow bazaar_android on Twitter" class="followme"></a>
+
+
+                        <br><br>
+                        </ul>
+                    </div>
+                    
+                    <!-- <br />
+                
+                	<div class="caixa3_topo">
+                        <a id="userRepos" href="#">
+                        
+                                                	<span class="caixa3_titulo">
+                                                	Lojas dos Utilizadores</span></a>
+                    </div>
+                    <div id="userReposListingHelp" class="caixa3_conteudo">
+                    	<br />
+                        <ul class="subcategorias_listagem">
+                        	<li><a href="#" id="userReposHelp"><b>+ Clique para Expandir</b></a></li>
+                        </ul>
+                    </div>
+                    
+                   <div id="userReposListing" class="caixa3_conteudo">
+                   	<div id="userReposLoader" style="text-align: center;">
+                   		<br /><br /><br /><br /><br />
+                   		<img src="http://cdn1.aptoide.com/includes/themes/default/images/blue_ajax_loader.gif" alt="Loading..."/>
+                   		<br /><br /><br /><br /><br />
+                   	</div>
+                   </div>  -->
+
+                    <div class="caixa3_rodape"></div>
+                </div>
+    <div class="caixa4">
+        <div class="caixa4_topo">
+            <div class="caixa4_titulo">Super Mario Bros - 1.2.5</div>
+        </div>
+        <div class="caixa4_conteudo clear">
+            <div class="caminho_aplicacao" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="http://apps.store.aptoide.com/" itemprop="url">
+                    <span itemprop="title">apps.store.aptoide.com</span></a> » 
+                <a href="http://apps.store.aptoide.com/cat/Arcade%20&amp;%20Action" itemprop="url">
+                    <span itemprop="title">Arcade &amp; Action</span></a> » 
+                    Super Mario Bros
+            </div>
+            <div id="aplicacao_top_info">
+                <div class="aplicacao_nome" itemscope="" itemtype="http://schema.org/MobileSoftwareApplication">
+                    <img itemprop="image" style="width: 48px; height: 48px;" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/f85e5a131afde0e85ca00cc5c36740ff.png" alt="Free Android App">
+                    <div class="conteudo">
+                        <div class="app_nome" itemprop="name">Super Mario Bros</div>
+                        <div class="app_info">
+                                                        Versão: <span itemprop="softwareversion">1.2.5</span> | 
+                            Downloads: <span itemprop="numdownloads">3617799</span>
+                            <br>
+                            Tamanho: <span itemprop="filesize">608k</span>
+                                                    </div>
+                        <span style="display: none;" id="microdataPrice">
+                            <span content="Android" itemprop="operatingsystems">Android</span>
+                            <span itemprop="offers" itemtype="http://schema.org/Offer" itemscope="">
+                                <span itemprop="price">0</span>
+                                <span itemprop="seller" itemtype="http://schema.org/Organization" itemscope="">
+                                    <span itemprop="name">
+                                        Android
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+
+                        <a href="#" class="new show-hide-permissions">List permissions</a> | 
+                        <a href="#mustLoginToReport" id="showLoginReportInfo">Report Abuse</a>                                                   
+                    </div>
+                </div>
+
+                <div class="aplicacao_instalar">
+					                    <a id="showInstall" href="#installInfo">
+                        <img src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/botao_install.png" alt="download free android app from apps market">
+                    </a>                                              
+                </div>               
+            </div>
+            
+                        <div style="display: none;" id="installInfoContainer">
+                <div id="installInfo">
+                    <br><br>
+                    <span class="installItem">1. Instale o Cliente Aptoide no seu dispositivo móvel</span> (se ainda não estiver instalado)<br><br>
+                    <span class="installSubItem">Para instalar aplicações a partir do Aptoide você necessita de instalar o Cliente Aptoide.</span>
+                    <br><br>
+                    <span class="installSubItem">1.1 Você necessita de usar uma das seguintes vias:</span>
+                    <br><br>
+                    <span class="installSubItem2">- Descarregar o aptoide.apk e instalá-lo no seu dispositivo:</span>
+                    <br>
+                    <div class="center">
+                        <a href="http://aptoide.com/apks/Aptoide.apk">
+                            <img src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/aptoide_new_install.png" alt="Aptoide Install" title="Aptoide Install">
+                        </a>
+                    </div>
+                    <br>
+                    <span class="installSubItem2">- Ou lei-a este código QR com o seu dispositivo Android:</span>
+                    <br>
+                    <div class="center">
+                        <img src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/apk-qrcode.png" alt="Aptoide QR Code" title="Aptoide QR Code">
+                    </div>
+                    <br><br>
+                    <span class="installSubItem">1.2 Depois de o 
+download estar completo, vá até à barra de notificação e carregue no 
+nome da aplicação (Aptoide.apk) para inicializar a instalação do 
+Aptoide.</span>
+                    <br><br>
+                    <div class="center">
+                        <img src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/aptoide-01.png" alt="Aptoide Download Complete" title="Aptoide Download Complete">
+                    </div>
+                    <br><br><br>
+                    <span class="installSubItem">1.3 Clique no botão "Instalar" para finalizar a instalação.</span>
+                    <br><br>
+                    <div class="center">
+                        <img src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/aptoide-02.png" alt="Install Aptoide" title="Install Aptoide">
+                    </div>
+                    <br><br><br><br>
+                    <span class="installItem">2. Navegue através das aplicações e escolha uma para instalar</span>
+                    <br><br>
+                    <span class="installSubItem">2.1 Aceda a esta aplicação em <b>Aptoide Mobile</b>, através de clique <a href="http://m.aptoide.com/app/30220">aqui</a> ou lendo o código QR abaixo.</span>
+                    <br><br>
+                    <table style="border: none; width: 70%; text-align: center; margin-right: 100px; margin-left: 100px;">
+                        <tbody><tr><td>
+                                <img src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/mobile_page.png" alt="Install Aptoide" title="Install Aptoide">
+                            </td><td style="vertical-align: top;">
+                                <b>Super Mario Bros</b>
+                                <br>
+                                QR Code
+                                <br><br>
+                                <img src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/75e0b35a88928d61bfe1a7ea43b9bf2d.png" alt="App QR Code">
+                            </td></tr></tbody></table>
+                    <br><br><br><br>
+                    <span class="installSubItem">Clique no botão Instalar!</span>
+                    <br><br><br>
+                </div>
+            </div>
+                        
+                        
+            <br>        
+            <div id="bazaar_social">
+                <div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/xd_arbiter.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" allowtransparency="true" name="fb_xdm_frame_http" frameborder="0" scrolling="no"></iframe><iframe src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/xd_arbiter_002.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowtransparency="true" name="fb_xdm_frame_https" frameborder="0" scrolling="no"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+                <fb:like class="fb_edge_widget_with_comment fb_iframe_widget" fb-xfbml-state="rendered" send="false" layout="button_count" show_faces="false" font="arial"><span style="height: 21px; width: 73px;"><iframe src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/like.html" class="fb_ltr" title="Like this content on Facebook." style="border: medium none; overflow: hidden; height: 21px; width: 73px;" name="f136e365e381fd4" id="f25a0b92512c258" scrolling="no"></iframe></span></fb:like>
+                <iframe data-twttr-rendered="true" title="Twitter Tweet Button" style="width: 106px; height: 20px;" class="twitter-share-button twitter-count-horizontal" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/tweet_button.html" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+                <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/fastbutton.html" name="I0_1378138854880" id="I0_1378138854880" vspace="0" tabindex="0" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" frameborder="0" scrolling="no" width="100%"></iframe></div>
+            </div>         
+                    
+            <div style="display: none;" class="list-permissions">
+                                                                                        <li><span class="bold">android.permission.INTERNET</span><br>
+                                                                    Allows applications to open network sockets.<br>
+                                                                <br></li>
+                                                                                                        <li><span class="bold">android.permission.ACCESS_NETWORK_STATE</span><br>
+                                                                    
+Permitir que uma aplicação tenha acesso à informação sobre as redes<br>
+                                                                <br></li>
+                                                                                                        <li><span class="bold">android.permission.ACCESS_COARSE_LOCATION</span><br>
+                                                                    
+Permitir que uma aplicação tenha acesso total à localização (ex: 
+Cell-ID, WiFi).<br>
+                                                                <br></li>
+                                                                                                        <li><span class="bold">android.permission.ACCESS_FINE_LOCATION</span><br>
+                                                                    
+Permitir que uma aplicação tenha acesso moderado à localização (ex:, 
+GPS).<br>
+                                                                <br></li>
+                                                                                                        <li><span class="bold">android.permission.RECEIVE_SMS</span><br>
+                                                                    
+Allows an application to monitor incoming SMS messages, to record or 
+perform processing on them.<br>
+                                                                <br></li>
+                                                                                                        <li><span class="bold">android.permission.READ_SMS</span><br>
+                                                                    Allows an application to read SMS messages.<br>
+                                                                <br></li>
+                                                                                                        <li><span class="bold">android.permission.WRITE_SMS</span><br>
+                                                                    Allows an application to write SMS messages.<br>
+                                                                <br></li>
+                                                                                                        <li><span class="bold">android.permission.READ_PHONE_STATE</span><br>
+                                                                    Allows read only access to phone state.<br>
+                                                                <br></li>
+                                                                                    </div>
+            
+            <div id="aplicacao_main_info">
+
+                                    <div class="aplicacao_descricao">
+                                        <span class="bold">Descrição:</span><br><br>
+                        <div class="aplicacao_descricao_with_truncate">
+                            No description available
+                        </div>
+                                                                                
+                            <div id="like_area">
+                                <div class="like">
+                                    <a id="showLoginVoteInfo" href="#loginToVoteInfo">&nbsp;</a>
+                                </div>
+                                <div class="dont_like">
+                                    <a id="showLoginVoteInfoN" href="#loginToVoteInfo">&nbsp;</a></div>
+                                <div style="text-align:left;clear:both;">
+                                <!-- <span> stars</span> -->
+                                    <br><span id="likes" style="font-size:10px;">
+                                                                                <span style="color:#080;font-weight: bold;">7665</span> users LIKE this Android application</span>
+                                    <br><span id="notlikes" style="font-size:10px;">
+                                                                                <span style="color:#800;font-weight: bold;">1542</span> users DON'T LIKE this Android application</span>
+                                </div>
+                                                                    <span style="display: none;" class="hreview-aggregate" id="microdataRating">
+                                        <span class="item">
+                                            <span class="fn">Super Mario Bros</span>
+                                        </span>
+                                        <span class="rating">4,2</span>
+                                        <span class="votes">9207</span>
+                                    </span>
+                                                            </div>
+
+                            <div style="display: none;" id="loginToVoteInfoContainer">
+                                <div id="loginToVoteInfo">
+                                    <br>
+                                    <span>Você precisa de <a href="https://www.aptoide.com/account/login?sendTo=http%3A%2F%2Fapps.store.aptoide.com%2Fapp%2Fmarket%2Fcom.ggnes.supermario2%2F23%2F30220%2FSuper%2520Mario%2520Bros">entrar</a> ou <a href="https://www.aptoide.com/account/new-user">registar</a> para poder votar.</span>
+                                    <br><br>
+                                </div>
+                            </div>
+                                            </div>               
+
+                                                <div class="aplicacao_imagens">
+                            
+                                                            <span class="bold">Screenshots:</span><br><br>
+                                <div style="visibility: visible; overflow: hidden; position: relative; z-index: 2; left: 0px; width: 300px;" id="screenshotContainer">
+                                    <ul style="margin: 0px; padding: 0px; position: relative; list-style-type: none; z-index: 1; width: 450px; left: -300px;"><li style="overflow: hidden; float: left; width: 140px; height: 233px;">
+                                                <a rel="apk_screenshots" href="http://cdn1.aptoide.com/imgs/f/2/3/f236cd512b935748edf27a84f3479831.png">
+                                                    <img alt="screenshot" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/f236cd512b935748edf27a84f3479831_140x233.png">
+                                                </a>
+                                            </li>
+                                                                                    <li style="overflow: hidden; float: left; width: 140px; height: 233px;">
+                                                <a rel="apk_screenshots" href="http://cdn1.aptoide.com/imgs/f/2/3/f236cd512b935748edf27a84f3479831.png">
+                                                    <img alt="screenshot" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/f236cd512b935748edf27a84f3479831_140x233.png">
+                                                </a>
+                                            </li>
+                                                                            <li style="overflow: hidden; float: left; width: 140px; height: 233px;">
+                                                <a rel="apk_screenshots" href="http://cdn1.aptoide.com/imgs/f/2/3/f236cd512b935748edf27a84f3479831.png">
+                                                    <img alt="screenshot" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/f236cd512b935748edf27a84f3479831_140x233.png">
+                                                </a>
+                                            </li></ul>
+                                </div>
+                                <a id="prev-nav" href="#prev" class="hidden">&lt; Anterior</a>
+                                <a id="next-nav" href="#next" class="hidden">Seguinte &gt;</a>
+
+
+                                                        <br>
+                                                <br class="clear">
+                    </div>
+                </div>
+
+                <div id="comentarios_area">
+                    <a name="comentar_area_anchor"></a>
+                    <div class="titulo">Users comments about Super Mario Bros
+                        <span class="comentar"><a href="#comentar_area_anchor" onclick="document.getElementById('form_comentar').style.display = 'block'">Comment +</a></span>
+                    </div>
+
+                                                <div id="form_comentar">
+                            
+                                                            <br>
+                                <b>Atenção:</b>&nbsp;Para aceder precisa de efectuar login. Preencha os seguintes dados por favor <a href="https://www.aptoide.com/account/login?sendTo=http%3A%2F%2Fapps.store.aptoide.com%2Fapp%2Fmarket%2Fcom.ggnes.supermario2%2F23%2F30220%2FSuper%2520Mario%2520Bros">here</a>.
+                                <br><br>
+
+                                                    </div>
+
+                                                    
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	emerson.ios1
+                                                                                <br><span class="data">
+                                        	                                        	14:55:55 02-09-2013
+                                        </span></div>
+                                        <div class="texto"><br>E da Hora podem baixar</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	vanbelsck
+                                                                                <br><span class="data">
+                                        	                                        	00:42:11 01-09-2013
+                                        </span></div>
+                                        <div class="texto"><br>uma bosta</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	mario98
+                                                                                <br><span class="data">
+                                        	                                        	17:19:49 30-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>es una ostia xd</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	niloofar
+                                                                                <br><span class="data">
+                                        	                                        	05:05:28 30-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>عاليه</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	jesicabahamonde
+                                                                                <br><span class="data">
+                                        	                                        	16:30:23 29-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>vamos aprovar que tal esta este juego</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                <a href="http://cheed.store.aptoide.com/" target="_blank">
+                                                                                	Cheed
+                                        </a>                                        <br><span class="data">
+                                        	                                        	00:01:58 29-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>Dont Work in Galaxy S4</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	amm.narom
+                                                                                <br><span class="data">
+                                        	                                        	08:18:02 28-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>no funciona en galaxy s4</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	Kakox_00
+                                                                                <br><span class="data">
+                                        	                                        	18:30:45 26-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>Not downloadind</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	Edsonnunesp12
+                                                                                <br><span class="data">
+                                        	                                        	17:50:18 25-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>Orivel</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	khaledrazaei
+                                                                                <br><span class="data">
+                                        	                                        	23:20:58 24-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>میشه آتاری بازی روبزارید ممنون میشم</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	khaledrazaei
+                                                                                <br><span class="data">
+                                        	                                        	23:19:35 24-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>احسنت ممنون عالیه</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	cim6519
+                                                                                <br><span class="data">
+                                        	                                        	09:16:30 24-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>:-) df</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	liamhayes121
+                                                                                <br><span class="data">
+                                        	                                        	22:00:33 23-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>oh yea this game is kicking ass so bad i beat that game</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	sheqelukm15
+                                                                                <br><span class="data">
+                                        	                                        	08:34:21 23-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>jytf</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	jokay
+                                                                                <br><span class="data">
+                                        	                                        	17:07:14 22-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>Spyware:<br>
+Requests permission to read SMS / MMS.. seems to be a very curios Super Mario Bro'</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	Elvismehmeti2
+                                                                                <br><span class="data">
+                                        	                                        	15:39:29 22-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>great..</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                <a href="http://cirocolunga.store.aptoide.com/" target="_blank">
+                                                                                	colungamail
+                                        </a>                                        <br><span class="data">
+                                        	                                        	02:38:10 21-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>muy bueno</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	why cant i download any games?
+                                                                                <br><span class="data">
+                                        	                                        	02:39:57 19-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>?</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	Samirko977
+                                                                                <br><span class="data">
+                                        	                                        	15:23:03 16-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>Good</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	pirizpierino
+                                                                                <br><span class="data">
+                                        	                                        	14:14:21 16-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>los controles no te dejan ver lo que haces</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	Juninhu365
+                                                                                <br><span class="data">
+                                        	                                        	22:01:32 14-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>Bueno</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	bellicniko46
+                                                                                <br><span class="data">
+                                        	                                        	05:39:40 12-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>como se borrar el juego</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	ulises.oscar
+                                                                                <br><span class="data">
+                                        	                                        	06:05:36 08-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>tienon guegos cyidos</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	mario98
+                                                                                <br><span class="data">
+                                        	                                        	04:22:46 07-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>buena,solo que no se puede cambiar los controles pero esta muy bueno</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	abas
+                                                                                <br><span class="data">
+                                        	                                        	02:10:04 07-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>sas</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	kravenladino
+                                                                                <br><span class="data">
+                                        	                                        	08:08:18 06-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>muy biena app funciona excelentemente en mi gakaxy note II</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	owno123
+                                                                                <br><span class="data">
+                                        	                                        	07:36:08 06-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>inutile app</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	Mmgcwaba
+                                                                                <br><span class="data">
+                                        	                                        	19:21:22 01-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>it's cool AWESUM!! i like setting buttons to my own order</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	mr.ehab98
+                                                                                <br><span class="data">
+                                        	                                        	01:44:08 01-08-2013
+                                        </span></div>
+                                        <div class="texto"><br>not work on my divice</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	knightprince78
+                                                                                <br><span class="data">
+                                        	                                        	17:57:49 31-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>00<br>
+<br>
+218922392849  على الواتس اب...خالد من ليبيا</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	totia.reg
+                                                                                <br><span class="data">
+                                        	                                        	17:54:15 31-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>apk not fond whyyyyy?????</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	francesco
+                                                                                <br><span class="data">
+                                        	                                        	12:54:36 31-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>bleah,mi vien troppo difficile giocarci...</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	Somaia_2006
+                                                                                <br><span class="data">
+                                        	                                        	03:46:30 30-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>Hy</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	fosia_a
+                                                                                <br><span class="data">
+                                        	                                        	16:34:03 29-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>saadadelaziz</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	kidgoanimate
+                                                                                <br><span class="data">
+                                        	                                        	08:16:00 28-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>Be good if it didn't have that big control panel</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                <a href="http://shayanpishgoo.store.aptoide.com/" target="_blank">
+                                                                                	shayanpishgoo
+                                        </a>                                        <br><span class="data">
+                                        	                                        	07:27:02 28-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>apk not find?! why?!!!</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	sharondamsmith
+                                                                                <br><span class="data">
+                                        	                                        	16:18:42 27-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>love it</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	somoshasi
+                                                                                <br><span class="data">
+                                        	                                        	02:32:33 27-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>que pintasde juegos</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	bertoey
+                                                                                <br><span class="data">
+                                        	                                        	13:07:00 24-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>e legal pelo o que vi ainda estou a baixar o juego</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	hyper
+                                                                                <br><span class="data">
+                                        	                                        	09:31:48 24-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>mmerci</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	s2aaaa2d
+                                                                                <br><span class="data">
+                                        	                                        	05:12:59 23-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>ايام زمان</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	jboo2002
+                                                                                <br><span class="data">
+                                        	                                        	07:02:19 22-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>Me chupa la memoria Siganme en Youtube Amigos suscribanse</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                <a href="http://techzei.store.aptoide.com/" target="_blank">
+                                                                                	Techzei.com
+                                        </a>                                        <br><span class="data">
+                                        	                                        	15:00:34 21-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>malware. Don't download!</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                <a href="http://applocas.store.aptoide.com/" target="_blank">
+                                                                                	kat3rina.ml
+                                        </a>                                        <br><span class="data">
+                                        	                                        	15:51:34 20-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>Preferiria
+ que la pantalla estubiera libre de botones y q mis dedos no taparan la 
+escena aunqye esta fuera mas pequña la pantalla pero q no tubiera la 
+dificultad de ver al personaje mientras trato q salte a un sitio. es 
+demasiado rollo no poder jugar agusto por esto q digo pq es un buen 
+juego</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                <a href="http://bazarirani.store.aptoide.com/" target="_blank">
+                                                                                	robot1197
+                                        </a>                                        <br><span class="data">
+                                        	                                        	06:24:56 17-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>مارکت برنامه های ایرانی رایگان و پولی<br>
+ http://m.bazarirani.store.aptoide.com/</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	me7004054
+                                                                                <br><span class="data">
+                                        	                                        	22:00:59 15-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>O pior jogo do mario.</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                	f_and_moran
+                                                                                <br><span class="data">
+                                        	                                        	17:25:32 15-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>mola mucho</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                <a href="http://badcam3.store.aptoide.com/" target="_blank">
+                                                                                	badcam3
+                                        </a>                                        <br><span class="data">
+                                        	                                        	20:07:35 13-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>This is 
+malware. It has a Trojan in it that will send sms messages to premium 
+rate numbers and it will also root your phone and steal your personal 
+information</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                        <div class="comentario comentario_grey">
+                                        
+                                        <div class="autor">
+                                                                                <a href="http://toutadrian.store.aptoide.com/" target="_blank">
+                                                                                	toutadrian
+                                        </a>                                        <br><span class="data">
+                                        	                                        	17:33:10 12-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>nu merge</div>
+
+
+                                        
+
+                                            </div>
+                                        
+                                                                    <div class="comentario ">
+                                    
+                                        <div class="autor">
+                                                                                	sadeghmonfaredi
+                                                                                <br><span class="data">
+                                        	                                        	07:52:34 12-07-2013
+                                        </span></div>
+                                        <div class="texto"><br>sadegh1</div>
+
+
+                                        
+
+                                            </div>
+                                                                            
+
+                                    
+
+                            </div>
+                        </div>
+                        <div class="caixa4_rodape"></div>
+
+                    </div>
+
+                </div>
+                <div style="display: none;" id="preview_window_cont">
+                    <div id="preview_window"></div>
+                </div>
+
+                <div style="display: none;" id="mustLoginToReportContainer">
+                    <div id="mustLoginToReport">
+                        <br>
+                        <span>Você necessita de <a href="https://www.aptoide.com/account/new-user">registar</a>
+                             e <a href="https://www.aptoide.com/account/login?sendTo=http%3A%2F%2Fapps.store.aptoide.com%2Fapp%2Fmarket%2Fcom.ggnes.supermario2%2F23%2F30220%2FSuper%2520Mario%2520Bros">entrar</a> para enviar uma "Denuncia de Abuso".
+                            <br>Se você é o proprietário de uma aplicação, por favor, utilize o endereço de email associado a essa aplicação.</span>
+                        <br><br>
+                    </div>
+                </div>
+                
+
+        <div id="rodape" class="center clear">
+            <a href="http://co.aptoide.com/">Sobre</a> |
+            <a href="http://www.aptoide.com/pages/tos">Termos de Serviço</a> |
+            <a href="http://www.aptoide.com/report/abuse">Denunciar Abuso</a> |
+            <a href="http://www.aptoide.com/webservices/intro">Serviços Web</a> |
+           
+            <a href="http://www.aptoide.com/pages/contacts">Contactos</a> |
+			<a href="http://www.aptoide.com/pages/partners_program">Upgrade</a>
+        </div>
+        	        <div class="virusfreeDiv">
+				<img class="virusfreeImg" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/logo-certified-virus-free.png" alt="Certificado Livre de Vírus">
+			</div>
+		        <div class="socialDiv">
+            <a href="https://www.facebook.com/aptoide"><img class="fb" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/Facebook-icon.png" alt="Siga-nos no Facebook!"></a>
+            <a href="https://twitter.com/aptoide"><img class="tw" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/Twitter-icon.png" alt="Siga-nos no Twitter!"></a>
+        </div>
+
+    </div>
+    	<div style="text-align: center; color: #666; font-size: 10px; margin-top: 20px;">
+		<div style="text-align: center; max-width: 900px; display: inline-block;">
+		O Aptoide é um website onde você pode descarregar aplicações grátis 
+para os dispositivos móveis através de um cliente, o Aptoide<br>
+    	No Aptoide você também pode carregar aplicações Android para partilhar com outros.
+    	</div>
+    </div>
+
+    <!-- Analytics -->
+    <script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-11780295-1']);
+	  _gaq.push(['_setDomainName', 'aptoide.com']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 
+	'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+	'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; 
+	s.parentNode.insertBefore(ga, s);
+	  })();
+	
+	</script>
+
+
+
+
+<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div><iframe style="width: 1px; height: 1px; position: absolute; left: -100px;" src="Super%20Mario%20Bros%20%7C%20Android%20Apps%20%28Free%20APK%29_ficheiros/postmessageRelay.html" id="oauth2relay834028243" name="oauth2relay834028243"></iframe></body></html>

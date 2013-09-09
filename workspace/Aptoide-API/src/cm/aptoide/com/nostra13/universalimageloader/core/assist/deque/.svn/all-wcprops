@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/deque
+END
+Deque.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/deque/Deque.java
+END
+LIFOLinkedBlockingDeque.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/deque/LIFOLinkedBlockingDeque.java
+END
+BlockingDeque.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/deque/BlockingDeque.java
+END
+LinkedBlockingDeque.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/assist/deque/LinkedBlockingDeque.java
+END

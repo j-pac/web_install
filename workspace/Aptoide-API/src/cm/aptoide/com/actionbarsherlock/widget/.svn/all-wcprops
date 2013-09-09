@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/widget
+END
+SuggestionsAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/widget/SuggestionsAdapter.java
+END
+ActivityChooserModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/widget/ActivityChooserModel.java
+END
+SearchView.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/widget/SearchView.java
+END
+ShareActionProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/widget/ShareActionProvider.java
+END
+ActivityChooserView.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/widget/ActivityChooserView.java
+END

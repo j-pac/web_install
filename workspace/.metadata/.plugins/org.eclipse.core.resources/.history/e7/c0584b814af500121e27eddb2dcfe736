@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Aptoide Client</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="button_request">make request</string>
+    <string name="messages_wait">Waiting for messages...</string>
+    <string name="title_activity_process_message">ProcessMessageActivity</string>
+
+</resources>

@@ -1,0 +1,120 @@
+package com.aptoide.aptoideclient;
+
+import java.io.IOException;
+
+import com.aptoide.myfirstapp.DisplayMessageActivity;
+import com.aptoide.myfirstapp.R;
+import com.rabbitmq.client.AMQP.Channel;
+import com.rabbitmq.client.AMQP.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.ConsumerCancelledException;
+import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.ShutdownSignalException;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.view.Menu;
+import android.view.View;
+import android.widget.EditText;
+
+public class RequestDataActivity extends Activity {
+
+	private static final String DEVICE_ID = "xxx";
+	public final static String EXTRA_MESSAGE = "com.aptoide.aptoideclient.MESSAGE";
+
+
+	private com.rabbitmq.client.Connection connection;
+	private com.rabbitmq.client.Channel channel;
+	private QueueingConsumer consumer;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_request_data);
+		
+		ConsumeMessages();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.request_data, menu);
+		return true;
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		
+		try {
+			establishConnection();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void establishConnection() throws IOException {
+
+		// ESTABLISHING THE CONNECTION WITH RABBITMQ
+		ConnectionFactory factory = new ConnectionFactory();
+		factory.setHost("localhost");
+
+		connection = factory.newConnection();
+		channel = connection.createChannel();
+
+		// CREATING AND NAMMING THE QUEUE
+		channel.queueDeclare(DEVICE_ID, false, false, false, null);
+
+		// channel.basicQos(1);
+
+		// CREATING THE CONSUMER AND ASSIGNING IT WITH A QUEUE
+		consumer = new QueueingConsumer(channel);
+		channel.basicConsume(DEVICE_ID, false, consumer);
+	}
+
+	private void ConsumeMessages() {
+
+		QueueingConsumer.Delivery delivery = null;
+
+		// CONSUMING MESSAGES FROM QUEUE INDEFINITELY
+		while (true) {
+
+			try {
+				delivery = consumer.nextDelivery();
+
+				String message = new String(delivery.getBody());
+
+				//DO SOMETHING(message);
+				// Start the activity to show or do some work with the message
+				//and if it had success acknowledge the server
+				showMessage(message);
+				
+				channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+
+			} catch (ShutdownSignalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ConsumerCancelledException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	public void showMessage(String message) {
+		Intent intent = new Intent(this, ProcessMessageActivity.class);
+		intent.putExtra(EXTRA_MESSAGE, message);
+		startActivity(intent);
+	}
+}
+

@@ -1,0 +1,51 @@
+public abstract class TecnicaControloErros {
+
+	private int m;
+	private int n;
+	private int[] estrutura_trama;
+
+//	public TecnicaControloErros(int m, int n) {
+//		this.m = m;
+//		this.n = n;
+//
+//		estrutura_trama = new int[n];
+//	}
+
+	public abstract int[] geracaoTramaAEnviar(int[] dados_a_enviar);
+
+	// Retorna true caso hajam erros
+	public abstract boolean deteccaoErros(int[] trama_recebida);
+	
+	public abstract void definirEstruturaTramaAEnviar(int tamanho_mensagem); 
+
+	
+	public void definirTamanhoMensagem(int m) {
+		this.m = m;
+	}
+	
+	public void definirTrama(int n) {
+		this.n = n;
+		estrutura_trama = new int[n];
+	}
+	
+	public int[] getEstruturaTrama() {
+		return estrutura_trama;
+	}
+	
+	public int getMessageLength() {
+		return m;
+	}
+
+	public int getTotalLength() {
+		return n;
+	}
+
+	public void definirBit(int posicao, int valor) {
+		estrutura_trama[posicao] = valor;
+	}
+
+	public int consultarBit(int posicao) {
+		return estrutura_trama[posicao];
+	}
+
+}

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/disc/impl
+END
+UnlimitedDiscCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/disc/impl/UnlimitedDiscCache.java
+END
+LimitedAgeDiscCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/disc/impl/LimitedAgeDiscCache.java
+END
+TotalSizeLimitedDiscCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/disc/impl/TotalSizeLimitedDiscCache.java
+END
+FileCountLimitedDiscCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/disc/impl/FileCountLimitedDiscCache.java
+END

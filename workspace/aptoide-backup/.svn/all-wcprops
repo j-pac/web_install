@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/repo/!svn/ver/1348/aptoide-client/unstable/trunk/Aptoide
+END
+local.properties
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/repo/!svn/ver/1226/aptoide-client/unstable/trunk/Aptoide/local.properties
+END
+proguard-project.txt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/repo/!svn/ver/1226/aptoide-client/unstable/trunk/Aptoide/proguard-project.txt
+END
+build.xml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/repo/!svn/ver/1226/aptoide-client/unstable/trunk/Aptoide/build.xml
+END
+AndroidManifest.xml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/repo/!svn/ver/1331/aptoide-client/unstable/trunk/Aptoide/AndroidManifest.xml
+END
+project.properties
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/repo/!svn/ver/1313/aptoide-client/unstable/trunk/Aptoide/project.properties
+END
+Aptoide.iml
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/Aptoide.iml
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/repo/!svn/ver/1215/aptoide-client/unstable/trunk/Aptoide/.project
+END
+lint.xml
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/repo/!svn/ver/1146/aptoide-client/unstable/trunk/Aptoide/lint.xml
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/repo/!svn/ver/1273/aptoide-client/unstable/trunk/Aptoide/.classpath
+END

@@ -1,0 +1,47 @@
+package com.aptoide.androidclient;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class AptoideClientDatabaseConnection {
+
+	private static final String DRIVER_NAME = "org.postgresql.Driver";
+
+	private static final String URL = "jdbc:postgresql://localhost:5432/register";
+	private static final String USER = "postgres";
+	private static final String PASSWORD = "godIsAProgrammer";
+	
+	private static final String COLUMN_NAME = "queue_name";
+
+	private Connection connection;
+
+	public AptoideClientDatabaseConnection() {
+		JDBCConnection.loadDatabaseDriver(DRIVER_NAME);
+
+		connection = JDBCConnection.establishConnection(URL, USER, PASSWORD,
+				true);
+
+	}
+
+	public void GetQueueId(String device_id, String username) {
+		String query = "SELECT queue_name FROM queue WHERE device_imei='" + device_id + "' AND username='" + username +"'";
+		
+		ResultSet rs = JDBCConnection.executeQuery(connection, query);
+		
+		if(rs.next()) {
+			return rs.getString()
+		}
+		
+		
+	}
+
+	public void CloseConnection() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Erro ao fechar a conexão! - " + e.getMessage());
+		}
+	}
+
+}

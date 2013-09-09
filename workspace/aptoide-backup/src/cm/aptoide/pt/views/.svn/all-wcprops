@@ -1,0 +1,161 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repo/!svn/ver/1340/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views
+END
+ViewDownloadManagement.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/1248/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewDownloadManagement.java
+END
+ViewApkFeaturedTop.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewApkFeaturedTop.java
+END
+ViewCache.aidl
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewCache.aidl
+END
+ViewDownload.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/1241/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewDownload.java
+END
+ApkPermission.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/1340/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ApkPermission.java
+END
+EnumDownloadFailReason.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/EnumDownloadFailReason.java
+END
+ViewObb.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/1241/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewObb.java
+END
+ViewApkItemBased.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/1094/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewApkItemBased.java
+END
+ViewListDownloads.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewListDownloads.java
+END
+ViewLogin.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewLogin.java
+END
+ViewCacheObb.aidl
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/1241/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewCacheObb.aidl
+END
+ViewDownloadManagement.aidl
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewDownloadManagement.aidl
+END
+ViewApkFeaturedEditorsChoice.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/1222/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewApkFeaturedEditorsChoice.java
+END
+ViewDownload.aidl
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewDownload.aidl
+END
+ViewApkLatest.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/1094/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewApkLatest.java
+END
+ViewApkTop.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/1094/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewApkTop.java
+END
+ViewIconDownloadPermissions.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewIconDownloadPermissions.java
+END
+ViewCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/1241/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewCache.java
+END
+EnumDownloadStatus.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/EnumDownloadStatus.java
+END
+EnumApkMalware.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/1178/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/EnumApkMalware.java
+END
+ViewListDownloads.aidl
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewListDownloads.aidl
+END
+ViewApk.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewApk.java
+END
+ViewLogin.aidl
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewLogin.aidl
+END
+ViewApkInfoXml.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/1094/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewApkInfoXml.java
+END
+ViewCacheObb.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/1241/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewCacheObb.java
+END
+ViewApkUserBased.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/1094/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/views/ViewApkUserBased.java
+END

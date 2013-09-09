@@ -1,0 +1,335 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/repo/!svn/ver/1348/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt
+END
+ExcludedUpdatesActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/1323/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ExcludedUpdatesActivity.java
+END
+ServerLatest.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/1183/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ServerLatest.java
+END
+ApkInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repo/!svn/ver/1346/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ApkInfo.java
+END
+EnumStoreTheme.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/1245/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/EnumStoreTheme.java
+END
+LatestLikesComments.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/LatestLikesComments.java
+END
+MainActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/1348/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/MainActivity.java
+END
+AIDLDownloadManager.aidl
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/AIDLDownloadManager.aidl
+END
+ListDepth.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/1094/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ListDepth.java
+END
+DownloadManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/1333/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/DownloadManager.java
+END
+ScheduledDownloadReceiver.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ScheduledDownloadReceiver.java
+END
+Server.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/1226/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/Server.java
+END
+Start.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repo/!svn/ver/1332/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/Start.java
+END
+AIDLDownloadObserver.aidl
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/AIDLDownloadObserver.aidl
+END
+ScreenshotsViewer.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/1323/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ScreenshotsViewer.java
+END
+EnumCategories.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/1275/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/EnumCategories.java
+END
+HandlerEditorsChoice.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/HandlerEditorsChoice.java
+END
+EnumOptionsMenu.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/1322/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/EnumOptionsMenu.java
+END
+Filters.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/Filters.java
+END
+Database.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/1346/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/Database.java
+END
+ExtrasDbOpenHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ExtrasDbOpenHelper.java
+END
+HWSpecActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/1323/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/HWSpecActivity.java
+END
+EnumOem.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repo/!svn/ver/1326/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/EnumOem.java
+END
+ServerTop.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/1183/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ServerTop.java
+END
+ExtrasService.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ExtrasService.java
+END
+RepoParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repo/!svn/ver/1300/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/RepoParser.java
+END
+Configs.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repo/!svn/ver/1309/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/Configs.java
+END
+HandlerLatest.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/1241/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/HandlerLatest.java
+END
+ApplicationAptoide.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/1347/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ApplicationAptoide.java
+END
+Order.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repo/!svn/ver/1151/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/Order.java
+END
+CustomViewPager.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/CustomViewPager.java
+END
+DialogIpBlacklisted.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/DialogIpBlacklisted.java
+END
+HandlerTop.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repo/!svn/ver/1241/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/HandlerTop.java
+END
+IntentReceiver.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/1345/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/IntentReceiver.java
+END
+CreditCard.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/CreditCard.java
+END
+EnumAptoideThemes.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/1241/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/EnumAptoideThemes.java
+END
+ExtrasContentProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/1123/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ExtrasContentProvider.java
+END
+ExtrasHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/1315/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ExtrasHandler.java
+END
+Buy.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/Buy.java
+END
+Geolocation.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/1248/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/Geolocation.java
+END
+SearchManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/1340/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/SearchManager.java
+END
+Settings.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/Settings.java
+END
+ResultDelegate.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ResultDelegate.java
+END
+HandlerInfoXml.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/HandlerInfoXml.java
+END
+HWSpecifications.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/1215/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/HWSpecifications.java
+END
+Category.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/Category.java
+END
+HandlerUserBased.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/HandlerUserBased.java
+END
+ScheduledDownloads.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/1345/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ScheduledDownloads.java
+END
+HandlerFeaturedTop.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/1241/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/HandlerFeaturedTop.java
+END
+AptoideThemePicker.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/1286/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/AptoideThemePicker.java
+END
+ItemBasedApks.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/ItemBasedApks.java
+END
+InstalledBroadcastReceiver.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/1094/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/InstalledBroadcastReceiver.java
+END
+HandlerItemBased.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/HandlerItemBased.java
+END
+MyappHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/1294/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/MyappHandler.java
+END
+DbStructure.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/1325/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/DbStructure.java
+END
+DatabaseContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/DatabaseContext.java
+END

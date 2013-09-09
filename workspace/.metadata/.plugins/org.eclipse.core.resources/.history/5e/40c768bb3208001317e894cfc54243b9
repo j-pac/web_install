@@ -1,0 +1,13 @@
+package com.aptoide.androidclient;
+
+public class AptoideClientDatabaseConnection {
+	
+	public static String URL = "jdbc:postgresql://localhost:5432/register";
+	public static String USER = "postgres";
+	public static String PASSWORD = "blfa5661";
+	
+	public AptoideClientDatabaseConnection() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

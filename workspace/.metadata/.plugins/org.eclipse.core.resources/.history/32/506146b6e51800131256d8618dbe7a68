@@ -1,0 +1,275 @@
+package cm.aptoide.pt.services;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.jar.Pack200.Unpacker;
+
+import cm.aptoide.pt.Configs;
+import cm.aptoide.pt.IntentReceiver;
+
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.ConsumerCancelledException;
+import com.rabbitmq.client.DefaultConsumer;
+import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.ShutdownListener;
+import com.rabbitmq.client.ShutdownSignalException;
+import com.rabbitmq.client.QueueingConsumer.Delivery;
+
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.IBinder;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.Toast;
+
+public class WebInstallService extends Service {
+
+	private static final String TAG = "cm.aptoide.pt.services";
+
+	private Context context;
+
+	private RabbitMqClient rabbitmq_client;
+
+	private String rabbitmq_queue_id;
+
+	private Thread rabbitMq_pull_thread;
+
+	private ExecutorService synchronousExecutor = Executors
+			.newSingleThreadExecutor();
+
+	private ExecutorService installationSequenciator = null;
+
+	private Map<Long, String> appsToInstall = new HashMap<Long, String>();
+
+	private static boolean installationInProgress = false;
+	private static ReentrantLock pauselock = new ReentrantLock();
+	private static Condition unpaused = pauselock.newCondition();
+
+	private static boolean isRunning = false;
+
+	@Override
+	public IBinder onBind(Intent intent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void onCreate() {
+		Log.i(TAG, "WebInstallService created!");
+		SharedPreferences sPref = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		rabbitmq_queue_id = sPref.getString(Configs.RABBITMQ_QUEUE_ID, null);
+		if (rabbitmq_queue_id != null) {
+			isRunning = true;
+		}
+		
+	}
+
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		Log.i(TAG, "WebInstallService running!");
+
+		context = this;
+		Toast.makeText(this,
+				"WebInstallService Started - onStartCommand()! :)",
+				Toast.LENGTH_SHORT).show();
+
+		// rabbitMq_pull_task = new Runnable() {
+
+		rabbitMq_pull_thread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					rabbitmq_client = new RabbitMqClient(rabbitmq_queue_id);
+					rabbitmq_client.establishConnection();
+					installationSequenciator = Executors
+							.newSingleThreadExecutor();
+
+					while (isRunning) {
+						final String myapp_received;
+
+						myapp_received = rabbitmq_client.waitForMessage();
+
+						// downloadApk(myapp_received);
+						installationSequenciator.submit(new Runnable() {
+
+							@Override
+							public void run() {
+								proceedInstallation(myapp_received);
+
+							}
+						});
+
+					}
+
+				} catch (ShutdownSignalException e) {
+					e.printStackTrace();
+				} catch (ConsumerCancelledException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+
+					e.printStackTrace();
+				}
+			}
+		});
+
+		rabbitMq_pull_thread.start();
+		// synchronousExecutor.submit(rabbitMq_pull_task);
+		return START_STICKY;
+	}
+
+	@Override
+	public void onDestroy() {
+
+		Toast.makeText(getApplicationContext(),
+				"WebInstallService Stopped - onDestroy()! :)",
+				Toast.LENGTH_SHORT).show();
+
+		isRunning = false;
+
+		// synchronousExecutor.shutdownNow();
+		rabbitmq_client.closeConnection();
+		installationSequenciator.shutdown();
+
+		Log.i(TAG, "WebInstallService destroyed!");
+
+	}
+
+	private void proceedInstallation(String myapp) {
+		pauselock.lock();
+		try {
+			// while (installationInProgress) {
+			// unpaused.await();
+			// }
+			//
+			installationInProgress = true;
+			Intent download_intent = new Intent(getBaseContext(), IntentReceiver.class);
+			// download_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			// download_intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+			download_intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+			download_intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+			// download_intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+			 download_intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			// download_intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+			download_intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+			download_intent.putExtra("WebInstallRequest", myapp);
+			getBaseContext().startActivity(download_intent);
+
+			// } catch (InterruptedException e) {
+			// e.printStackTrace();
+		} finally {
+			pauselock.unlock();
+		}
+	}
+
+	public static void signalNextInstallation() {
+		pauselock.lock();
+		try {
+			installationInProgress = false;
+			// unpaused.signal();
+		} finally {
+			pauselock.unlock();
+		}
+	}
+
+	private class RabbitMqClient {
+
+		private com.rabbitmq.client.Connection connection;
+		private com.rabbitmq.client.Channel channel;
+		private com.rabbitmq.client.Consumer consumer;
+
+		private String queue_routing_key;
+
+		public RabbitMqClient(String queue_routing_key) {
+			this.queue_routing_key = queue_routing_key;
+		}
+
+		public void establishConnection() {
+
+			ConnectionFactory factory = new ConnectionFactory();
+			factory.setHost(Configs.LOCAL_IP);
+			factory.setConnectionTimeout(0);
+			// factory.setRequestedHeartbeat(10);
+
+			try {
+				connection = factory.newConnection();
+				connection.addShutdownListener(new ShutdownListener() {
+
+					@Override
+					public void shutdownCompleted(ShutdownSignalException arg0) {
+						stopSelf();
+
+					}
+				});
+
+				channel = connection.createChannel();
+
+				// queueDeclare(java.lang.String queue,
+				// boolean passive,
+				// boolean durable,
+				// boolean exclusive,
+				// boolean autoDelete,
+				channel.queueDeclare(queue_routing_key, true, false, false,
+						null);
+
+				channel.basicQos(0);
+
+				consumer = new QueueingConsumer(channel);
+
+				channel.basicConsume(queue_routing_key, false, consumer);
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		public String waitForMessage() throws ShutdownSignalException,
+				ConsumerCancelledException, InterruptedException, IOException {
+
+			String message = null;
+			Delivery delivery;
+
+			delivery = ((QueueingConsumer) consumer).nextDelivery();
+
+			message = new String(delivery.getBody());
+
+			long deliveryTag = delivery.getEnvelope().getDeliveryTag();
+
+			appsToInstall.put(deliveryTag, message);
+
+			channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+
+			return message;
+		}
+
+		public void closeConnection() {
+			try {
+				if (connection.isOpen() && connection != null) {
+					connection.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static boolean isRunning() {
+		return isRunning;
+	}
+}

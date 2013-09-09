@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repo/!svn/ver/1185/libraries/aptoide-support-libs
+END
+AndroidManifest.xml
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/AndroidManifest.xml
+END
+pom.xml
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/pom.xml
+END
+project.properties
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/project.properties
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/.project
+END
+lint.xml
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/lint.xml
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/.classpath
+END

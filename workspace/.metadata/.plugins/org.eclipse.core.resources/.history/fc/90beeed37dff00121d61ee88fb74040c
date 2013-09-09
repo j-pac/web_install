@@ -1,0 +1,10 @@
+package com.aptoide.androidclient;
+
+public class JDBCPostgresConnection {
+	
+	public static void main(String[] args) {
+		
+		Class.forName()
+	}
+
+}

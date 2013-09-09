@@ -1,0 +1,26 @@
+package com.aptoide.androidclient;
+
+import java.sql.Connection;
+
+public class AptoideClientDatabaseConnection {
+	
+	private static final String DRIVER_NAME = "org.postgresql.Driver";
+			
+	private static final String URL = "jdbc:postgresql://localhost:5432/register";
+	private static final String USER = "postgres";
+	private static final String PASSWORD = "godIsAProgrammer";
+	
+	private Connection connection;
+	
+	public AptoideClientDatabaseConnection() {
+		JDBCConnection.loadDatabaseDriver(DRIVER_NAME);
+		
+		connection = JDBCConnection.establishConnection(URL, USER, PASSWORD, true);
+		
+	}
+	
+	public CloseConnection() {
+		connection.close();
+	}
+
+}

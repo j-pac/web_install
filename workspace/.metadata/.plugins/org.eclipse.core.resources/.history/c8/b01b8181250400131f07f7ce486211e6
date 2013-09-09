@@ -1,0 +1,238 @@
+package com.aptoide.androidclient;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ResponseCache;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.app.Activity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Toast;
+import android.support.v4.app.NavUtils;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.os.Build;
+
+public class LoginActivity extends Activity {
+
+	private static final String WEB_SERVICE_URL = "http://10.0.2.2/registry_service.php";
+	private static final String usertoken = "estruvancio";
+	private static final String device_serial = "123456789";
+
+	private User user;
+	
+
+	// private String device_serial;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_login);
+		// Show the Up button in the action bar.
+		setupActionBar();
+
+	
+	}
+
+	/**
+	 * Set up the {@link android.app.ActionBar}, if the API is available.
+	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void setupActionBar() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.login, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			// This ID represents the Home or Up button. In the case of this
+			// activity, the Up button is shown. Use NavUtils to allow users
+			// to navigate up one level in the application structure. For
+			// more details, see the Navigation pattern on Android Design:
+			//
+			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
+			//
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	public void userAuthenticate(View view) {
+
+		// create a user object with inserted email and password
+		createUser();
+		
+		// Call to checkUserCredential web service
+
+		// --------------------- FAZER CONEXAO À BASE DE DADOS DEPOIS
+		// -----------------------------------
+
+		// // check if this user exists in Postgres database
+		// JDBCPostgresConnection db_conn = new JDBCPostgresConnection();
+		//
+		// // if login had success, complete user's usertoken from response
+		// // user.setUsertoken(usertoken);
+		//
+		//
+		// // close db connection
+		// db_conn.closeConnection();
+
+		// if "associate device with account" is checked, associate device with
+		// user account
+		if (((CheckBox) findViewById(R.id.associate_device)).isChecked()) {
+			new RegistryDeviceTask().execute(WEB_SERVICE_URL, usertoken,
+					device_serial);
+
+		}
+
+		Toast.makeText(
+				this,
+				"authentication send: " + user.getEmail() + " , "
+						+ user.getPassword(), Toast.LENGTH_SHORT).show();
+	}
+
+	private void createUser() {
+
+		EditText email = (EditText) findViewById(R.id.email_edit);
+		EditText password = (EditText) findViewById(R.id.password_edit);
+
+		String email_text = email.getText().toString();
+		String password_text = password.getText().toString();
+
+		if (email_text != null && password_text != null) {
+			if (email_text.contains("@")) {
+				user = new User(email_text, password_text);
+			}
+		}
+	}
+
+	private void associateDeviceWithAccount() {
+
+		// Send a register request to registry web service
+
+		// After OK response from web service, start the service to push
+		// messages
+	}
+
+	private class RegistryDeviceTask extends AsyncTask<String, Void, String> {
+
+		private static final String USERNAME_KEY = "username";
+		private static final String DEVICE_ID_KEY = "device_imei";
+
+		@Override
+		protected String doInBackground(String... conn_params) {
+			InputStream in = openHttpPOSTConnection(conn_params[0],
+					conn_params[1], conn_params[2]);
+
+			String response = null;
+			try {
+				response = getResponse(in);
+			} catch (IOException e) {
+				Log.d("getREsponse", e.getLocalizedMessage());
+
+				e.printStackTrace();
+			}
+			return response;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			Toast.makeText(getBaseContext(), "Response is: " + result,
+					Toast.LENGTH_LONG).show();
+		}
+
+		private InputStream openHttpPOSTConnection(String url, String username,
+				String device_id) {
+			InputStream input_stream = null;
+			try {
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httpPost = new HttpPost(url);
+				// ---set the headers---
+				httpPost.addHeader("Host", "www.webservicex.net");
+				httpPost.addHeader("Content-Type",
+						"application/x-www-form-urlencoded");
+				// ---the key/value pairs to post to the server---
+
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+						2);
+				nameValuePairs.add(new BasicNameValuePair(USERNAME_KEY,
+						username));
+				// nameValuePairs.add(new BasicNameValuePair(PASSWORD_KEY,
+				// Password));
+				nameValuePairs.add(new BasicNameValuePair(DEVICE_ID_KEY,
+						device_id));
+
+				httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+				HttpResponse httpResponse = httpclient.execute(httpPost);
+				input_stream = httpResponse.getEntity().getContent();
+			} catch (Exception e) {
+				Log.d("RegistryHttpPOSTConnection", e.getLocalizedMessage());
+			}
+			return input_stream;
+		}
+
+		private String getResponse(InputStream in) throws IOException {
+			String response = null;
+
+			BufferedReader rd = null;
+			try {
+				rd = new BufferedReader(new InputStreamReader(in));
+				StringBuilder str = new StringBuilder();
+				String line = null;
+
+				while ((line = rd.readLine()) != null) {
+					str.append(line + "\n");
+				}
+
+				response = str.toString();
+
+			} finally {
+				rd.close();
+			}
+			return response;
+		}
+
+	}
+
+}

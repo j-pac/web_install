@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/1317/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/quickaction
+END
+ActionItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/quickaction/ActionItem.java
+END
+PopupWindows.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/quickaction/PopupWindows.java
+END
+QuickAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/1285/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/quickaction/QuickAction.java
+END
+EnumQuickActions.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/1317/aptoide-client/unstable/trunk/Aptoide/src/cm/aptoide/pt/util/quickaction/EnumQuickActions.java
+END

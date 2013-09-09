@@ -1,0 +1,64 @@
+package com.aptoide.aptoideclient;
+
+import com.rabbitmq.client.AMQP.Channel;
+import com.rabbitmq.client.AMQP.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.QueueingConsumer;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+
+
+public class RequestDataActivity extends Activity {
+	
+	private static final String DEVICE_ID = "xxx";
+	
+//	private Connection connection;
+//	private Channel channel;
+//	private String requestQueueName = "rpc_queue";
+//	private String replyQueueName;
+//	private QueueingConsumer consumer;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_request_data);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.request_data, menu);
+		return true;
+	}
+	
+	private void establishConnection() {
+		
+		//ESTABLISHING THE CONNECTION WITH RABBITMQ
+		ConnectionFactory factory = new ConnectionFactory();
+		factory.setHost("localhost");
+		
+		Connection connection = factory.newConnection();
+		Channel channel = connection.createChannel();
+		
+		// CREATING AND NAMMING THE QUEUE
+		channel.queueDeclare(DEVICE_ID, false, false, false, null);
+		
+		//channel.basicQos(1);
+		
+		// CREATING THE CONSUMER AND ASSIGNING IT WITH A QUEUE
+		QueueingConsumer consumer = new QueueingConsumer(channel);
+		channel.basicConsume(DEVICE_ID, false, consumer);
+		
+		// CONSUMING INDEFINITELY MESSAGES FROM QUEUE
+		while(true) {
+			QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+			String message = new String(delivery.getBody());
+			
+			//Start the activity to show or do some work with the message
+			
+			channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+		}	
+	}
+}

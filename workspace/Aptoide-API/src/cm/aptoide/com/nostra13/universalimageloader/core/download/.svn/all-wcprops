@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/download
+END
+ImageDownloader.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/download/ImageDownloader.java
+END
+HttpClientImageDownloader.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/download/HttpClientImageDownloader.java
+END
+URLConnectionImageDownloader.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/core/download/URLConnectionImageDownloader.java
+END

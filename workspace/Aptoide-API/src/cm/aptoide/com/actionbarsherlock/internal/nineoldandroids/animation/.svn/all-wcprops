@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation
+END
+IntEvaluator.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/IntEvaluator.java
+END
+Keyframe.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/Keyframe.java
+END
+AnimatorSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/AnimatorSet.java
+END
+FloatKeyframeSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/FloatKeyframeSet.java
+END
+ValueAnimator.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/ValueAnimator.java
+END
+Animator.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/Animator.java
+END
+ObjectAnimator.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/ObjectAnimator.java
+END
+TypeEvaluator.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/TypeEvaluator.java
+END
+IntKeyframeSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/IntKeyframeSet.java
+END
+KeyframeSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/KeyframeSet.java
+END
+AnimatorListenerAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/AnimatorListenerAdapter.java
+END
+PropertyValuesHolder.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/PropertyValuesHolder.java
+END
+FloatEvaluator.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/repo/!svn/ver/1156/libraries/aptoide-support-libs/src/cm/aptoide/com/actionbarsherlock/internal/nineoldandroids/animation/FloatEvaluator.java
+END

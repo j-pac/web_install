@@ -1,0 +1,14 @@
+public class FicheiroDaDemonstracao extends FicheiroDeResultados {
+
+		public FicheiroDaDemonstracao(String nome_ficheiro) {
+			super(nome_ficheiro + ".txt");
+		}
+
+		@Override
+		public void escreverNoFicheiro() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		
+	}

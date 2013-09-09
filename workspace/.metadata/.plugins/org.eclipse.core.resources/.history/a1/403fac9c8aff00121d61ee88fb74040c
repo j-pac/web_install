@@ -1,0 +1,77 @@
+package com.aptoide.androidclient;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Properties;
+
+public class JDBCPostgresConnection {
+
+	private static final String CONNECTION_URL = "jdbc:postgresql://localhost:5432/web_install";
+	private static final String CONNECTION_USERNAME = "postgres";
+	private static final String CONNECTION_PASSWORD = "blfa5661";
+
+	private Properties connection_props;
+	private Connection connection = null;
+	private org.postgresql.PGStatement pstmt;
+
+	public JDBCPostgresConnection() {
+		try {
+			Class.forName("org.postgresql.Driver");
+
+			defineConnectionProperties();
+
+			establishConnection();
+
+		} catch (SQLException e) {
+			System.err.println("Connection failed!");
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.err.println("Where is your PostgreSQL JDBC Driver? "
+					+ "Include in your library path!");
+			e.printStackTrace();
+		}
+	}
+
+	private void defineConnectionProperties() {
+		Properties props = new Properties();
+		props.setProperty("user", CONNECTION_USERNAME);
+		props.setProperty("password", CONNECTION_PASSWORD);
+		props.setProperty("ssl", "true");
+	}
+
+	private void establishConnection() throws SQLException {
+
+		connection = DriverManager.getConnection(CONNECTION_URL,
+				connection_props);
+
+		if (connection != null) {
+			System.out.println("The connection was successfully established!");
+		} else {
+			System.out.println("The connection failed!");
+		}
+	}
+	
+	public void closeConnection() {
+		try {
+			connection.close();
+			
+		} catch (SQLException e) {
+			System.err.println("Failed to close the connection to database!");
+			e.printStackTrace();
+		}
+	}
+	
+	public void createPreparedStatement(String statement) {
+		try {
+			pstmt = connection.prepareStatement(statement);
+		} catch (SQLException e) {
+			System.out.println("Failed to create prepared statement: " + statement);
+			e.printStackTrace();
+		}
+	}
+	
+	public void execute
+
+}

@@ -1,0 +1,392 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cm.aptoide.pt"
+    android:installLocation="auto"
+    android:versionCode="408"
+    android:versionName="4.1.3" >
+
+    <uses-sdk
+        android:minSdkVersion="5"
+        android:targetSdkVersion="7" />
+
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:name=".ApplicationAptoide"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/icon_brand_aptoide"
+        android:label="@string/app_name_aptoide"
+        android:theme="@style/Aptoide.Theme.Default" >
+        <activity
+            android:name=".Start"
+            android:label="@string/app_name_aptoide" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity-alias
+            android:name=".Start"
+            android:enabled="true"
+            android:icon="@drawable/icon_brand_aptoide"
+            android:label="@string/app_name_aptoide"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Start-brand_aptoide"
+            android:enabled="false"
+            android:icon="@drawable/icon_brand_aptoide"
+            android:label="@string/app_name_aptoide"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Start-brand_digitallydifferent"
+            android:enabled="false"
+            android:icon="@drawable/icon_brand_digitallydifferent"
+            android:label="@string/app_name_digitallydifferent"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Start-brand_educomp"
+            android:enabled="false"
+            android:icon="@drawable/icon_brand_educomp"
+            android:label="@string/app_name_educomp"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Start-brand_eocean"
+            android:enabled="false"
+            android:icon="@drawable/icon_brand_eocean"
+            android:label="@string/app_name_eocean"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Start-brand_jblow"
+            android:enabled="false"
+            android:icon="@drawable/icon_brand_jblow"
+            android:label="@string/app_name_jblow"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Start-brand_lazerplay"
+            android:enabled="false"
+            android:icon="@drawable/icon_brand_lazerplay"
+            android:label="@string/app_name_lazerplay"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Start-brand_magalhaes"
+            android:enabled="false"
+            android:icon="@drawable/icon_brand_magalhaes"
+            android:label="@string/app_name_magalhaes"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Start-brand_peoplenet"
+            android:enabled="false"
+            android:icon="@drawable/icon_brand_peoplenet"
+            android:label="@string/app_name_peoplenet"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Start-brand_timwe"
+            android:enabled="false"
+            android:icon="@drawable/icon_brand_timwe"
+            android:label="@string/app_name_timwe"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Start-brand_ford_developer"
+            android:enabled="false"
+            android:icon="@drawable/icon_brand_ford_developer"
+            android:label="@string/app_name_ford"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".Start-brand_morva"
+            android:enabled="false"
+            android:icon="@drawable/icon_brand_morva"
+            android:label="@string/app_name_morva"
+            android:targetActivity=".Start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask" >
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchManager" />
+        </activity>
+        <activity
+            android:name=".ApkInfo"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" >
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchManager" />
+        </activity>
+        <activity
+            android:name=".Settings"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/settings_title_bar"
+            android:theme="@style/Theme.Sherlock.NoActionBar" />
+        <activity
+            android:name=".ScheduledDownloads"
+            android:configChanges="orientation|keyboardHidden" >
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchManager" />
+        </activity>
+        <activity
+            android:name=".webservices.login.Login"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".ExcludedUpdatesActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".webservices.comments.AddComment"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".webservices.comments.ViewComments"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".webservices.login.CreateUser"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".ScreenshotsViewer"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".DownloadManager"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".HWSpecActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".sharing.WebViewFacebook"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".sharing.WebViewTwitter"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".Buy"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".CreditCard"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".SearchManager"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/find" />
+        </activity>
+        <activity
+            android:name=".IntentReceiver"
+            android:configChanges="orientation|keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:scheme="file" />
+                <data android:host="*" />
+                <data android:pathPattern=".*\\.myapp" />
+                <data android:mimeType="application/vnd.cm.aptoide.pt" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="aptoiderepo" />
+                <data android:scheme="aptoidexml" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="market" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="market.android.com"
+                    android:scheme="https" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="play.google.com"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".services.MainService" />
+        <service
+            android:name=".ExtrasService"
+            android:process=":ExtrasService" />
+        <service android:name=".services.ServiceDownloadManager" />
+        <service android:name=".services.ServiceManagerDownload" />
+        <service android:name=".services.WebInstallService" />
+        <service android:name=".services.AsynchronousWebInstallService" />
+
+        <receiver android:name="cm.aptoide.pt.WebInstallReceiver" >
+            <intent-filter>
+				<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="cm.aptoide.pt.SYNC_START" />
+                <action android:name="cm.aptoide.pt.SYNC_STOP" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".InstalledBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".ScheduledDownloadReceiver" >
+            <intent-filter>
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".ExtrasContentProvider"
+            android:authorities="extras.contentprovider"
+            android:exported="false" >
+        </provider>
+
+        <activity
+            android:name="com.google.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <activity
+            android:name="com.adsdk.sdk.banner.InAppWebView"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name="com.adsdk.sdk.mraid.MraidActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <activity
+            android:name="com.adsdk.sdk.video.RichMediaActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name="com.paypal.android.MEP.PayPalActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity
+            android:name="com.mopub.mobileads.MoPubActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name="com.mopub.mobileads.MraidActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name="com.mopub.mobileads.MraidBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name="org.acra.CrashReportDialog"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Dialog" />
+    </application>
+
+</manifest>

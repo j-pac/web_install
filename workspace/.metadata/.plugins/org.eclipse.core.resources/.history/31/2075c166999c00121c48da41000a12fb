@@ -1,0 +1,13 @@
+
+public class Exp {
+	
+	public static void main(String[] args) {
+		
+		int[] trama = { -1, -1, 0, -1, 0, 0, 0};
+		int mod2 = (int)Math.pow(2, 0);
+		
+		
+		for(int i = mod2; i < )
+	}
+
+}

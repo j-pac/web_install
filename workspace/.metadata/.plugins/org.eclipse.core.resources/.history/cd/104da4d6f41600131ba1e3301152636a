@@ -1,0 +1,39 @@
+package cm.aptoide.pt;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
+import android.widget.Toast;
+
+public class NetworkChangeReceiver extends BroadcastReceiver {
+
+	private static int count;
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+
+//		ConnectivityManager connMgr = (ConnectivityManager) context
+//				.getSystemService(Context.CONNECTIVITY_SERVICE);
+//
+//		NetworkInfo wifi = connMgr
+//				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+//
+//		if (wifi.getState() == NetworkInfo.State.CONNECTED) {
+//			count++;
+//			System.out.println("Conexao estabelecida");
+//			Toast.makeText(context, "Conexao estabelecida: " + count,
+//					Toast.LENGTH_SHORT).show();
+//		} else {
+//			count++;
+//			System.out.println("Conexao fechada");
+//			Toast.makeText(context, "Conexao fechada: " + count,
+//					Toast.LENGTH_SHORT).show();
+//		}
+	}
+
+}

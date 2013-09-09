@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory
+END
+BaseMemoryCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory/BaseMemoryCache.java
+END
+MemoryCacheAware.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory/MemoryCacheAware.java
+END
+LimitedMemoryCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/repo/!svn/ver/1140/libraries/aptoide-support-libs/src/cm/aptoide/com/nostra13/universalimageloader/cache/memory/LimitedMemoryCache.java
+END

@@ -1,0 +1,35 @@
+package cm.aptoide.pt;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+public class NetworkChangeReceiver extends BroadcastReceiver {
+
+	private static final String SPREFERENCES_NAME = "WEB_INSTALL_RECEIVER";
+	private static final String SPREF_SYNC_KEY = "isSyncRunningTime";
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		String action = intent.getAction();
+
+		ConnectivityManager conn = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = conn.getActiveNetworkInfo();
+
+		if (networkInfo != null
+				&& ((networkInfo.getType() == ConnectivityManager.TYPE_WIFI) || (networkInfo
+						.getType() == ConnectivityManager.TYPE_MOBILE))) {
+			System.out.println("Detectada conexao estabelecida");
+			
+
+		} else {
+			 System.out.println("Detectada conexao desligada!!!");
+
+		}
+
+	}
+
+}

@@ -1,0 +1,18 @@
+
+public class FicheiroDaSimulacao {
+
+	
+	public class FicheiroDaSimulacao extends FicheiroDeResultados {
+
+		public FicheiroDaSimulacao(String nome_ficheiro) {
+			super(nome_ficheiro + ".csv");
+		}
+
+		@Override
+		public void escreverNoFicheiro() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+}

@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/repo/!svn/ver/1327/aptoide-client/unstable/trunk/Aptoide/res/values
+END
+version.xml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/repo/!svn/ver/1222/aptoide-client/unstable/trunk/Aptoide/res/values/version.xml
+END
+themes.xml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repo/!svn/ver/1323/aptoide-client/unstable/trunk/Aptoide/res/values/themes.xml
+END
+credits.xml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/repo/!svn/ver/1327/aptoide-client/unstable/trunk/Aptoide/res/values/credits.xml
+END
+constants.xml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repo/!svn/ver/1327/aptoide-client/unstable/trunk/Aptoide/res/values/constants.xml
+END
+colors.xml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repo/!svn/ver/1286/aptoide-client/unstable/trunk/Aptoide/res/values/colors.xml
+END
+strings.xml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/repo/!svn/ver/1327/aptoide-client/unstable/trunk/Aptoide/res/values/strings.xml
+END
+attrs.xml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/repo/!svn/ver/1233/aptoide-client/unstable/trunk/Aptoide/res/values/attrs.xml
+END
+dimens.xml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repo/!svn/ver/1076/aptoide-client/unstable/trunk/Aptoide/res/values/dimens.xml
+END
+styles.xml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repo/!svn/ver/1286/aptoide-client/unstable/trunk/Aptoide/res/values/styles.xml
+END
+settingsvalues.xml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/1213/aptoide-client/unstable/trunk/Aptoide/res/values/settingsvalues.xml
+END
