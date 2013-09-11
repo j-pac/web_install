@@ -14,12 +14,14 @@ class Publisher {
 		$this->channel = $this->connection->channel();
 	}
 
+	// Create a "durable" Queue
 	public function create_queue($queue_name) {
 		$this->channel->queue_declare($queue_name, false, true, false, false);
 	}
 
-	public function publish_message($message, $queue_name) {
-		$message = new AMQPMessage($message);
+	// Publish a "persistent" message
+	public function publish_message($data, $queue_name) {
+	  $message = new AMQPMessage($data, array('delivery_mode' => 2));
 		$this->channel->basic_publish($message, '', $queue_name);
 	}
 

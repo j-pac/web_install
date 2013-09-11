@@ -183,12 +183,11 @@
 		
 	  //<!-- BRUTUS ACTION EVENT -->
 	  $('#installButton').click(function() {
-	    var passhash = "62bcb83c01d492b2654e0707cc7183db304b372c";
-	    selected_value = $("#userDevices").val();
-	    
+	    var selected_value = $("#userDevices").val();
 	    $.post("http://127.0.0.1/install_service.php", { token: "27286b943179065fcef3b6adcafe8680d8515e4652010602c45f6", 
-	      device_id: selected_value, myapp: getMyapp(), signature: createHmacSha1(getMyapp(), passhash)}, function() {}).always(function() {
-		  alert("Installation Request Sent!");});
+	      device_id: selected_value, myapp: getMyapp()}, function(data) {
+		alert(data);  
+	      });
 	  });
 		
 		
@@ -206,17 +205,7 @@
 		      var myapp = "<myapp><getapp><name>MeteoEarth</name><get>http://pool.apk.aptoide.com/htcsense/com-mg-meteoearth-66048-3754406-f2ec417a52dcae4fff45e4f58187efd2.apk</get><pname>com.mg.meteoearth</pname><md5sum>f2ec417a52dcae4fff45e4f58187efd2</md5sum><intsize>15098669</intsize></getapp><newserver><server>http://htcsense.store.aptoide.com</server></newserver></myapp>";
 		      return myapp;
 		    } 
-		</script>
-		
-	<!-- BRUTUS :HMAC WEBSERVICE REQUEST SIGNATURE -->
-	<script type="text/javascript" src="http://crypto-js.googlecode.com/files/2.0.0-crypto-sha1.js"></script>
-	<script type="text/javascript" src="http://crypto-js.googlecode.com/files/2.0.0-hmac-min.js"></script>
-	<script type="text/javascript">
-	  function createHmacSha1(message, private_key) {
-	    var hmac = Crypto.HMAC(Crypto.SHA1, message, private_key);
-	    return hmac;
-	  }
-      </script>
+		</script>	
 		
 	<!-- BRUTUS :installInfo style -->
 	<style type="text/css">
@@ -568,7 +557,6 @@
 			  <select id="userDevices">
 			    <option value="354059024379636">HTC Magic</option>
 			    <option value="015d2994a42c0a18">Nexus 7</option>
-			    <option value="863496010529069">Huawei-U8665</option>
 			    <option value="864449010530511">HUAWEI U8666E</option>
 			    <option value="355383051888064">ME371MG</option>
 			    <option value="000000000000000">sdk</option>

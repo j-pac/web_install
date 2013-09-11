@@ -30,38 +30,26 @@ public class WebInstallReceiver extends BroadcastReceiver {
 
 		boolean isNetworkConnected = checkNetworkConnection(context);
 
-		ConnectivityManager conMgr = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
-
 		if (action.equals("android.intent.action.BOOT_COMPLETED")) {
 			if (Login.isDeviceRegistered(context) && isNetworkConnected) {
 				startAsynchronousService();
 			}
 		} else if (action.equals("cm.aptoide.pt.SYNC_START")) {
-			Toast.makeText(context, "SYNC_START CALLED!!!", Toast.LENGTH_SHORT)
-					.show();
 			// stops the async service if running
 			stopAsynchronousService();
-			if (isNetworkConnected) {
-				startSynchronousService();
-			}
+			// if (isNetworkConnected) {
+			startSynchronousService();
+			// }
 			spref.edit().putBoolean(SPREF_SYNC_KEY, true).commit();
 		} else if (action.equals("cm.aptoide.pt.SYNC_STOP")) {
-			Toast.makeText(context, "SYNC_STOP CALLED!!!", Toast.LENGTH_SHORT)
-					.show();
 			if (WebInstallService.isRunning()) {
 				stopSynchronousService();
 			}
 			spref.edit().putBoolean(SPREF_SYNC_KEY, false).commit();
-			if (Login.isDeviceRegistered(context) && isNetworkConnected) {
+			if (Login.isDeviceRegistered(context)) {
 				startAsynchronousService();
 			}
 		} else if (action.equals("android.net.wifi.STATE_CHANGE")) {
-			if (!spref.contains(SPREF_SYNC_KEY)) {
-				System.out.println("NAO TEM A PREFERENCIA!!!");
-			}
-
 			if (isNetworkConnected) {
 				Log.i(TAG, "Wireless connection detected");
 
@@ -95,6 +83,7 @@ public class WebInstallReceiver extends BroadcastReceiver {
 		AsynchronousWebInstallService.turnOffAlarmManager();
 	}
 
+	// ITS ONLY CHECKING WIFI CONNECTION STATE FOR THE "PROOF OF CONCEPT" PRESENTATION
 	private boolean checkNetworkConnection(Context context) {
 		ConnectivityManager connMgr = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);

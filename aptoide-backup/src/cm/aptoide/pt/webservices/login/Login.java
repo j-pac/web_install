@@ -363,10 +363,6 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 					prefEdit.remove(Configs.LOGIN_USER_USERNAME);
 					prefEdit.commit();
 
-					Toast.makeText(context,
-							"USERTOKEN: " + array.getString("token"),
-							Toast.LENGTH_LONG).show();
-
 					// BRUTUS CODE -- Starts the device register task if the
 					// proper checkBox its checked
 					// Start the register device Task
@@ -437,6 +433,18 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 					System.err
 							.println("Exceeded attempts to register the device - "
 									+ e.getMessage());
+				} catch (InvalidKeyException e) {
+					System.err
+							.println("Error creating response HMAC signature - "
+									+ e.getMessage());
+				} catch (IllegalStateException e) {
+					System.err
+							.println("Error creating response HMAC signature - "
+									+ e.getMessage());
+				} catch (NoSuchAlgorithmException e) {
+					System.err
+							.println("Error creating response HMAC signature - "
+									+ e.getMessage());
 				}
 			}
 			return null;
@@ -447,14 +455,14 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 			try {
 				if (response != null
 						&& response.getString("status").equals("OK")) {
+
 					prefEdit.putString(Configs.RABBITMQ_QUEUE_ID,
 							response.getString("queue_id"));
 					prefEdit.commit();
-					succeed = true;
 
 					Toast.makeText(
 							context,
-							"Queue id created: "
+							"Queue Routing Key received: "
 									+ response.getString("queue_id"),
 							Toast.LENGTH_LONG).show();
 
@@ -463,31 +471,33 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 					// device with aptoide account, after login is completed
 					Intent intent = new Intent("cm.aptoide.pt.SYNC_START");
 					sendBroadcast(intent);
-
-					// }
 					// ///////////////////////////////////////////////////////////////////
 
-					Intent i = new Intent("login");
-					sendBroadcast(i);
-					finish();
-
 				} else {
-					Toast toast = Toast.makeText(context,/*
-														 * response.getString(
-														 * "errors")
-														 */
-							"Device not registered, try again!",
+					String error = (response != null && response.has("errors")) ? response
+							.getString("errors") : "try again later!";
+					Toast toast = Toast.makeText(context,
+							"Device not registered, " + error,
 							Toast.LENGTH_SHORT);
 					toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL,
 							0, 30);
 					toast.show();
 				}
+
+				succeed = true;
+				Intent i = new Intent("login");
+				sendBroadcast(i);
+				finish();
 			} catch (JSONException e) {
 				Toast toast = Toast.makeText(context,
 						context.getString(R.string.error_occured),
 						Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 30);
 				toast.show();
+				e.printStackTrace();
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -510,7 +520,8 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 
 		private JSONObject registerDevice(String token, String device_id,
 				String device_model) throws IOException, JSONException,
-				InterruptedException {
+				InterruptedException, InvalidKeyException,
+				IllegalStateException, NoSuchAlgorithmException {
 			// Post request to registry webservice
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(URL);
@@ -526,6 +537,10 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 					device_model));
 			requestKeyValuePairs.add(new BasicNameValuePair("mode",
 					RESPONSE_MODE));
+			requestKeyValuePairs.add(new BasicNameValuePair("signature",
+					Algorithms.computeHmacSha1(
+							token + device_id + device_model,
+							getPassword(context))));
 
 			httpPost.setEntity(new UrlEncodedFormEntity(requestKeyValuePairs));
 			HttpResponse httpResponse = httpclient.execute(httpPost);
@@ -541,7 +556,6 @@ public class Login extends SherlockActivity /* SherlockActivity */{
 			}
 			in.close();
 			rd.close();
-			System.out.println("RECEIVED: " + sb.toString());
 			JSONObject response = new JSONObject(sb.toString());
 			if (response.has("errors")) {
 				if (response.getString("errors").contains("Server")) {

@@ -82,7 +82,7 @@ import java.util.Locale;
    		formUri = "http://acra.aptoide.com/acraaptoide",
         mode = ReportingInteractionMode.NOTIFICATION,
         resToastText = R.string.crash_dialog_title, // optional, displayed as soon as the crash occurs, before collecting data which can take a few seconds
-        resNotifTickerText = R.string.crash_notif_ticker_text,
+//        resNotifTickerText = R.string.crash_notif_ticker_text,
         resNotifTitle = R.string.crash_dialog_title,
         resNotifText = R.string.crash_notif_text,
         resNotifIcon = android.R.drawable.stat_notify_error, // optional. default is a warning sign

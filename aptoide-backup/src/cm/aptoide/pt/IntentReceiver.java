@@ -35,6 +35,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class IntentReceiver extends SherlockActivity implements
 		OnDismissListener {
@@ -71,9 +72,13 @@ public class IntentReceiver extends SherlockActivity implements
 			Log.v("Aptoide-IntentReceiver",
 					"Connected to ServiceDownloadManager");
 
-			// BRUTUS MODIFICATION -- intermedium method
-			loadIntent();
-			// continueLoading();
+			// BRUTUS MODIFICATION
+			if (getIntent().hasExtra("WebInstallRequest")) {
+				processWebInstallRequest(getIntent().getStringExtra(
+						"WebInstallRequest"));
+			} else {
+				continueLoading();
+			}
 		}
 
 		public void onServiceDisconnected(ComponentName className) {
@@ -86,6 +91,8 @@ public class IntentReceiver extends SherlockActivity implements
 					"Disconnected from ServiceDownloadManager");
 		}
 	};
+
+	private List<String> simultaneousWebInstallRequests = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,42 +115,40 @@ public class IntentReceiver extends SherlockActivity implements
 		}
 	}
 
-	// BRUTUS CODE -- load and process the webinstallservice request
-	private void processWebInstallServiceRequest() {
-		String app_uri = getIntent().getStringExtra("WebInstallRequest");
-//		Toast.makeText(this,
-//				"Dowload request received on intentReceiver: " + app_uri,
-//				Toast.LENGTH_SHORT).show();
+	@Override
+	protected void onNewIntent(Intent intent) {
+		if (simultaneousWebInstallRequests == null) {
+			simultaneousWebInstallRequests = new ArrayList<String>();
+		}
+		if (intent.hasExtra("WebInstallRequest")) {
+			simultaneousWebInstallRequests.add(intent
+					.getStringExtra("WebInstallRequest"));
+		}
+	}
 
-		// String myapp_directory = getCacheDir() + "/webInstallFolder/";
+	// BRUTUS CODE -- load and process the webinstallservice request
+	private void processWebInstallRequest(String myapp) {
+
 		TMP_MYAPP_FILE = getCacheDir() + "/webInstall.myapp";
 
-		// create a new directory with a file in cache directory
-		// File webInstall_directory = new File(myapp_directory);
-		// File myapp_file = new File("webInstall.myapp");
-		// if (myapp_file.exists()) {
-		// myapp_file.delete();
-		// }
-				
 		FileOutputStream fop = null;
 		File file;
- 
+
 		try {
-			
+
 			file = new File(TMP_MYAPP_FILE);
 			if (!file.exists()) {
 				file.createNewFile();
 			}
-			
+
 			fop = new FileOutputStream(file);
 			// get the content in bytes
-			byte[] contentInBytes = app_uri.getBytes();
- 
+			byte[] contentInBytes = myapp.getBytes();
+
 			fop.write(contentInBytes);
 			fop.flush();
 			fop.close();
- 
- 
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -180,58 +185,41 @@ public class IntentReceiver extends SherlockActivity implements
 						new Dialog.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface arg0, int arg1) {
-								ViewApk apk = new ViewApk();
-								apk.setApkid(app.get("apkid"));
-								apk.setName(app.get("name"));
-								apk.setVercode(0);
-								apk.setVername("");
-								apk.generateAppHashid();
-								apk.setMd5(app.get("md5sum"));
-								apk.setPath(app.get("path"));
-
-								apk.setMainObbUrl(app.get("main_path"));
-								apk.setMainObbFileName(app.get("main_filename"));
-								apk.setMainObbMd5(app.get("main_md5sum"));
-
-								apk.setPatchObbUrl(app.get("patch_path"));
-								apk.setPatchObbFileName(app
-										.get("patch_filename"));
-								apk.setPatchObbMd5(app.get("patch_md5sum"));
-
-								serviceDownloadManager.startDownload(
-										serviceDownloadManager.getDownload(apk),
-										apk);
-								Toast toast = Toast.makeText(
-										IntentReceiver.this,
-										getString(R.string.starting_download),
-										Toast.LENGTH_SHORT);
-								toast.show();
+								installAppDialog.dismiss();
+								downloadApk();
+								if (simultaneousWebInstallRequests != null
+										&& !simultaneousWebInstallRequests
+												.isEmpty()) {
+									processWebInstallRequest(simultaneousWebInstallRequests
+											.remove(0));
+								} else {
+									finish();
+								}
 							}
 						});
 				installAppDialog.setButton(Dialog.BUTTON_NEGATIVE,
-						getString(android.R.string.no), neutralListener);
-				installAppDialog.setOnDismissListener(this);
+						getString(android.R.string.no),
+						new Dialog.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								installAppDialog.dismiss();
+								if (simultaneousWebInstallRequests != null
+										&& !simultaneousWebInstallRequests
+												.isEmpty()) {
+									processWebInstallRequest(simultaneousWebInstallRequests
+											.remove(0));
+								} else {
+									finish();
+								}
+							}
+						});
 				installAppDialog.show();
-
-			} else {
-				proceed();
 			}
+
 		} catch (Exception e) {
 			System.err
 					.println("IntentReceiver : processWebInstallServiceRequest() - Throwed Exception - "
 							+ e.getMessage());
-		}
-
-//		finish();
-	}
-
-	// BRUTUS CODE -- intermedium method to choose between an intent with an url
-	// and an intent with an extra from WebInstallService
-	private void loadIntent() {
-		if (getIntent().hasExtra("WebInstallRequest")) {
-			processWebInstallServiceRequest();
-		} else {
-			continueLoading();
 		}
 	}
 
@@ -312,37 +300,7 @@ public class IntentReceiver extends SherlockActivity implements
 									@Override
 									public void onClick(DialogInterface arg0,
 											int arg1) {
-										ViewApk apk = new ViewApk();
-										apk.setApkid(app.get("apkid"));
-										apk.setName(app.get("name"));
-										apk.setVercode(0);
-										apk.setVername("");
-										apk.generateAppHashid();
-										apk.setMd5(app.get("md5sum"));
-										apk.setPath(app.get("path"));
-
-										apk.setMainObbUrl(app.get("main_path"));
-										apk.setMainObbFileName(app
-												.get("main_filename"));
-										apk.setMainObbMd5(app
-												.get("main_md5sum"));
-
-										apk.setPatchObbUrl(app
-												.get("patch_path"));
-										apk.setPatchObbFileName(app
-												.get("patch_filename"));
-										apk.setPatchObbMd5(app
-												.get("patch_md5sum"));
-
-										serviceDownloadManager.startDownload(
-												serviceDownloadManager
-														.getDownload(apk), apk);
-										Toast toast = Toast
-												.makeText(
-														IntentReceiver.this,
-														getString(R.string.starting_download),
-														Toast.LENGTH_SHORT);
-										toast.show();
+										downloadApk();
 									}
 								});
 						installAppDialog
@@ -362,6 +320,33 @@ public class IntentReceiver extends SherlockActivity implements
 			}
 
 		}
+
+	}
+
+	private void downloadApk() {
+
+		ViewApk apk = new ViewApk();
+		apk.setApkid(app.get("apkid"));
+		apk.setName(app.get("name"));
+		apk.setVercode(0);
+		apk.setVername("");
+		apk.generateAppHashid();
+		apk.setMd5(app.get("md5sum"));
+		apk.setPath(app.get("path"));
+
+		apk.setMainObbUrl(app.get("main_path"));
+		apk.setMainObbFileName(app.get("main_filename"));
+		apk.setMainObbMd5(app.get("main_md5sum"));
+
+		apk.setPatchObbUrl(app.get("patch_path"));
+		apk.setPatchObbFileName(app.get("patch_filename"));
+		apk.setPatchObbMd5(app.get("patch_md5sum"));
+
+		serviceDownloadManager.startDownload(
+				serviceDownloadManager.getDownload(apk), apk);
+		Toast toast = Toast.makeText(IntentReceiver.this,
+				getString(R.string.starting_download), Toast.LENGTH_SHORT);
+		toast.show();
 
 	}
 

@@ -16,12 +16,12 @@ import java.util.HashMap;
 
 enum Elements {
 
-    MYAPP, GETAPP, NAME, PNAME, MD5SUM, INTSIZE, NEWSERVER, SERVER, NOTFOUND, GET, OBB, MAIN_PATH, MAIN_MD5SUM, MAIN_FILESIZE, MAIN_FILENAME, PATCH_PATH, PATCH_MD5SUM, PATCH_FILESIZE, PATCH_FILENAME;
+	MYAPP, GETAPP, NAME, PNAME, MD5SUM, INTSIZE, NEWSERVER, SERVER, NOTFOUND, GET, OBB, MAIN_PATH, MAIN_MD5SUM, MAIN_FILESIZE, MAIN_FILENAME, PATCH_PATH, PATCH_MD5SUM, PATCH_FILESIZE, PATCH_FILENAME;
 
-	public static Elements lookup(String element){
-		try{
+	public static Elements lookup(String element) {
+		try {
 			return Elements.valueOf(element);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return Elements.NOTFOUND;
 		}
 	}
@@ -31,6 +31,7 @@ public class MyappHandler extends DefaultHandler {
 	HashMap<String, String> app;
 	ArrayList<String> servers = new ArrayList<String>();
 	StringBuilder sb = new StringBuilder();
+
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
@@ -54,7 +55,7 @@ public class MyappHandler extends DefaultHandler {
 			throws SAXException {
 
 		super.characters(ch, start, length);
-		sb.append(ch,start,length);
+		sb.append(ch, start, length);
 
 	}
 
@@ -62,72 +63,71 @@ public class MyappHandler extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
 
-        switch (Elements.lookup(localName.toUpperCase().trim())) {
-            case GET:
-                app.put("path", sb.toString());
-                break;
-            case GETAPP:
+		switch (Elements.lookup(localName.toUpperCase().trim())) {
+		case GET:
+			app.put("path", sb.toString());
+			break;
+		case GETAPP:
 
-                break;
-            case INTSIZE:
-                app.put("size", sb.toString());
-                break;
+			break;
+		case INTSIZE:
+			app.put("size", sb.toString());
+			break;
 
-            case MD5SUM:
-                app.put("md5sum", sb.toString());
-                break;
+		case MD5SUM:
+			app.put("md5sum", sb.toString());
+			break;
 
-            case MYAPP:
-                break;
+		case MYAPP:
+			break;
 
-            case NAME:
-                app.put("name", sb.toString());
-                break;
+		case NAME:
+			app.put("name", sb.toString());
+			break;
 
-            case NEWSERVER:
-                break;
+		case NEWSERVER:
+			break;
 
-            case NOTFOUND:
-                break;
+		case NOTFOUND:
+			break;
 
-            case PNAME:
-                app.put("apkid", sb.toString());
-                break;
+		case PNAME:
+			app.put("apkid", sb.toString());
+			break;
 
-            case SERVER:
-                servers.add(sb.toString());
-                break;
+		case SERVER:
+			servers.add(sb.toString());
+			break;
 
-
-            default:
-                break;
-            case OBB:
-                break;
-            case MAIN_PATH:
-                app.put("main_path", sb.toString());
-                break;
-            case MAIN_MD5SUM:
-                app.put("main_md5sum", sb.toString());
-                break;
-            case MAIN_FILESIZE:
-                app.put("main_filesize", sb.toString());
-                break;
-            case MAIN_FILENAME:
-                app.put("main_filename", sb.toString());
-                break;
-            case PATCH_PATH:
-                app.put("patch_path", sb.toString());
-                break;
-            case PATCH_MD5SUM:
-                app.put("patch_md5sum", sb.toString());
-                break;
-            case PATCH_FILESIZE:
-                app.put("patch_filesize", sb.toString());
-                break;
-            case PATCH_FILENAME:
-                app.put("patch_filename", sb.toString());
-                break;
-        }
+		default:
+			break;
+		case OBB:
+			break;
+		case MAIN_PATH:
+			app.put("main_path", sb.toString());
+			break;
+		case MAIN_MD5SUM:
+			app.put("main_md5sum", sb.toString());
+			break;
+		case MAIN_FILESIZE:
+			app.put("main_filesize", sb.toString());
+			break;
+		case MAIN_FILENAME:
+			app.put("main_filename", sb.toString());
+			break;
+		case PATCH_PATH:
+			app.put("patch_path", sb.toString());
+			break;
+		case PATCH_MD5SUM:
+			app.put("patch_md5sum", sb.toString());
+			break;
+		case PATCH_FILESIZE:
+			app.put("patch_filesize", sb.toString());
+			break;
+		case PATCH_FILENAME:
+			app.put("patch_filename", sb.toString());
+			break;
+		}
 		super.endElement(uri, localName, qName);
 	}
 
@@ -138,8 +138,5 @@ public class MyappHandler extends DefaultHandler {
 	public ArrayList<String> getServers() {
 		return servers;
 	}
-
-
-
 
 }

@@ -1,40 +1,66 @@
 package cm.aptoide.pt.services;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import cm.aptoide.pt.Configs;
 import cm.aptoide.pt.IntentReceiver;
+import cm.aptoide.pt.util.Algorithms;
 
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.ConsumerCancelledException;
-import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.QueueingConsumer;
 import com.rabbitmq.client.ShutdownListener;
 import com.rabbitmq.client.ShutdownSignalException;
 import com.rabbitmq.client.QueueingConsumer.Delivery;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
 public class WebInstallService extends Service {
 
-	private static final String TAG = "cm.aptoide.pt.services";
+	private static final String TAG = "cm.aptoide.pt.services.WebInstallService";
+
+	private Context context;
 
 	private RabbitMqClient rabbitmq_client;
 
 	private String rabbitmq_queue_id;
 
-	private Runnable rabbitMq_pull_task;
-
-	private ExecutorService executor = Executors.newSingleThreadExecutor();
+	private Thread rabbitMq_pull_thread;
 
 	private static boolean isRunning = false;
+
+	public static boolean isRunning() {
+		return isRunning;
+	}
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -45,12 +71,14 @@ public class WebInstallService extends Service {
 	@Override
 	public void onCreate() {
 		Log.i(TAG, "WebInstallService created!");
+		context = this;
 		SharedPreferences sPref = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		rabbitmq_queue_id = sPref.getString(Configs.RABBITMQ_QUEUE_ID, null);
 		if (rabbitmq_queue_id != null) {
 			isRunning = true;
 		}
+
 	}
 
 	@Override
@@ -61,7 +89,7 @@ public class WebInstallService extends Service {
 				"WebInstallService Started - onStartCommand()! :)",
 				Toast.LENGTH_SHORT).show();
 
-		rabbitMq_pull_task = new Runnable() {
+		rabbitMq_pull_thread = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
@@ -70,36 +98,41 @@ public class WebInstallService extends Service {
 					rabbitmq_client.establishConnection();
 
 					while (isRunning) {
-						String message_received;
+						final String myapp_received;
 
-						message_received = rabbitmq_client.listenQueue();
+						myapp_received = rabbitmq_client.waitForMessage();
 
-						downloadApk(message_received);
+						String private_key = PreferenceManager
+								.getDefaultSharedPreferences(context)
+								.getString(Configs.LOGIN_USER_TOKEN, null);
+
+						if (checkMessageAuthenticity(myapp_received,
+								private_key)) {
+							Log.i(TAG,
+									"Received WebInstall Request Authenticated");
+							processInstallRequest(myapp_received);
+						} else {
+							Log.w(TAG,
+									"X-->Received WebInstall Request Not Authenticated");
+						}
+
 					}
 
 				} catch (ShutdownSignalException e) {
-					Toast.makeText(getApplicationContext(),
-							"Received shutdown signal!!!", Toast.LENGTH_LONG)
-							.show();
-
 					e.printStackTrace();
 				} catch (ConsumerCancelledException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (InterruptedException e) {
-
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-
+					// TODO Auto-generated catch bloc
 					e.printStackTrace();
 				}
-				Toast.makeText(getApplicationContext(),
-						"MyService Thread ended!!!", Toast.LENGTH_LONG).show();
 			}
-		};
+		});
 
-		executor.submit(rabbitMq_pull_task);
+		rabbitMq_pull_thread.start();
 		return START_STICKY;
 	}
 
@@ -112,20 +145,87 @@ public class WebInstallService extends Service {
 
 		isRunning = false;
 
-		executor.shutdownNow();
 		rabbitmq_client.closeConnection();
 
 		Log.i(TAG, "WebInstallService destroyed!");
 
 	}
 
-	private void downloadApk(String message) {
+	private void processInstallRequest(String myapp) {
 		Intent download_intent = new Intent(this, IntentReceiver.class);
 		download_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		download_intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+		download_intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-		download_intent.putExtra("WebInstallRequest", message);
+		download_intent.putExtra("WebInstallRequest", myapp);
 		startActivity(download_intent);
+	}
+
+	@SuppressLint("NewApi")
+	public static boolean checkMessageAuthenticity(String xml_message,
+			String private_key) {
+
+		try {
+
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db;
+			db = dbf.newDocumentBuilder();
+
+			InputSource is = new InputSource();
+			is.setCharacterStream(new StringReader(xml_message));
+
+			Document doc = db.parse(is);
+
+			Element hmac = (Element) doc.getElementsByTagName("hmac").item(0);
+			String hmac_sign = hmac.getTextContent();
+			hmac.getParentNode().removeChild(hmac);
+
+			DOMSource domSource = new DOMSource(doc);
+			StringWriter writer = new StringWriter();
+			StreamResult result = new StreamResult(writer);
+			TransformerFactory tf = TransformerFactory.newInstance();
+			Transformer transformer = tf.newTransformer();
+			transformer.transform(domSource, result);
+			String message_str = writer.toString();
+
+			String hmac_result = Algorithms.computeHmacSha1(message_str,
+					private_key);
+
+			Log.i(TAG, "Myapp hmac signature: \n" + hmac_sign);
+			Log.i(TAG, "Hmac Algorithm result: \n" + hmac_result);
+
+			return hmac != null && private_key != null
+					&& (hmac_sign.equals(hmac_result));
+
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 
 	}
 
@@ -182,7 +282,7 @@ public class WebInstallService extends Service {
 
 		}
 
-		public String listenQueue() throws ShutdownSignalException,
+		public String waitForMessage() throws ShutdownSignalException,
 				ConsumerCancelledException, InterruptedException, IOException {
 
 			String message = null;
@@ -199,17 +299,13 @@ public class WebInstallService extends Service {
 
 		public void closeConnection() {
 			try {
-				if (connection.isOpen() && connection != null) {
+				if (connection != null && connection.isOpen()) {
 					connection.close();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public static boolean isRunning() {
-		return isRunning;
 	}
 
 }

@@ -8,6 +8,8 @@ import cm.aptoide.pt.IntentReceiver;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.GetResponse;
+import com.rabbitmq.client.ShutdownListener;
+import com.rabbitmq.client.ShutdownSignalException;
 
 import android.app.AlarmManager;
 import android.app.IntentService;
@@ -15,7 +17,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
@@ -25,10 +26,10 @@ import android.widget.Toast;
 public class AsynchronousWebInstallService extends IntentService {
 
 	private static final String TAG = "cm.aptoid.pt.services.AsynchronousWebInstallService";
-	private static final long ELAPSED_TIME_TO_START = (long) 1 * 60 * 1000; // Starts
-																			// each
-																			// 5
-																			// minutes
+	private static final long ELAPSED_TIME_TO_START = 1 * 60 * 1000; // Starts
+																		// each
+																		// 5
+																		// minutes
 	private String rabbitmq_queue_id;
 
 	private static AlarmManager alarm_manager = null;
@@ -86,24 +87,34 @@ public class AsynchronousWebInstallService extends IntentService {
 				rabbitmq_queue_id);
 		try {
 			rabbitmq_client.establishConnection();
-			String message_received = null;
+			String myapp_received = null;
 
-			while ((message_received = rabbitmq_client.listenQueue()) != null) {
-				downloadApk(message_received);
+			while ((myapp_received = rabbitmq_client.checkForMessage()) != null) {
+				String private_key = PreferenceManager
+						.getDefaultSharedPreferences(this).getString(
+								Configs.LOGIN_USER_TOKEN, null);
+
+				if (WebInstallService.checkMessageAuthenticity(myapp_received,
+						private_key)) {
+					Log.i(TAG, "Received WebInstall Request Authenticated");
+					processInstallRequest(myapp_received);
+				} else {
+					Log.w(TAG,
+							"X-->Received WebInstall Request Not Authenticated");
+				}
 			}
 		} finally {
 			rabbitmq_client.closeConnection();
 		}
 	}
 
-	private void downloadApk(String message) {
+	private void processInstallRequest(String myapp) {
 		Intent download_intent = new Intent(this, IntentReceiver.class);
 		download_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		download_intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+		download_intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-		download_intent.putExtra("WebInstallRequest", message);
+		download_intent.putExtra("WebInstallRequest", myapp);
 		startActivity(download_intent);
-
 	}
 
 	private void scheduleNextBeggining() {
@@ -120,6 +131,8 @@ public class AsynchronousWebInstallService extends IntentService {
 		alarm_manager.set(AlarmManager.RTC, next_run_time, pending_intent);
 	}
 
+	// ITS ONLY CHECKING WIFI CONNECTION STATE FOR THE "PROOF OF CONCEPT"
+	// PRESENTATION
 	private boolean isNetworkConnected(Context context) {
 		ConnectivityManager connMgr = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -145,10 +158,17 @@ public class AsynchronousWebInstallService extends IntentService {
 			factory.setHost(Configs.LOCAL_IP);
 			try {
 				connection = factory.newConnection();
+				connection.addShutdownListener(new ShutdownListener() {
+
+					@Override
+					public void shutdownCompleted(ShutdownSignalException arg0) {
+						stopSelf();
+					}
+				});
 				channel = connection.createChannel();
 
-				// channel.queueDeclare(queue_routing_key, true, false, false,
-				// null);
+				channel.queueDeclare(queue_routing_key, true, false, false,
+						null);
 
 				channel.basicQos(0);
 
@@ -159,7 +179,7 @@ public class AsynchronousWebInstallService extends IntentService {
 
 		}
 
-		public String listenQueue() {
+		public String checkForMessage() {
 
 			String message = null;
 
@@ -169,7 +189,7 @@ public class AsynchronousWebInstallService extends IntentService {
 				response = channel.basicGet(queue_routing_key, autoAck);
 
 				if (response != null) {
-					AMQP.BasicProperties props = response.getProps();
+//					AMQP.BasicProperties props = response.getProps();
 					long deliveryTag = response.getEnvelope().getDeliveryTag();
 					message = new String(response.getBody(), "UTF-8");
 					channel.basicAck(deliveryTag, false);
@@ -186,9 +206,7 @@ public class AsynchronousWebInstallService extends IntentService {
 
 		public void closeConnection() {
 			try {
-				if (connection.isOpen() && channel != null
-						&& connection != null) {
-					channel.close();
+				if (connection != null && connection.isOpen()) {
 					connection.close();
 				}
 			} catch (IOException e) {
