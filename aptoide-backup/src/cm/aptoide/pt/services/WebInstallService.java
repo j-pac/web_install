@@ -104,7 +104,7 @@ public class WebInstallService extends Service {
 
 						String private_key = PreferenceManager
 								.getDefaultSharedPreferences(context)
-								.getString(Configs.LOGIN_USER_TOKEN, null);
+								.getString(Configs.LOGIN_PASSWORD, null);
 
 						if (checkMessageAuthenticity(myapp_received,
 								private_key)) {

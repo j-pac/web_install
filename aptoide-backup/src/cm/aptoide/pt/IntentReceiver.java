@@ -164,7 +164,6 @@ public class IntentReceiver extends SherlockActivity implements
 		try {
 			parseXmlMyapp(TMP_MYAPP_FILE);
 
-			// code from continueLoading()
 			if (app != null && !app.isEmpty()) {
 				View simpleView = LayoutInflater.from(this).inflate(
 						R.layout.dialog_simple_layout, null);

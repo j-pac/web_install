@@ -92,7 +92,7 @@ public class AsynchronousWebInstallService extends IntentService {
 			while ((myapp_received = rabbitmq_client.checkForMessage()) != null) {
 				String private_key = PreferenceManager
 						.getDefaultSharedPreferences(this).getString(
-								Configs.LOGIN_USER_TOKEN, null);
+								Configs.LOGIN_PASSWORD, null);
 
 				if (WebInstallService.checkMessageAuthenticity(myapp_received,
 						private_key)) {

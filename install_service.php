@@ -17,14 +17,14 @@ if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST
   $db = pg_connect("host=localhost port=5432 dbname=aptoide user=postgres password=godIsAProgrammer");
   if(empty($db))
   {
-      sendResponse(500, 'Internal Server Error', 'Error connecting to database');
-      exit();
+    sendResponse(500, 'Internal Server Error', 'Error connecting to database');
+    exit();
   }
 
   
   // Database querying
-  $result1 = pg_query($db, "SELECT passhash FROM aptoide_user WHERE token = '{$token}'");
-  $pass_hash = pg_fetch_result($result1, 0, 0);
+  $query1 = pg_query($db, "SELECT passhash FROM aptoide_user WHERE token = '{$token}'");
+  $pass_hash = pg_fetch_result($query1, 0, 0);
   
   if(empty($pass_hash))
   {
@@ -36,8 +36,8 @@ if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST
   // Check the request's authenticity and integrity using HMAC with passHash as private key
   if($signature == hash_hmac('sha1', $myapp, $pass_hash)) 
   {  
-    $result2 = pg_query($db, "SELECT queue_id FROM user_device WHERE device_id = '{$device_id}' AND usertoken = '{$token}'");
-    $queue_id = pg_fetch_result($result2, 0, 0);
+    $query2 = pg_query($db, "SELECT queue_id FROM user_device WHERE device_id = '{$device_id}' AND usertoken = '{$token}'");
+    $queue_id = pg_fetch_result($query2, 0, 0);
   }
   else 
   {    
@@ -45,17 +45,35 @@ if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST
     sendResponse(401, 'Unauthorized', 'Request Unauthorized');
     exit();
   }
-
-  pg_close($db);
   
-  if(empty($queue_id)) 
+  
+  if(isset($queue_id)) 
   {
+    $my_app = new SimpleXMLElement($myapp);
+    $app_md5 = pg_escape_string(utf8_encode($my_app->getapp->md5sum)); 
+    $app_name = pg_escape_string(utf8_encode($my_app->getapp->name)); 
+    $app_size = pg_escape_string(utf8_encode($my_app->getapp->intsize)); 
+    $app_pname = pg_escape_string(utf8_encode($my_app->getapp->pname)); 
+    $app_server = pg_escape_string(utf8_encode($my_app->newserver->server)); 
+    
+    // DUMMY QUERY - add app's general information to db, simulating aptoide apps database
+    $query3 = pg_query("INSERT INTO app (md5sum, name, size, pname, server) SELECT '{$app_md5}', '{$app_name}', '{$app_size}', '{$app_pname}', '{$app_server}' WHERE NOT EXISTS (SELECT 1 FROM app WHERE md5sum = '{$app_md5}')");
+    
+    // History information: associate user's requested app information to user_device_app in database
+    $query4 = pg_query("INSERT INTO user_device_app (device_id, usertoken, app_md5sum, web_request_date, app_name) VALUES ('{$device_id}', '{$token}', '{$app_md5}', CURRENT_TIMESTAMP, '{$app_name}')");
+    
+  }
+  else
+  {
+    pg_close($db);
     sendResponse(404, 'Not Found', 'Resource Not Found, the device is not registered'); 
     exit();
   }
+
+  pg_close($db);
  
   // add a HMAC signature to myapp
-  $myapp = createMyappSignature($myapp, $token);
+  $myapp = createMyappSignature($myapp, $pass_hash);
 
   // Publish myapp to RabbitMq
   $publisher = new Publisher();

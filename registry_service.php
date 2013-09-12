@@ -13,7 +13,7 @@ if(isset($_REQUEST['token']) && isset($_REQUEST['device_id']) && isset($_REQUEST
         $device_id = pg_escape_string(utf8_encode($_REQUEST['device_id']));
         $device_model = pg_escape_string(utf8_encode($_REQUEST['device_model']));
 	$signature = $_REQUEST['signature'];
-        $mode  = strtolower($_REQUEST['mode']) == 'json' ? 'json' : 'xml';
+        $mode = strtolower($_REQUEST['mode']) == 'json' ? 'json' : 'xml';
 
 			
         // Database Connection
